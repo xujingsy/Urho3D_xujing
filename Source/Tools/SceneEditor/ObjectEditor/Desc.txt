@@ -1,0 +1,3 @@
+对象编辑面板包含：
+属性编辑面板 EditorComponent
+工具面板 ObjectEditorWidgets
