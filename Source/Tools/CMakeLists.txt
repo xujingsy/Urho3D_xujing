@@ -28,17 +28,17 @@ find_package (Urho3D REQUIRED)
 include_directories (${URHO3D_INCLUDE_DIRS})
 
 # Urho3DPlayer application
-add_subdirectory (Urho3DPlayer)
+add_project_dir (Urho3DPlayer Tools)
 
 # Do not build tools for iOS and Android regardless of the URHO3D_TOOLS build option
 if (NOT IOS AND NOT ANDROID AND URHO3D_TOOLS)
     # Urho3D tools
-    add_subdirectory (AssetImporter)
-    add_subdirectory (OgreImporter)
-    add_subdirectory (PackageTool)
-    add_subdirectory (RampGenerator)
+    add_project_dir (AssetImporter Tools)
+    add_project_dir (OgreImporter Tools)
+    add_project_dir (PackageTool Tools)
+    add_project_dir (RampGenerator Tools)
     if (URHO3D_ANGELSCRIPT)
-        add_subdirectory (ScriptCompiler)
+        add_project_dir (ScriptCompiler Tools)
     endif ()
-    add_subdirectory (SceneEditor)
+    add_project_dir (SceneEditor Tools)
 endif ()

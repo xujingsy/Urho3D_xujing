@@ -26,7 +26,7 @@
 #include "GameApplication.h"
 #include "AnimatedModel.h"
 #include "DebugNew.h"
-#include <glew.h>
+#include "glew.h"
 #include "Console.h"
 #include "DebugHud.h"
 #include "Texture2D.h"

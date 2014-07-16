@@ -23,6 +23,13 @@
 # Set project name
 project (Urho3D)
 
+# VS Project Group
+set_property(GLOBAL PROPERTY USE_FOLDERS On)
+macro (add_project_dir DIR PROJFOLDER)
+    add_subdirectory(${DIR})
+    set_target_properties(${DIR} PROPERTIES FOLDER ${PROJFOLDER})
+endmacro ()
+
 # Set minimum version
 cmake_minimum_required (VERSION 2.8.6)
 
@@ -154,6 +161,8 @@ add_subdirectory (Tools)
 if (URHO3D_SAMPLES)
     add_subdirectory (Samples)
 endif ()
+
+add_subdirectory (demos)
 
 # Urho3D extras
 # Do not build extras for iOS and Android
