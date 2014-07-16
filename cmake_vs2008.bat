@@ -39,3 +39,5 @@ echo on
 @set "OPT="
 cmake -E chdir Build cmake %OPT% -G "Visual Studio %version%%arch%" %* ..\Source
 @popd
+
+pause
