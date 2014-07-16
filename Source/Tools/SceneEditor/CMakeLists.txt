@@ -27,7 +27,8 @@ find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+# Add GLEW include path
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ThirdParty/GLEW)
 
 # Define source files
 define_source_files ()

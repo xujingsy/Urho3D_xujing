@@ -250,7 +250,7 @@ void EditorMainWindow::cmdTestEffect(bool)
 	pModel->SetModel(cache->GetResource<Model>("Models/Plane.mdl"));
 	pModel->SetMaterial(cache->GetResource<Material>("Materials/StoneTiled.xml"));
 
-	Image* image = rttScene->SaveJpg("D:/aa.png");
+	rttScene->SaveJpg("D:/aa.png");
 }
 
 void EditorMainWindow::cmdModelTool()

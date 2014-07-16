@@ -1,7 +1,6 @@
 #include <QApplication.h>
 #include "Ptr.h"
 #include "Object.h"
-#include "glew.h"
 #include "Drawable.h"
 
 #include "EditorInfo/EditorGlobalInfo.h"
