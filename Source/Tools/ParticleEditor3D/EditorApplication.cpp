@@ -4,13 +4,16 @@
 #include "DebugRenderer.h"
 #include "DebugHud.h"
 #include "Console.h"
+#include "ParticleEffect.h"
+#include "ParticleEmitter.h"
 
 #include <QTimer>
 #include <QFile>
 
 EditorApplication::EditorApplication(int argc, char** argv, Context* context) :
 	QApplication(argc, argv),
-	Object(context)
+	Object(context),
+	particleNode_(NULL)
 {
 	engine_ = new Engine(context);
 	scene_ = new Scene(context);
@@ -65,6 +68,36 @@ int EditorApplication::Run()
 	return QApplication::exec();
 }
 
+void EditorApplication::New()
+{
+
+}
+
+void EditorApplication::Open(const String& fileName)
+{
+	if(particleNode_)
+	{
+		particleNode_->Remove();
+		particleNode_ = 0;
+	}
+
+	ResourceCache* cache = GetSubsystem<ResourceCache>();
+	ParticleEffect* effect = cache->GetResource<ParticleEffect>(fileName);
+	if(effect == NULL)
+		return;
+
+	particleNode_ = scene_->CreateChild("ParticleNode");
+
+	ParticleEmitter* emitter = particleNode_->CreateComponent<ParticleEmitter>();
+	emitter->SetEffect(effect);
+	//emitter->l
+}
+
+void EditorApplication::Save(const String& fileName)
+{
+
+}
+
 void EditorApplication::OnTimer()
 {
 	if (engine_ && !engine_->IsExiting())
@@ -93,6 +126,8 @@ void EditorApplication::CreateScene()
 	Light* light = lightNode->CreateComponent<Light>();
 	light->SetLightType(LIGHT_DIRECTIONAL);
 	light->SetBrightness(2.0f);
+
+	Open("Particle//Smoke.xml");
 }
 
 void EditorApplication::CreateConsole()
