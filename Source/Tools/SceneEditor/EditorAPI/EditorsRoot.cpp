@@ -265,9 +265,9 @@ void EditorsRoot::AddEffetToSelectionNodes()
 	{
 		Node* pNode = SelectionNodes[i];
 		ParticleEmitter* particleEmitter = pNode->CreateComponent<ParticleEmitter>();
-		particleEmitter->Load(cache->GetResource<XMLFile>("Particle/Smoke.xml"));
+		//particleEmitter->Load(cache->GetResource<XMLFile>("Particle/Smoke.xml"));
 		//particleEmitter->SetParticleSize(Vector2(3,3));
-		particleEmitter->SetColor(Color(0,1,0));
+		//particleEmitter->SetColor(Color(0,1,0));
 		//particleEmitter->SetEmitterSize(Vector3(10,10,10));
 		//particleEmitter->
 

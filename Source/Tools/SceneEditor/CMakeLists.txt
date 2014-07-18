@@ -23,18 +23,35 @@
 # Define target name
 set (TARGET_NAME SceneEditor)
 
-find_package(Qt4 REQUIRED)
-include(${QT_USE_FILE})
-add_definitions(${QT_DEFINITIONS})
+# Qt
+find_package (Qt4 REQUIRED)
+include (${QT_USE_FILE})
+add_definitions (${QT_DEFINITIONS})
 
-# Add GLEW include path
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/ThirdParty/GLEW)
+# Add Include Path
+INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/GLEW)
+INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/Assimp/include)
 
 # Define source files
-define_source_files ()
+# define_source_files ()
+
+# define Project Files
+file (GLOB_RECURSE H_FILES *.h)
+file (GLOB_RECURSE CPP_TMPS *.cpp)
+
+foreach (FILE ${CPP_TMPS})
+	list (APPEND ${CPP_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
+endforeach()
+
+# foreach (FILE ${H_TMPS})
+#	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
+# endforeach()
+
+set (SOURCE_FILES ${H_FILES} ${CPP_FILES})
 
 # Moccing h files
 qt4_wrap_cpp( MOC_FILES ${H_FILES} )
+source_group( moc FILES ${MOC_FILES})
 
 # Compile ui files
 # file (GLOB UI_FILES *.ui)
@@ -44,8 +61,28 @@ qt4_wrap_cpp( MOC_FILES ${H_FILES} )
 # file (GLOB QRC_FILES *.qrc)
 # qt4_add_resources( RCC_FILES ${QRC_FILES} )
 
+# PreCompile
+if (MSVC)
+    foreach (FILE ${CPP_FILES})
+        if (FILE MATCHES ".*stdafx.cpp.*")
+            set_source_files_properties (${FILE} PROPERTIES COMPILE_FLAGS "/Ycstdafx.h")
+        else ()
+            set_source_files_properties (${FILE} PROPERTIES COMPILE_FLAGS "/Yustdafx.h")
+        endif ()
+    endforeach ()
+endif ()
+
+#file(WRITE SceneGenLog.txt "message to write")
+
+# group
+set (SubDirs Controls EditorAPI EditorAssist EditorInfo EditorWindow Manager ObjectEditor OtherTools Terrain)
+foreach (SubDir ${SubDirs})
+	file (GLOB ${SubDir}_Files ${SubDir}/*.*)
+	source_group (${SubDir} FILES ${${SubDir}_Files})
+endforeach ()
+
 set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 
-# Setup target with resource copying
-setup_executable ()
+# Windows SubSystem
+setup_executable (WIN32)
 target_link_libraries(${TARGET_NAME} ${QT_LIBRARIES})

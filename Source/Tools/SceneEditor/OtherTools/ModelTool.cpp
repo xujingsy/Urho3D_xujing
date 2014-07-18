@@ -2,7 +2,9 @@
 #include "ModelTool.h"
 
 #include "WorkQueue.h"
-
+//重复定义错误
+#define uint32_t unsigned int
+#define int32_t int
 #include <assimp/cimport.h>	//导入器
 #include <assimp/scene.h>	//读取到的模型数据都放在scene中
 #include <assimp/postprocess.h>	//包含后处理的标志位定义

@@ -154,7 +154,7 @@ void TerrainEditor::on_terrain_click(Vector3& worldPos)
 		TerrainPatch* pPatch = pEditorRoot->terrain_->GetPatch(patchX,patchZ);//
 		if(pPatch)
 		{
-			pEditorRoot->terrain_->SyncHeightmapData();
+			//pEditorRoot->terrain_->SyncHeightmapData();
 			pEditorRoot->terrain_->CreatePatchGeometry(pPatch);
 			if(pPatch->GetNorthPatch())
 			{

@@ -34,3 +34,5 @@ if exist android-Build\CMakeFiles. rd /S /Q android-Build\CMakeFiles
 if exist Source\Android\CMakeFiles. rd /S /Q Source\Android\CMakeFiles
 
 popd
+
+pause
