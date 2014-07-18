@@ -57,7 +57,17 @@ void MainWindow::CreateActions()
 
 void MainWindow::CreateMenuBar()
 {
+	fileMenu_ = menuBar()->addMenu(tr("&File"));
 
+	fileMenu_->addAction(newAction_);
+	fileMenu_->addAction(openAction_);
+	fileMenu_->addAction(saveAction_);
+	fileMenu_->addSeparator();
+
+	viewMenu_ = menuBar()->addMenu(tr("&View"));
+	viewMenu_->addAction(zoomInAction_);
+	viewMenu_->addAction(zoomOutAction_);
+	viewMenu_->addAction(zoomResetAction_);
 }
 
 void MainWindow::CreateToolBar()

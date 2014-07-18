@@ -26,6 +26,10 @@ private slots:
 
 private:
 	void CreateScene();
+	void CreateConsole();
+	void CreateDebugHud();
+
+	void MoveCamera(float timeStep);
 
 	void HandleUpdate(StringHash eventType, VariantMap& eventData);
 	void HandleKeyDown(StringHash eventType, VariantMap& eventData);
@@ -35,5 +39,7 @@ private:
 	MainWindow* mainWindow_;
 	Engine* engine_;
 	Scene* scene_;
+
+	Node* cameraNode_;
 	Node* particleNode_;
 };

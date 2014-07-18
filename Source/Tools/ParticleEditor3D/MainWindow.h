@@ -34,8 +34,8 @@ private:
 	QAction* zoomOutAction_;
 	QAction* zoomResetAction_;
 
-	QMenu* fileMenu;
-	QMenu* viewMenu;
+	QMenu* fileMenu_;
+	QMenu* viewMenu_;
 
 	QToolBar* toolBar_;
 };
