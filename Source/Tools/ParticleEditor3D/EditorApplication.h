@@ -1,3 +1,6 @@
+#pragma once
+#include "MainWindow.h"
+
 #include "Object.h"
 #include "Engine.h"
 #include "Scene.h"
@@ -15,6 +18,8 @@ public:
 	EditorApplication(int argc, char** argv, Context* context);
 	~EditorApplication();
 
+	void SetStyleSheet(const char* qssPath);
+
 	int Run();
 private slots:
 	void OnTimer();
@@ -27,6 +32,7 @@ private:
 	void HandleMouseWheel(StringHash eventType, VariantMap& eventData);
 	void HandleRenderUpdate(StringHash eventType, VariantMap& eventData);
 
+	MainWindow* mainWindow_;
 	Engine* engine_;
 	Scene* scene_;
 	Node* particleNode_;
