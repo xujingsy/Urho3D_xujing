@@ -5,7 +5,6 @@
 #include "Controls/ButtonsPanel.h"
 #include "EditorInfo/EditorGlobalInfo.h"
 #include "EditorAPI/EditorEvents.h"
-#include <qmessagebox.h>
 #include "EditorAssist/RTTScene.h"
 
 //主要通过Dock分隔窗口
@@ -68,6 +67,8 @@ EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMa
 	dockBottom->setWidget(logView);
 	addDockWidget(Qt::BottomDockWidgetArea,dockBottom);
 
+	CreateActions();
+
     CreateMenuBar();
     CreateToolBars();
 
@@ -102,47 +103,105 @@ void EditorMainWindow::HandleSelectionChanged(StringHash eventType, VariantMap& 
 	btnAttachTerrain->setEnabled(SelCount > 0);
 }
 
-void EditorMainWindow::CreateMenuBar()
+void EditorMainWindow::CreateActions()
 {
-    QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
-    openAction_ = fileMenu->addAction(QIcon("Images/fileopen.png"),tr("Open ..."));
-    saveAction_ = fileMenu->addAction(QIcon("Images/filesave.png"),tr("Save ..."));
-	exitAction_ = fileMenu->addAction(QIcon("Images/exit.png"),tr("Exit ..."));
+	//打开场景文件
+	openAction_ = new QAction(QIcon(":/Images/Actions/Open.png"), tr("Open ..."), this);
+	openAction_->setShortcut(QKeySequence::fromString("Ctrl+0"));
+	connect(openAction_, SIGNAL(triggered(bool)), this, SLOT(HandleOpenAction()));
 
-    QMenu* editMenu = menuBar()->addMenu(tr("&Edit"));
-	undoAction_ = editMenu->addAction(QIcon("Images/editundo.png"),tr("Undo"));
-	redoAction_ = editMenu->addAction(QIcon("Images/editredo.png"),tr("Redo"));
-	editMenu->addSeparator();
+	saveAction_ = new QAction(QIcon(":/Images/Actions/Save.png"), tr("Save ..."), this);
+	saveAction_->setShortcut(QKeySequence::fromString("Ctrl+S"));
 
-	screenshot_ = editMenu->addAction(QIcon("Images/camera.png"),tr("Screenshot"));
+	exitAction_ = new QAction(QIcon(":/Images/Actions/Exit.png"), tr("Exit ..."), this);
 
-	renameAction_ = editMenu->addAction(QIcon("Images/Rename.png"),tr("Rename"));
-	
-	editMenu->addSeparator();
-
-	copyAction_ = editMenu->addAction(QIcon("Images/Copy.png"),tr("Copy"));
-	
-	cutAction_ = editMenu->addAction(QIcon("Images/Cut.png"),tr("Cut"));
-	pasteAction_ = editMenu->addAction(QIcon("Images/Paste.png"),tr("Paste"));
-	deleteAction_ = editMenu->addAction(QIcon("Images/Delete.png"),tr("Delete"));
-
-	QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
-	QAction* modelTransAction_ = toolsMenu->addAction(QIcon("Images/ModelTool.png"),tr("Model Tool"));
-	connect(modelTransAction_,SIGNAL(triggered()), this, SLOT(cmdModelTool()));
-
-	QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
-	QAction* helpAction_ = helpMenu->addAction(QIcon("Images/help.png"),tr("Help"));
-	QAction* aboutAction_ = helpMenu->addAction(QIcon("Images/info.png"),tr("About"));
-
+	undoAction_ = new QAction(QIcon(":/Images/Actions/Undo.png"), tr("Undo"), this);
 	connect(undoAction_,SIGNAL(triggered()), this, SLOT(cmdUndo()));
+	undoAction_->setShortcut(QKeySequence::fromString("Ctrl+Z"));
+
+	redoAction_ = new QAction(QIcon(":/Images/Actions/Redo.png"), tr("Redo"), this);
 	connect(redoAction_,SIGNAL(triggered()), this, SLOT(cmdRedo()));
+
+	screenshot_ = new QAction(QIcon(":/Images/Actions/Camera.png"), tr("Screenshot"), this);
 	connect(screenshot_,SIGNAL(triggered()),this,SLOT(onScreenshot()));
 
+	renameAction_ = new QAction(QIcon(":/Images/Actions/Rename.png"),tr("Rename"), this);
+
 	//剪切,复制,粘贴
-	connect(cutAction_,SIGNAL(triggered()),this,SLOT(cmdCut()));
+	copyAction_ = new QAction(QIcon(":/Images/Actions/Copy.png"),tr("Copy"), this);
 	connect(copyAction_,SIGNAL(triggered()), this, SLOT(cmdCopy()));
+
+	cutAction_ = new QAction(QIcon(":/Images/Actions/Cut.png"),tr("Cut"), this);
+	connect(cutAction_,SIGNAL(triggered()),this,SLOT(cmdCut()));
+
+	pasteAction_ = new QAction(QIcon(":/Images/Actions/Paste.png"),tr("Paste"), this);
 	connect(pasteAction_,SIGNAL(triggered()), this, SLOT(cmdPaste()));
+
+	deleteAction_ = new QAction(QIcon(":/Images/Actions/Delete.png"),tr("Delete"), this);
 	connect(deleteAction_,SIGNAL(triggered()),this,SLOT(cmdDelete()));
+
+	//工具菜单栏
+	modelTransAction_ = new QAction(QIcon(":/Images/Actions/ModelTool.png"), tr("Model Tool"), this);
+	connect(modelTransAction_,SIGNAL(triggered()), this, SLOT(cmdModelTool()));
+
+	helpAction_ = new QAction(QIcon(":/Images/Actions/help.png"), tr("Help"), this);
+	aboutAction_ = new QAction(QIcon(":/Images/Actions/info.png"), tr("About"), this);
+
+	//Select
+	selectAction_ = new QAction(QIcon(":/Images/Actions/Select.png"), tr("Select"), this);
+	selectAction_->setStatusTip(tr("Select"));
+	selectAction_->setEnabled(true);
+	selectAction_->setCheckable(true);
+	selectAction_->setChecked(true);
+	connect(selectAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolSelect(bool)));
+
+	//Move
+	moveAction_ = new QAction(QIcon(":/Images/Actions/Move.png"), tr("Move"), this);
+	moveAction_->setStatusTip(tr("Move"));
+	moveAction_->setEnabled(true);
+	moveAction_->setCheckable(true);
+	moveAction_->setChecked(false);
+	connect(moveAction_,SIGNAL(triggered(bool)), this, SLOT(sltSetToolMove(bool)));
+
+	//Rotate
+	rotateAction_ = new QAction(QIcon(":/Images/Actions/Rotate.png"), tr("Rotate"),this);
+	rotateAction_->setStatusTip(tr("Rotate"));
+	rotateAction_->setEnabled(true);
+	rotateAction_->setCheckable(true);
+	rotateAction_->setChecked(false);
+	connect(rotateAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolRotate(bool)));
+}
+
+void EditorMainWindow::CreateMenuBar()
+{
+	//文件菜单
+    QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
+	fileMenu->addAction(openAction_);
+	fileMenu->addAction(saveAction_);
+	fileMenu->addAction(exitAction_);
+
+	//编辑菜单
+    QMenu* editMenu = menuBar()->addMenu(tr("&Edit"));
+	editMenu->addAction(undoAction_);
+	editMenu->addAction(redoAction_);
+	editMenu->addSeparator();
+
+	editMenu->addAction(screenshot_);
+	editMenu->addAction(renameAction_);
+	editMenu->addSeparator();
+
+	editMenu->addAction(copyAction_);
+	editMenu->addAction(cutAction_);
+	editMenu->addAction(pasteAction_);
+	editMenu->addAction(deleteAction_);
+
+	//工具菜单
+	QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
+	toolsMenu->addAction(modelTransAction_);
+
+	QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
+	helpMenu->addAction(helpAction_);
+	helpMenu->addAction(aboutAction_);
 }
 
 void EditorMainWindow::OnNewScene()
@@ -185,31 +244,8 @@ void EditorMainWindow::CreateToolBars()
 	fileToolBar->addAction(screenshot_);
 	fileToolBar->addSeparator();
 
-	//Select
-	selectAction_ = new QAction(tr("Select"),this);
-	selectAction_->setStatusTip(tr("Select"));
-	selectAction_->setIcon(QIcon("Images/icons/Select.png"));
-	selectAction_->setEnabled(true);
-	selectAction_->setCheckable(true);
-	selectAction_->setChecked(true);
 	editToolBar->addAction(selectAction_);
-
-	//Move
-	moveAction_ = new QAction(tr("Move"),this);
-	moveAction_->setStatusTip(tr("Move"));
-	moveAction_->setIcon(QIcon("Images/icons/Move.png"));
-	moveAction_->setEnabled(true);
-	moveAction_->setCheckable(true);
-	moveAction_->setChecked(false);
 	editToolBar->addAction(moveAction_);
-
-	//Rotate
-	rotateAction_ = new QAction(tr("Rotate"),this);
-	rotateAction_->setStatusTip(tr("Rotate"));
-	rotateAction_->setIcon(QIcon("Images/icons/Rotate.png"));
-	rotateAction_->setEnabled(true);
-	rotateAction_->setCheckable(true);
-	rotateAction_->setChecked(false);
 	editToolBar->addAction(rotateAction_);
 
 	editToolBar->addSeparator();
@@ -224,10 +260,6 @@ void EditorMainWindow::CreateToolBars()
 	
 	QPushButton* pTestEffect = new QPushButton(QIcon("Images/light.png"),QString::fromLocal8Bit("添加特效"));
 	editToolBar->addWidget(pTestEffect);
-
-	connect(selectAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolSelect(bool)));
-	connect(moveAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolMove(bool)));
-	connect(rotateAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolRotate(bool)));
 
 	connect(btnAttachTerrain,SIGNAL(clicked(bool)),this,SLOT(cmdAttachTerrain(bool)));
 	connect(pTestEffect,SIGNAL(clicked(bool)),this,SLOT(cmdTestEffect(bool)));
@@ -264,6 +296,15 @@ void EditorMainWindow::cmdModelTool()
 void EditorMainWindow::setApplicationObject(QObject* obj)
 {
 	obj->installEventFilter(this);
+}
+
+void EditorMainWindow::HandleOpenAction()
+{
+	QString fileName = QFileDialog::getOpenFileName(0, tr("Open Scene Xml File"), "./Data/Scenes/", "*.xml");
+	if (fileName.isEmpty())
+		return;
+
+	EditorsRoot::Instance()->OpenScene(fileName.toLatin1().data());
 }
 
 void EditorMainWindow::sltSetToolSelect(bool checked)

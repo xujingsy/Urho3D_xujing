@@ -2,7 +2,6 @@
 #include "ResExplorerView.h"
 #include <qdirmodel.h>
 #include <qtreeview.h>
-#include <qboxlayout.h>
 
 ResExplorerView::ResExplorerView(QWidget* parent)
 {

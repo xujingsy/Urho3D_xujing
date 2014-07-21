@@ -58,8 +58,8 @@ source_group( moc FILES ${MOC_FILES})
 # qt4_wrap_ui( UI_HEADERS ${UI_FILES} )
 
 # Rccing qrc files
-# file (GLOB QRC_FILES *.qrc)
-# qt4_add_resources( RCC_FILES ${QRC_FILES} )
+file (GLOB QRC_FILES *.qrc)
+qt4_add_resources( RCC_FILES ${QRC_FILES} )
 
 # PreCompile
 if (MSVC)

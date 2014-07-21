@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ShowHidePanel.h"
-#include <qgridlayout.h>
 
 ShowHidePanel::ShowHidePanel(QWidget* parent)
 {

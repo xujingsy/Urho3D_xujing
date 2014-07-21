@@ -105,6 +105,11 @@ float EditorsRoot::GetNodeSize(Node* pNode)
 	return 0;
 }
 
+void EditorsRoot::OpenScene(const char* sceneFile)
+{
+
+}
+
 void EditorsRoot::CancelAllSelection()
 {
 	SelectionNodes.clear();

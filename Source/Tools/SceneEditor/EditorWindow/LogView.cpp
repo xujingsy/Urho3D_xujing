@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "LogView.h"
-#include <qaction.h>
-#include <qboxlayout.h>
 
 LogView::LogView(QWidget* parent)
 {
@@ -17,28 +15,24 @@ LogView::LogView(QWidget* parent)
 	toolBar_->setMovable(false);
 	layout->addWidget(toolBar_);
 
-	debugAct_ = new QPushButton(this);
+	debugAct_ = new QPushButton(QIcon(":/Images/Log/Debug.png"), "", this);
 	debugAct_->setFlat(true);
-	debugAct_->setIcon(QIcon("Images/debug.png"));
 	debugAct_->setCheckable(true);
 	toolBar_->addWidget(debugAct_);
 	toolBar_->addSeparator();
 
-	infoAct_ = new QPushButton(this);
-	infoAct_->setIcon(QIcon("Images/info.png"));
+	infoAct_ = new QPushButton(QIcon(":/Images/Log/Info.png"), "", this);
 	infoAct_->setCheckable(true);
 	toolBar_->addWidget(infoAct_);
 	toolBar_->addSeparator();
 
-	warningAct = new QPushButton(this);
-	warningAct->setIcon(QIcon("Images/warning.png"));
+	warningAct = new QPushButton(QIcon(":/Images/Log/Warning.png"), "", this);
 	warningAct->setCheckable(true);
 	warningAct->setChecked(true);
 	toolBar_->addWidget(warningAct);
 	toolBar_->addSeparator();
 	
-	errorAct = new QPushButton(this);
-	errorAct->setIcon(QIcon("Images/error.png"));
+	errorAct = new QPushButton(QIcon(":/Images/Log/Error.png"), "", this);
 	errorAct->setCheckable(true);
 	errorAct->setChecked(true);
 	toolBar_->addWidget(errorAct);

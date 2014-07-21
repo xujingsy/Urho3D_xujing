@@ -59,6 +59,7 @@ public:
 	QAction* pasteAction_;
 	QAction* deleteAction_;
 private:
+	void CreateActions();
     void CreateMenuBar();
 
 	void CreateToolBars();
@@ -79,6 +80,12 @@ private:
 	QAction* selectAction_;
 	QAction* moveAction_;
 	QAction* rotateAction_;
+
+	QAction* modelTransAction_;
+
+	QAction* helpAction_;
+	QAction* aboutAction_;
+
 
 	//Dock´°¿Ú
 	QDockWidget* dockLeft;
@@ -119,6 +126,8 @@ private Q_SLOTS:
 	void sltSetToolSelect(bool checked);
 	void sltSetToolMove(bool checked);
 	void sltSetToolRotate(bool checked);
+
+	void HandleOpenAction();
 
 	void cmdCut();
 	void cmdCopy();

@@ -1,10 +1,5 @@
 #include "stdafx.h"
 #include "TerrainPanel.h"
-#include <qpushbutton.h>
-#include <qfont.h>
-#include <qtextedit.h>
-#include <qlabel.h>
-#include <qimage.h>
 
 TerrainPanel::TerrainPanel(QWidget* parent)
 {

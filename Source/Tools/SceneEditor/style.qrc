@@ -1,0 +1,88 @@
+<RCC>
+	<qresource prefix="">
+    <file>Images/Actions/Camera.png</file>
+    <file>Images/Actions/Copy.png</file>
+    <file>Images/Actions/Cut.png</file>
+    <file>Images/Actions/Delete.png</file>
+    <file>Images/Actions/Exit.png</file>
+    <file>Images/Actions/Help.png</file>
+    <file>Images/Actions/Info.png</file>
+    <file>Images/Actions/ModelTool.png</file>
+    <file>Images/Actions/Move.png</file>
+    <file>Images/Actions/Open.png</file>
+    <file>Images/Actions/Paste.png</file>
+    <file>Images/Actions/Redo.png</file>
+    <file>Images/Actions/Rename.png</file>
+    <file>Images/Actions/Rotate.png</file>
+    <file>Images/Actions/Save.png</file>
+    <file>Images/Actions/Select.png</file>
+    <file>Images/Actions/Undo.png</file>
+
+    <file>Images/Log/Debug.png</file>
+    <file>Images/Log/Error.png</file>
+    <file>Images/Log/Info.png</file>
+    <file>Images/Log/Warning.png</file>
+
+    <file>Images/Components/AnimatedModel.png</file>
+    <file>Images/Components/AnimatedSprite2D.png</file>
+    <file>Images/Components/BillboardSet.png</file>
+    <file>Images/Components/Camera.png</file>
+    <file>Images/Components/DebugRenderer.png</file>
+    <file>Images/Components/DecalSet.png</file>
+    <file>Images/Components/Light.png</file>
+    <file>Images/Components/MaterialCache2D.png</file>
+    <file>Images/Components/Navigable.png</file>
+    <file>Images/Components/NavigationMesh.png</file>
+    <file>Images/Components/NetworkPriority.png</file>
+    <file>Images/Components/Octree.png</file>
+    <file>Images/Components/ParticleEmitter.png</file>
+    <file>Images/Components/ParticleEmitter2D.png</file>
+    <file>Images/Components/PhysicsWorld.png</file>
+    <file>Images/Components/PhysicsWorld2D.png</file>
+    <file>Images/Components/RigidBody.png</file>
+    <file>Images/Components/RigidBody2D.png</file>
+    <file>Images/Components/Skybox.png</file>
+    <file>Images/Components/SmoothedTransform.png</file>
+    <file>Images/Components/SoundListener.png</file>
+    <file>Images/Components/SoundSource.png</file>
+    <file>Images/Components/SoundSource3D.png</file>
+    <file>Images/Components/SplinePath.png</file>
+    <file>Images/Components/StaticModel.png</file>
+    <file>Images/Components/StaticModelGroup.png</file>
+    <file>Images/Components/StaticSprite2D.png</file>
+    <file>Images/Components/Terrain.png</file>
+    <file>Images/Components/TerrainPatch.png</file>
+    <file>Images/Components/Unknown.png</file>
+    <file>Images/Components/Zone.png</file>
+	</qresource>
+
+  <qresource prefix="qss_icons">
+    <file>rc/up_arrow_disabled.png</file>
+    <file>rc/Hmovetoolbar.png</file>
+    <file>rc/stylesheet-branch-end.png</file>
+    <file>rc/branch_closed-on.png</file>
+    <file>rc/stylesheet-vline.png</file>
+    <file>rc/branch_closed.png</file>
+    <file>rc/branch_open-on.png</file>
+    <file>rc/transparent.png</file>
+    <file>rc/right_arrow_disabled.png</file>
+    <file>rc/sizegrip.png</file>
+    <file>rc/close.png</file>
+    <file>rc/down_arrow.png</file>
+    <file>rc/Vmovetoolbar.png</file>
+    <file>rc/left_arrow.png</file>
+    <file>rc/stylesheet-branch-more.png</file>
+    <file>rc/up_arrow.png</file>
+    <file>rc/right_arrow.png</file>
+    <file>rc/left_arrow_disabled.png</file>
+    <file>rc/Hsepartoolbar.png</file>
+    <file>rc/checkbox.png</file>
+    <file>rc/branch_open.png</file>
+    <file>rc/Vsepartoolbar.png</file>
+    <file>rc/down_arrow_disabled.png</file>
+    <file>rc/undock.png</file>
+  </qresource>
+  <qresource prefix="qdarkstyle">
+    <file>style.qss</file>
+  </qresource>
+</RCC>

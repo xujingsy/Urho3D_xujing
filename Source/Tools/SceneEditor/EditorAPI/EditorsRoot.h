@@ -81,6 +81,8 @@ public:
 	ObjectNameTip* ObjectNameTip_;
 	RectSelectionFrame* RectSelectionFrame_;
 
+	void OpenScene(const char* sceneFile);
+
 	//当前活跃的编辑方式
 	enEditorTools ActiveTool;
 

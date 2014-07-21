@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "RectSelectionFrame.h"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qcolor.h>
 #include "../EditorSceneWidget.h"
 
 RectSelectionFrame::RectSelectionFrame()
