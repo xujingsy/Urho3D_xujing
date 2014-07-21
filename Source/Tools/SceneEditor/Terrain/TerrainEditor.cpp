@@ -62,7 +62,7 @@ void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 			ResourceCache* cache = GetSubsystem<ResourceCache>();
 			brush_->SetMaterial(cache->GetResource<Material>("Materials/UrhoDecal.xml"));
 			brush_->SetOwner(editorRoot_->terrain_);
-			brush_->SetBrushTexture(cache->GetResource<Texture2D>("Images/brushes/noisy_circular2.png"));
+			brush_->SetBrushTexture(cache->GetResource<Texture2D>(":/Images/Brushes/noisy_circular2.png"));
 		}
 
 		brush_->UpdatePos(hitPos);
@@ -70,7 +70,6 @@ void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 	}
 	else
 	{
-
 	}
 }
 

@@ -47,7 +47,7 @@ ModelTool::~ModelTool()
 void ModelTool::initUi()
 {
 	this->setWindowTitle("Model Translate Tool");
-	this->setWindowIcon(QIcon("Images/ModelTool.png"));
+	this->setWindowIcon(QIcon(":/Images/Actions/ModelTool.png"));
 
 	QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom);
 	this->setLayout(layout);

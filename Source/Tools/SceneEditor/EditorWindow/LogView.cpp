@@ -99,22 +99,22 @@ void LogView::AddLog(int type,const char* logContent)
 	case LOG_DEBUG:
 		debugCount_ ++;
 		fontColor = QColor("#C0C0C0");
-		item->setIcon(QIcon("Images/debug.png"));
+		item->setIcon(QIcon(":/Images/Log/Debug.png"));
 		break;
 	case LOG_INFO:
 		infoCount_ ++;
 		fontColor = QColor("#C0C0C0");
-		item->setIcon(QIcon("Images/info.png"));
+		item->setIcon(QIcon(":/Images/Log/Info.png"));
 		break;
 	case LOG_WARNING:
 		warningCount_ ++;
 		fontColor = QColor("#FFCC00");
-		item->setIcon(QIcon("Images/warning.png"));
+		item->setIcon(QIcon(":/Images/Log/Warning.png"));
 		break;
 	case LOG_ERROR:
 		errorCount_ ++;
 		fontColor = QColor("#EE1100");
-		item->setIcon(QIcon("Images/error.png"));
+		item->setIcon(QIcon(":/Images/Log/Error.png"));
 		break;
 	}
 

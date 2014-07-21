@@ -54,6 +54,7 @@
     <file>Images/Components/TerrainPatch.png</file>
     <file>Images/Components/Unknown.png</file>
     <file>Images/Components/Zone.png</file>
+    <file>Images/Components/Root.png</file>
 	</qresource>
 
   <qresource prefix="qss_icons">
@@ -88,5 +89,18 @@
 
   <qresource prefix="">
     <file>Images/Show.png</file>
+    <file>Images/Hide.png</file>
+    <file>Images/Splash.png</file>
+    <file>Images/Coord.png</file>
+  </qresource>
+
+  <qresource prefix="">
+    <file>Images/Brushes/Rect.png</file>
+    <file>Images/Brushes/Circular.png</file>
+    <file>Images/Brushes/flat_circular.png</file>
+    <file>Images/Brushes/noisy_circular1.png</file>
+    <file>Images/Brushes/noisy_circular2.png</file>
+    <file>Images/Brushes/sharp_circular.png</file>
+    <file>Images/Brushes/Square.png</file>
   </qresource>
 </RCC>

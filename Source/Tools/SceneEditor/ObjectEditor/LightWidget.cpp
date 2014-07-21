@@ -3,7 +3,7 @@
 
 LightWidget::LightWidget(QWidget* parent)
 {
-	SetIcon("Images/light.png");
+	SetIcon(":/Images/Components/Light.png");
 	SetName("Light");
 
 	cboLightType = new QComboBox();

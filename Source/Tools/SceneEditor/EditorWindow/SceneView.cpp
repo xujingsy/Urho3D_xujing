@@ -124,7 +124,7 @@ void SceneView::add_node_to_tree(QTreeWidgetItem* parent,Node* pNode)
 	{
 		sceneRootNode_ = item;
 		sceneRootNode_->setText(0,"SceneRoot");
-		sceneRootNode_->setIcon(0,QIcon("Images/Assets.png"));
+		sceneRootNode_->setIcon(0,QIcon(":/Images/Components/Root.png"));
 		addTopLevelItem(sceneRootNode_);
 	}
 	else
@@ -148,7 +148,7 @@ bool SceneView::update_node_icon(QTreeWidgetItem* item,Node* pNode)
 {
 	if(pNode->GetComponent<StaticModel>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/StaticModel.png"));
+		item->setIcon(0,QIcon(":/Images/Components/StaticModel.png"));
 		item->setData(0,Qt::UserRole,QString("StaticModel") + pNode->GetID());
 	}
 	else if(pNode->GetComponent<AnimatedModel>() != NULL)
@@ -185,7 +185,7 @@ bool SceneView::update_node_icon(QTreeWidgetItem* item,Node* pNode)
 	}
 	else if(pNode == EditorsRoot::Instance()->scene_)
 	{
-		item->setIcon(0,QIcon(":/Images/Assets.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Root.png"));
 	}
 	else if(pNode == EditorsRoot::Instance()->GetGizmo()->GetNode())
 	{

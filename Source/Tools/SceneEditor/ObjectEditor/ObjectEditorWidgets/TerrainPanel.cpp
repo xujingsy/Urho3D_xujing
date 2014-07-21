@@ -8,12 +8,13 @@ TerrainPanel::TerrainPanel(QWidget* parent)
 
 	//±ÊË¢ÑùÊ½
 	vector<string> vBrushImages;
-	vBrushImages.push_back("Images/brushes/Circular.png");
-	vBrushImages.push_back("Images/brushes/flat_circular.png");
-	vBrushImages.push_back("Images/brushes/noisy_circular1.png");
-	vBrushImages.push_back("Images/brushes/noisy_circular2.png");
-	vBrushImages.push_back("Images/brushes/sharp_circular.png");
-	vBrushImages.push_back("Images/brushes/Square.png");
+	vBrushImages.push_back(":/Images/Brushes/Circular.png");
+	vBrushImages.push_back(":/Images/Brushes/flat_circular.png");
+	vBrushImages.push_back(":/Images/Brushes/noisy_circular1.png");
+	vBrushImages.push_back(":/Images/Brushes/noisy_circular2.png");
+	vBrushImages.push_back(":/Images/Brushes/sharp_circular.png");
+	vBrushImages.push_back(":/Images/Brushes/Square.png");
+
 	brushWidget = new QListWidget();
 	brushWidget->setViewMode(QListView::IconMode);
 	brushWidget->setGridSize(QSize(52, 52));

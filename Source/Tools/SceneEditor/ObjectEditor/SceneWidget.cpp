@@ -4,7 +4,7 @@
 
 SceneWidget::SceneWidget()
 {
-	SetIcon("Images/Assets.png");
+	SetIcon(":/Images/Components/Root.png");
 	SetName("Scene");
 
 	chkOctree = new QCheckBox("Octree");

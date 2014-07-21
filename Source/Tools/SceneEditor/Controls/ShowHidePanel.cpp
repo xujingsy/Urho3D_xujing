@@ -77,12 +77,12 @@ void ShowHidePanel::SetName(const char* name)
 
 void ShowHidePanel::Show()
 {
-	lblButton_->setIcon(QIcon("Images/hide.png"));
+	lblButton_->setIcon(QIcon(":/Images/Hide.png"));
 	vLayout->addWidget(frame_);
 }
 
 void ShowHidePanel::Hide()
 {
-	lblButton_->setIcon(QIcon("Images/show.png"));
+	lblButton_->setIcon(QIcon(":/Images/Show.png"));
 	frame_->setParent(NULL);
 }

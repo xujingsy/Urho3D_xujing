@@ -5,7 +5,7 @@ PositonEditorComponent::PositonEditorComponent(QWidget* parent)
 {
 	pOwnerNode = NULL;
 
-	SetIcon("Images/01.png");
+	SetIcon(":/Images/Coord.png");
 	SetName("Transform");
 
 	//1.Position

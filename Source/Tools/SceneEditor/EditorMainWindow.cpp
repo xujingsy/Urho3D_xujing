@@ -255,10 +255,10 @@ void EditorMainWindow::CreateToolBars()
 	editToolBar->addAction(pasteAction_);
 	editToolBar->addSeparator();
 
-	btnAttachTerrain = new QPushButton(QIcon("Images/Attach.png"),QString::fromLocal8Bit("吸附到地表"));
+	btnAttachTerrain = new QPushButton(QIcon(":/Images/Actions/Attach.png"),QString::fromLocal8Bit("吸附到地表"));
 	editToolBar->addWidget(btnAttachTerrain);
 	
-	QPushButton* pTestEffect = new QPushButton(QIcon("Images/light.png"),QString::fromLocal8Bit("添加特效"));
+	QPushButton* pTestEffect = new QPushButton(QIcon(":/Images/Components/ParticleEmitter.png"),QString::fromLocal8Bit("添加特效"));
 	editToolBar->addWidget(pTestEffect);
 
 	connect(btnAttachTerrain,SIGNAL(clicked(bool)),this,SLOT(HandleAttachTerrainAction(bool)));
