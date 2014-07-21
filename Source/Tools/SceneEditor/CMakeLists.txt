@@ -37,11 +37,11 @@ INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/Assimp/include)
 
 # define Project Files
 file (GLOB_RECURSE H_FILES *.h)
-file (GLOB_RECURSE CPP_TMPS *.cpp)
+file (GLOB_RECURSE CPP_FILES *.cpp)
 
-foreach (FILE ${CPP_TMPS})
-	list (APPEND ${CPP_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
-endforeach()
+#foreach (FILE ${CPP_TMPS})
+#	list (APPEND ${CPP_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
+#endforeach()
 
 # foreach (FILE ${H_TMPS})
 #	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
