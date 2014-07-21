@@ -16,7 +16,7 @@ ShowHidePanel::ShowHidePanel(QWidget* parent)
 
 	lblButton_ = new QPushButton();
 	lblButton_->setMaximumSize(20,20);
-	lblButton_->setIcon(QIcon("Images/show.png"));
+	lblButton_->setIcon(QIcon(":/Images/Show.png"));
 	hHeader->addWidget(lblButton_);
 
 	lblIcon_ = new QLabel();

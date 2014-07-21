@@ -85,4 +85,8 @@
   <qresource prefix="qdarkstyle">
     <file>style.qss</file>
   </qresource>
+
+  <qresource prefix="">
+    <file>Images/Show.png</file>
+  </qresource>
 </RCC>

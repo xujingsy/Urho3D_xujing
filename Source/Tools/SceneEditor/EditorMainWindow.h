@@ -116,23 +116,24 @@ private:
 	void HandleSelectionChanged(StringHash eventType, VariantMap& eventData);
 private Q_SLOTS:
 	void onModeChanged(int index);
-	void onScreenshot();
-	void cmdUndo();
-	void cmdRedo();
+	void HandleScreenshotAction();
+
+	void HandleUndoAction();
+	void HandleRedoAction();
 
 	//模型工具
-	void cmdModelTool();
+	void HandleModelToolAction();
 
-	void sltSetToolSelect(bool checked);
-	void sltSetToolMove(bool checked);
-	void sltSetToolRotate(bool checked);
+	void HandleSelectTool(bool checked);
+	void HandleMoveTool(bool checked);
+	void HandleRotateTool(bool checked);
 
 	void HandleOpenAction();
 
-	void cmdCut();
-	void cmdCopy();
-	void cmdPaste();
-	void cmdDelete();
-	void cmdAttachTerrain(bool);
-	void cmdTestEffect(bool);
+	void HandleCutAction();
+	void HandleCopyAction();
+	void HandlePasteAction();
+	void HandleDeleteAction();
+	void HandleAttachTerrainAction(bool);
+	void HandleTestEffectAction(bool);
 };

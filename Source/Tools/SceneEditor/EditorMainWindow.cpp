@@ -116,33 +116,33 @@ void EditorMainWindow::CreateActions()
 	exitAction_ = new QAction(QIcon(":/Images/Actions/Exit.png"), tr("Exit ..."), this);
 
 	undoAction_ = new QAction(QIcon(":/Images/Actions/Undo.png"), tr("Undo"), this);
-	connect(undoAction_,SIGNAL(triggered()), this, SLOT(cmdUndo()));
+	connect(undoAction_,SIGNAL(triggered()), this, SLOT(HandleUndoAction()));
 	undoAction_->setShortcut(QKeySequence::fromString("Ctrl+Z"));
 
 	redoAction_ = new QAction(QIcon(":/Images/Actions/Redo.png"), tr("Redo"), this);
-	connect(redoAction_,SIGNAL(triggered()), this, SLOT(cmdRedo()));
+	connect(redoAction_,SIGNAL(triggered()), this, SLOT(HandleRedoAction()));
 
 	screenshot_ = new QAction(QIcon(":/Images/Actions/Camera.png"), tr("Screenshot"), this);
-	connect(screenshot_,SIGNAL(triggered()),this,SLOT(onScreenshot()));
+	connect(screenshot_,SIGNAL(triggered()),this,SLOT(HandleScreenshotAction()));
 
 	renameAction_ = new QAction(QIcon(":/Images/Actions/Rename.png"),tr("Rename"), this);
 
 	//剪切,复制,粘贴
 	copyAction_ = new QAction(QIcon(":/Images/Actions/Copy.png"),tr("Copy"), this);
-	connect(copyAction_,SIGNAL(triggered()), this, SLOT(cmdCopy()));
+	connect(copyAction_,SIGNAL(triggered()), this, SLOT(HandleCopyAction()));
 
 	cutAction_ = new QAction(QIcon(":/Images/Actions/Cut.png"),tr("Cut"), this);
-	connect(cutAction_,SIGNAL(triggered()),this,SLOT(cmdCut()));
+	connect(cutAction_,SIGNAL(triggered()),this,SLOT(HandleCutAction()));
 
 	pasteAction_ = new QAction(QIcon(":/Images/Actions/Paste.png"),tr("Paste"), this);
-	connect(pasteAction_,SIGNAL(triggered()), this, SLOT(cmdPaste()));
+	connect(pasteAction_,SIGNAL(triggered()), this, SLOT(HandlePasteAction()));
 
 	deleteAction_ = new QAction(QIcon(":/Images/Actions/Delete.png"),tr("Delete"), this);
-	connect(deleteAction_,SIGNAL(triggered()),this,SLOT(cmdDelete()));
+	connect(deleteAction_,SIGNAL(triggered()),this,SLOT(HandleDeleteAction()));
 
 	//工具菜单栏
 	modelTransAction_ = new QAction(QIcon(":/Images/Actions/ModelTool.png"), tr("Model Tool"), this);
-	connect(modelTransAction_,SIGNAL(triggered()), this, SLOT(cmdModelTool()));
+	connect(modelTransAction_,SIGNAL(triggered()), this, SLOT(HandleModelToolAction()));
 
 	helpAction_ = new QAction(QIcon(":/Images/Actions/help.png"), tr("Help"), this);
 	aboutAction_ = new QAction(QIcon(":/Images/Actions/info.png"), tr("About"), this);
@@ -153,7 +153,7 @@ void EditorMainWindow::CreateActions()
 	selectAction_->setEnabled(true);
 	selectAction_->setCheckable(true);
 	selectAction_->setChecked(true);
-	connect(selectAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolSelect(bool)));
+	connect(selectAction_,SIGNAL(triggered(bool)), this,SLOT(HandleSelectTool(bool)));
 
 	//Move
 	moveAction_ = new QAction(QIcon(":/Images/Actions/Move.png"), tr("Move"), this);
@@ -161,7 +161,7 @@ void EditorMainWindow::CreateActions()
 	moveAction_->setEnabled(true);
 	moveAction_->setCheckable(true);
 	moveAction_->setChecked(false);
-	connect(moveAction_,SIGNAL(triggered(bool)), this, SLOT(sltSetToolMove(bool)));
+	connect(moveAction_,SIGNAL(triggered(bool)), this, SLOT(HandleMoveTool(bool)));
 
 	//Rotate
 	rotateAction_ = new QAction(QIcon(":/Images/Actions/Rotate.png"), tr("Rotate"),this);
@@ -169,7 +169,7 @@ void EditorMainWindow::CreateActions()
 	rotateAction_->setEnabled(true);
 	rotateAction_->setCheckable(true);
 	rotateAction_->setChecked(false);
-	connect(rotateAction_,SIGNAL(triggered(bool)), this,SLOT(sltSetToolRotate(bool)));
+	connect(rotateAction_,SIGNAL(triggered(bool)), this, SLOT(HandleRotateTool(bool)));
 }
 
 void EditorMainWindow::CreateMenuBar()
@@ -261,16 +261,16 @@ void EditorMainWindow::CreateToolBars()
 	QPushButton* pTestEffect = new QPushButton(QIcon("Images/light.png"),QString::fromLocal8Bit("添加特效"));
 	editToolBar->addWidget(pTestEffect);
 
-	connect(btnAttachTerrain,SIGNAL(clicked(bool)),this,SLOT(cmdAttachTerrain(bool)));
-	connect(pTestEffect,SIGNAL(clicked(bool)),this,SLOT(cmdTestEffect(bool)));
+	connect(btnAttachTerrain,SIGNAL(clicked(bool)),this,SLOT(HandleAttachTerrainAction(bool)));
+	connect(pTestEffect,SIGNAL(clicked(bool)),this,SLOT(HandleTestEffectAction(bool)));
 }
 
-void EditorMainWindow::cmdAttachTerrain(bool)
+void EditorMainWindow::HandleAttachTerrainAction(bool)
 {
 	EditorsRoot::Instance()->AttachSelectionsToTerrain();
 }
 
-void EditorMainWindow::cmdTestEffect(bool)
+void EditorMainWindow::HandleTestEffectAction(bool)
 {
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
@@ -285,7 +285,7 @@ void EditorMainWindow::cmdTestEffect(bool)
 	rttScene->SaveJpg("D:/aa.png");
 }
 
-void EditorMainWindow::cmdModelTool()
+void EditorMainWindow::HandleModelToolAction()
 {
 	if(mModelTool == NULL)
 		mModelTool = new ModelTool();
@@ -307,7 +307,7 @@ void EditorMainWindow::HandleOpenAction()
 	EditorsRoot::Instance()->OpenScene(fileName.toLatin1().data());
 }
 
-void EditorMainWindow::sltSetToolSelect(bool checked)
+void EditorMainWindow::HandleSelectTool(bool checked)
 {
 	EditorsRoot::Instance()->mSelectedTool = TOOL_SELECT;
 
@@ -316,7 +316,7 @@ void EditorMainWindow::sltSetToolSelect(bool checked)
 	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
-void EditorMainWindow::sltSetToolMove(bool checked)
+void EditorMainWindow::HandleMoveTool(bool checked)
 {
 	EditorsRoot::Instance()->mSelectedTool = TOOL_MOVE;
 
@@ -325,7 +325,7 @@ void EditorMainWindow::sltSetToolMove(bool checked)
 	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
-void EditorMainWindow::sltSetToolRotate(bool checked)
+void EditorMainWindow::HandleRotateTool(bool checked)
 {
 	EditorsRoot::Instance()->mSelectedTool = TOOL_ROTATE;
 
@@ -334,22 +334,22 @@ void EditorMainWindow::sltSetToolRotate(bool checked)
 	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Rotate);
 }
 
-void EditorMainWindow::cmdCut()
+void EditorMainWindow::HandleCutAction()
 {
 	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesCut();
 }
 
-void EditorMainWindow::cmdCopy()
+void EditorMainWindow::HandleCopyAction()
 {
 	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesCopy();
 }
 
-void EditorMainWindow::cmdPaste()
+void EditorMainWindow::HandlePasteAction()
 {
 	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesPaste();
 }
 
-void EditorMainWindow::cmdDelete()
+void EditorMainWindow::HandleDeleteAction()
 {
 	int result = QMessageBox::question(this,"Question","Realy Delete?",QMessageBox::Ok|QMessageBox::Cancel,QMessageBox::Ok);
 	switch(result)
@@ -362,13 +362,13 @@ void EditorMainWindow::cmdDelete()
 	}
 }
 
-void EditorMainWindow::cmdUndo()
+void EditorMainWindow::HandleUndoAction()
 {
 	UndoManager::Instance()->Undo();
 	updateUndoRedoActions();
 }
 
-void EditorMainWindow::cmdRedo()
+void EditorMainWindow::HandleRedoAction()
 {
 	UndoManager::Instance()->Redo();
 	updateUndoRedoActions();
@@ -392,7 +392,7 @@ void EditorMainWindow::updateActions()
 	EditorsRoot::Instance()->ActiveTool = EditorsRoot::Instance()->mSelectedTool;
 }
 
-void EditorMainWindow::onScreenshot()
+void EditorMainWindow::HandleScreenshotAction()
 {
 	Graphics* graphics = gEditorGlobalInfo->GetSubsystem<Graphics>();
 	Image screenshot(gEditorGlobalInfo->GetContext());
@@ -408,7 +408,7 @@ void EditorMainWindow::onScreenshot()
 	sprintf(szMsg,"Saved:\r\n%s",fileName.CString());
 
 	QMessageBox msg(QMessageBox::Information,"Saved",szMsg);
-	msg.setIconPixmap(QPixmap("Images/camera.png"));
+	msg.setIconPixmap(QPixmap(":/Images/Actions/Camera.png"));
 	msg.exec();
 }
 
