@@ -20,6 +20,10 @@ qt4_wrap_cpp (MOC_FILES ${H_FILES})
 # Group Moc Generated Cpp Files
 source_group (moc FILES ${MOC_FILES})
 
+# Rccing qrc files
+file (GLOB QRC_FILES *.qrc)
+qt4_add_resources( RCC_FILES ${QRC_FILES} )
+
 # PreCompile
 if (MSVC)
     foreach (FILE ${CPP_FILES})
@@ -38,7 +42,7 @@ foreach (SubDir ${SubDirs})
 	source_group (${SubDir} FILES ${${SubDir}_Files})
 endforeach ()
 
-SET (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES})
+SET (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${RCC_FILES})
 
 # Windows SubSystem
 setup_executable (WIN32)

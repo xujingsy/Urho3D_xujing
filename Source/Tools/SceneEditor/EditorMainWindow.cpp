@@ -112,6 +112,7 @@ void EditorMainWindow::CreateActions()
 
 	saveAction_ = new QAction(QIcon(":/Images/Actions/Save.png"), tr("Save ..."), this);
 	saveAction_->setShortcut(QKeySequence::fromString("Ctrl+S"));
+	connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(HandleSaveAction()));
 
 	exitAction_ = new QAction(QIcon(":/Images/Actions/Exit.png"), tr("Exit ..."), this);
 
@@ -121,6 +122,7 @@ void EditorMainWindow::CreateActions()
 
 	redoAction_ = new QAction(QIcon(":/Images/Actions/Redo.png"), tr("Redo"), this);
 	connect(redoAction_,SIGNAL(triggered()), this, SLOT(HandleRedoAction()));
+	redoAction_->setShortcut(QKeySequence::fromString("Ctrl+Y"));
 
 	screenshot_ = new QAction(QIcon(":/Images/Actions/Camera.png"), tr("Screenshot"), this);
 	connect(screenshot_,SIGNAL(triggered()),this,SLOT(HandleScreenshotAction()));
@@ -129,23 +131,27 @@ void EditorMainWindow::CreateActions()
 
 	//¼ôÇÐ,¸´ÖÆ,Õ³Ìù
 	copyAction_ = new QAction(QIcon(":/Images/Actions/Copy.png"),tr("Copy"), this);
+	copyAction_->setShortcut(QKeySequence::fromString("Ctrl+C"));
 	connect(copyAction_,SIGNAL(triggered()), this, SLOT(HandleCopyAction()));
 
 	cutAction_ = new QAction(QIcon(":/Images/Actions/Cut.png"),tr("Cut"), this);
+	cutAction_->setShortcut(QKeySequence::fromString("Ctrl+X"));
 	connect(cutAction_,SIGNAL(triggered()),this,SLOT(HandleCutAction()));
 
 	pasteAction_ = new QAction(QIcon(":/Images/Actions/Paste.png"),tr("Paste"), this);
+	pasteAction_->setShortcut(QKeySequence::fromString("Ctrl+V"));
 	connect(pasteAction_,SIGNAL(triggered()), this, SLOT(HandlePasteAction()));
 
 	deleteAction_ = new QAction(QIcon(":/Images/Actions/Delete.png"),tr("Delete"), this);
+	deleteAction_->setShortcut(QKeySequence::Delete);
 	connect(deleteAction_,SIGNAL(triggered()),this,SLOT(HandleDeleteAction()));
 
 	//¹¤¾ß²Ëµ¥À¸
 	modelTransAction_ = new QAction(QIcon(":/Images/Actions/ModelTool.png"), tr("Model Tool"), this);
 	connect(modelTransAction_,SIGNAL(triggered()), this, SLOT(HandleModelToolAction()));
 
-	helpAction_ = new QAction(QIcon(":/Images/Actions/help.png"), tr("Help"), this);
-	aboutAction_ = new QAction(QIcon(":/Images/Actions/info.png"), tr("About"), this);
+	helpAction_ = new QAction(QIcon(":/Images/Actions/Help.png"), tr("Help"), this);
+	aboutAction_ = new QAction(QIcon(":/Images/Actions/Info.png"), tr("About"), this);
 
 	//Select
 	selectAction_ = new QAction(QIcon(":/Images/Actions/Select.png"), tr("Select"), this);
@@ -305,6 +311,11 @@ void EditorMainWindow::HandleOpenAction()
 		return;
 
 	EditorsRoot::Instance()->OpenScene(fileName.toLatin1().data());
+}
+
+void EditorMainWindow::HandleSaveAction()
+{
+
 }
 
 void EditorMainWindow::HandleSelectTool(bool checked)

@@ -129,6 +129,7 @@ private Q_SLOTS:
 	void HandleRotateTool(bool checked);
 
 	void HandleOpenAction();
+	void HandleSaveAction();
 
 	void HandleCutAction();
 	void HandleCopyAction();
