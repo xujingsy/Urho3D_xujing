@@ -22,9 +22,21 @@
 
 # Define target name
 set (TARGET_NAME T2048)
+if (URHO3D_OPENGL)
+	INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/GLEW)
+endif ()
 
 # Define source files
-define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES})
+file (GLOB_RECURSE H_FILES *.h)
+file (GLOB_RECURSE CPP_FILES *.cpp)
+
+define_source_files (EXTRA_H_FILES ${COMMON_SAMPLE_H_FILES} ${H_FILES} ${CPP_FILES})
+
+set (SubDirs Game UI)
+foreach (SubDir ${SubDirs})
+	FILE (GLOB ${SubDir}_Files ${SubDir}/*.*)
+	source_group (${SubDir} FILES ${${SubDir}_Files})
+endforeach ()
 
 # Setup target with resource copying
 setup_main_executable ()
