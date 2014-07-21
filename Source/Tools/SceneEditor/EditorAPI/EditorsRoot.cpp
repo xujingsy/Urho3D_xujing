@@ -11,6 +11,7 @@
 #include "../EditorAPI/EditorEvents.h"
 #include "BillboardSet.h"
 #include "ParticleEmitter.h"
+#include "SceneEvents.h"
 
 EditorsRoot::EditorsRoot()
 {
@@ -236,6 +237,13 @@ void EditorsRoot::DeleteAllSelectionNodes()
 		Node* pNode = scene_->GetNode(ID);
 		if(pNode != NULL)
 		{
+			using namespace NodeRemoved;
+
+			VariantMap eventData;
+			eventData[NodeRemoved::P_NODE] = pNode;
+
+			scene_->SendEvent(E_NODEREMOVED,eventData);
+
 			pNode->Remove();
 		}
 	}

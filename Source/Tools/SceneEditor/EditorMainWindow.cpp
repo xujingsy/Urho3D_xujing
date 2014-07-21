@@ -12,6 +12,8 @@ EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMa
 {
     showMaximized();
 
+	setWindowIcon(QIcon(":/Images/Icon.png"));
+
 	mModelTool = NULL;
 
 	//

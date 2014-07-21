@@ -92,6 +92,7 @@
     <file>Images/Hide.png</file>
     <file>Images/Splash.png</file>
     <file>Images/Coord.png</file>
+    <file>Images/Icon.png</file>
   </qresource>
 
   <qresource prefix="">
