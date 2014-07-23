@@ -17,12 +17,13 @@ SET (SOURCE_FILES ${H_FILES} ${CPP_FILES})
 
 # Moccing h Files
 qt4_wrap_cpp (MOC_FILES ${H_FILES})
-# Group Moc Generated Cpp Files
-source_group (moc FILES ${MOC_FILES})
 
 # Rccing qrc files
 file (GLOB QRC_FILES *.qrc)
 qt4_add_resources( RCC_FILES ${QRC_FILES} )
+
+# Group Moc Generated Cpp Files
+source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES})
 
 # PreCompile
 if (MSVC)

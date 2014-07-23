@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifndef _WIN32_WINNT            // 指定要求的最低平台是 Windows Vista
 #define _WIN32_WINNT 0x0600     // 将此值更改为相应的值，以适用于 Windows 的其他版本。
 #endif
@@ -10,7 +9,6 @@
 #include <Windows.h>
 
 #include "glew.h"
-#include <gl/glut.h>
 
 //Urho3d的一些常见头文件
 #include "Graphics.h"
@@ -57,7 +55,6 @@
 
 #include "DecalSet.h"
 using namespace Urho3D;
-
 
 //Qt常用头文件
 #include <qwidget.h>

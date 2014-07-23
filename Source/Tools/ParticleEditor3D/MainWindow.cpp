@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MainWindow.h"
+#include "QColorDialog"
 
 MainWindow::MainWindow(Context* context) :
 	QMainWindow(0, 0), Object(context)
@@ -53,6 +54,10 @@ void MainWindow::CreateActions()
 	exitAction_ = new QAction(tr("Exit"), this);
 	exitAction_->setShortcut(QKeySequence::fromString("Alt+F4"));
 	connect(exitAction_, SIGNAL(triggered(bool)), this, SLOT(close()));
+
+	backgroundAction_ = new QAction(tr("Background"), this);
+	backgroundAction_->setShortcut(QKeySequence::fromString("Ctrl+B"));
+	connect(backgroundAction_, SIGNAL(triggered(bool)), this, SLOT(HandleBackgroundAction()));
 }
 
 void MainWindow::CreateMenuBar()
@@ -68,6 +73,7 @@ void MainWindow::CreateMenuBar()
 	viewMenu_->addAction(zoomInAction_);
 	viewMenu_->addAction(zoomOutAction_);
 	viewMenu_->addAction(zoomResetAction_);
+	viewMenu_->addAction(backgroundAction_);
 }
 
 void MainWindow::CreateToolBar()
@@ -108,4 +114,17 @@ void MainWindow::HandleSaveAction()
 void MainWindow::HandleZoomAction()
 {
 
+}
+
+void MainWindow::HandleBackgroundAction()
+{
+	Renderer* renderer = GetSubsystem<Renderer>();
+
+	const Color& color = renderer->GetDefaultZone()->GetFogColor();
+
+	QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_);
+	QColor newQcolor = QColorDialog::getColor(qColor, this);
+
+	Color newColor(newQcolor.redF(), newQcolor.greenF(), newQcolor.blueF());
+	renderer->GetDefaultZone()->SetFogColor(newColor);
 }
