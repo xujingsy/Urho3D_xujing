@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "LogView.h"
-#include <qaction.h>
-#include <qboxlayout.h>
 
 LogView::LogView(QWidget* parent)
 {
@@ -17,28 +15,24 @@ LogView::LogView(QWidget* parent)
 	toolBar_->setMovable(false);
 	layout->addWidget(toolBar_);
 
-	debugAct_ = new QPushButton(this);
+	debugAct_ = new QPushButton(QIcon(":/Images/Log/Debug.png"), "", this);
 	debugAct_->setFlat(true);
-	debugAct_->setIcon(QIcon("Images/debug.png"));
 	debugAct_->setCheckable(true);
 	toolBar_->addWidget(debugAct_);
 	toolBar_->addSeparator();
 
-	infoAct_ = new QPushButton(this);
-	infoAct_->setIcon(QIcon("Images/info.png"));
+	infoAct_ = new QPushButton(QIcon(":/Images/Log/Info.png"), "", this);
 	infoAct_->setCheckable(true);
 	toolBar_->addWidget(infoAct_);
 	toolBar_->addSeparator();
 
-	warningAct = new QPushButton(this);
-	warningAct->setIcon(QIcon("Images/warning.png"));
+	warningAct = new QPushButton(QIcon(":/Images/Log/Warning.png"), "", this);
 	warningAct->setCheckable(true);
 	warningAct->setChecked(true);
 	toolBar_->addWidget(warningAct);
 	toolBar_->addSeparator();
 	
-	errorAct = new QPushButton(this);
-	errorAct->setIcon(QIcon("Images/error.png"));
+	errorAct = new QPushButton(QIcon(":/Images/Log/Error.png"), "", this);
 	errorAct->setCheckable(true);
 	errorAct->setChecked(true);
 	toolBar_->addWidget(errorAct);
@@ -105,22 +99,22 @@ void LogView::AddLog(int type,const char* logContent)
 	case LOG_DEBUG:
 		debugCount_ ++;
 		fontColor = QColor("#C0C0C0");
-		item->setIcon(QIcon("Images/debug.png"));
+		item->setIcon(QIcon(":/Images/Log/Debug.png"));
 		break;
 	case LOG_INFO:
 		infoCount_ ++;
 		fontColor = QColor("#C0C0C0");
-		item->setIcon(QIcon("Images/info.png"));
+		item->setIcon(QIcon(":/Images/Log/Info.png"));
 		break;
 	case LOG_WARNING:
 		warningCount_ ++;
 		fontColor = QColor("#FFCC00");
-		item->setIcon(QIcon("Images/warning.png"));
+		item->setIcon(QIcon(":/Images/Log/Warning.png"));
 		break;
 	case LOG_ERROR:
 		errorCount_ ++;
 		fontColor = QColor("#EE1100");
-		item->setIcon(QIcon("Images/error.png"));
+		item->setIcon(QIcon(":/Images/Log/Error.png"));
 		break;
 	}
 

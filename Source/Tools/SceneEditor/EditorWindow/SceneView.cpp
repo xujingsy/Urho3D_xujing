@@ -124,7 +124,7 @@ void SceneView::add_node_to_tree(QTreeWidgetItem* parent,Node* pNode)
 	{
 		sceneRootNode_ = item;
 		sceneRootNode_->setText(0,"SceneRoot");
-		sceneRootNode_->setIcon(0,QIcon("Images/Assets.png"));
+		sceneRootNode_->setIcon(0,QIcon(":/Images/Components/Root.png"));
 		addTopLevelItem(sceneRootNode_);
 	}
 	else
@@ -148,44 +148,44 @@ bool SceneView::update_node_icon(QTreeWidgetItem* item,Node* pNode)
 {
 	if(pNode->GetComponent<StaticModel>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/StaticModel.png"));
+		item->setIcon(0,QIcon(":/Images/Components/StaticModel.png"));
 		item->setData(0,Qt::UserRole,QString("StaticModel") + pNode->GetID());
 	}
 	else if(pNode->GetComponent<AnimatedModel>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/AnimatedModel.png"));
+		item->setIcon(0,QIcon(":/Images/Components/AnimatedModel.png"));
 		item->setData(0,Qt::UserRole,"AnimatedModel");
 		//动画节点跳出循环
 		return false;
 	}
 	else if(pNode->GetComponent<Terrain>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/Terrain.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Terrain.png"));
 		return false;
 	}
 	else if(pNode->GetComponent<Skybox>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/Skybox.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Skybox.png"));
 	}
 	else if(pNode->GetComponent<Light>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/Light.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Light.png"));
 	}
 	else if(pNode->GetComponent<PhysicsWorld>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/PhysicsWorld.png"));
+		item->setIcon(0,QIcon(":/Images/Components/PhysicsWorld.png"));
 	}
 	else if(pNode->GetComponent<Camera>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/Camera.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Camera.png"));
 	}
 	else if(pNode->GetComponent<Zone>() != NULL)
 	{
-		item->setIcon(0,QIcon("Images/Components/Zone.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Zone.png"));
 	}
 	else if(pNode == EditorsRoot::Instance()->scene_)
 	{
-		item->setIcon(0,QIcon("Images/Assets.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Root.png"));
 	}
 	else if(pNode == EditorsRoot::Instance()->GetGizmo()->GetNode())
 	{
@@ -195,7 +195,7 @@ bool SceneView::update_node_icon(QTreeWidgetItem* item,Node* pNode)
 	else
 	{
 		//未知
-		item->setIcon(0,QIcon("Images/error.png"));
+		item->setIcon(0,QIcon(":/Images/Components/Unknown.png"));
 	}
 
 	return true;

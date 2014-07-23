@@ -109,12 +109,6 @@ void GameApplication::CreateScene()
     planeObject->SetModel(cache->GetResource<Model>("Models/dikuang.mdl"));
 
 	Material* material = cache->GetResource<Material>("Materials/Water.xml");
-	//SharedPtr<ValueAnimation> specColorAnimation(new ValueAnimation(context_));
-	//specColorAnimation->SetKeyFrame(0.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
-	//specColorAnimation->SetKeyFrame(1.0f, Color(1.0f, 0.0f, 0.0f, 2.0f));
-	//specColorAnimation->SetKeyFrame(2.0f, Color(1.0f, 1.0f, 0.0f, 2.0f));
-	//specColorAnimation->SetKeyFrame(3.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
-	//material->SetShaderParameterAnimation("MatSpecColor", specColorAnimation);
 
     planeObject->SetMaterial(material);	//dikuang
 	

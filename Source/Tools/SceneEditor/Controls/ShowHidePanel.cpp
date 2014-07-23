@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ShowHidePanel.h"
-#include <qgridlayout.h>
 
 ShowHidePanel::ShowHidePanel(QWidget* parent)
 {
@@ -17,7 +16,7 @@ ShowHidePanel::ShowHidePanel(QWidget* parent)
 
 	lblButton_ = new QPushButton();
 	lblButton_->setMaximumSize(20,20);
-	lblButton_->setIcon(QIcon("Images/show.png"));
+	lblButton_->setIcon(QIcon(":/Images/Show.png"));
 	hHeader->addWidget(lblButton_);
 
 	lblIcon_ = new QLabel();
@@ -78,12 +77,12 @@ void ShowHidePanel::SetName(const char* name)
 
 void ShowHidePanel::Show()
 {
-	lblButton_->setIcon(QIcon("Images/hide.png"));
+	lblButton_->setIcon(QIcon(":/Images/Hide.png"));
 	vLayout->addWidget(frame_);
 }
 
 void ShowHidePanel::Hide()
 {
-	lblButton_->setIcon(QIcon("Images/show.png"));
+	lblButton_->setIcon(QIcon(":/Images/Show.png"));
 	frame_->setParent(NULL);
 }

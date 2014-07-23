@@ -21,6 +21,13 @@ public:
 	void SetStyleSheet(const char* qssPath);
 
 	int Run();
+
+	void New();
+
+	void Open(const String& fileName);
+
+	void Save(const String& fileName);
+
 private slots:
 	void OnTimer();
 

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "EditorApplication.h"
 #include "ProcessUtils.h"
-#include <QTimer.h>
 #include "EditorMainWindow.h"
 #include "DebugHud.h"
 #include "Skybox.h"
@@ -9,13 +8,13 @@
 #include "Rotator.h"
 #include "DebugRenderer.h"
 #include "ObjectEditor/StaticModelWidget.h"
-#include <qfile.h>
 
 EditorApplication::EditorApplication(int argc, char** argv,Context* context) : QApplication(argc, argv), Object(context)
 {
 	EditorsRoot::Instance()->context_ = context;
 
-	SetStyleSheet("Images/stylesheets/dark.qss");
+	SetStyleSheet(":/qdarkstyle/style.qss");
+
     mainWindow_ = new EditorMainWindow();
 }
 
@@ -117,6 +116,18 @@ void EditorApplication::CreateDebugHud()
     // Create debug HUD.
     DebugHud* debugHud = engine_->CreateDebugHud();
     debugHud->SetDefaultStyle(xmlFile);
+}
+
+void EditorApplication::InitUI()
+{
+	ResourceCache* cache = GetSubsystem<ResourceCache>();
+
+	UI* ui = context_->GetSubsystem<UI>();
+	
+
+	UIElement* pRoot = ui->GetRoot();
+//	pRoot->AddChild(toolBox);
+	//toolBox->SetAlignment(HA_RIGHT,VA_TOP);
 }
 
 void EditorApplication::HandleKeyDown(StringHash eventType, VariantMap& eventData)

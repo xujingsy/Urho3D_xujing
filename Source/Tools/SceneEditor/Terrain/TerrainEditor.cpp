@@ -60,9 +60,10 @@ void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 			brush_ = brushNode_->CreateComponent<TerrainBrush>();
 
 			ResourceCache* cache = GetSubsystem<ResourceCache>();
-			brush_->SetMaterial(cache->GetResource<Material>("Materials/UrhoDecal.xml"));
+			brush_->SetMaterial(cache->GetResource<Material>("Materials/GreenUnlit.xml"));
 			brush_->SetOwner(editorRoot_->terrain_);
-			brush_->SetBrushTexture(cache->GetResource<Texture2D>("Images/brushes/noisy_circular2.png"));
+			//brush_->SetBrushTexture(cache->GetResource<Texture2D>(":/Images/Brushes/noisy_circular2.png"));
+			//brush_->SetViewMask(0xfffffffe);
 		}
 
 		brush_->UpdatePos(hitPos);
@@ -70,7 +71,6 @@ void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 	}
 	else
 	{
-
 	}
 }
 
@@ -173,13 +173,14 @@ void TerrainEditor::on_terrain_click(Vector3& worldPos)
 				pEditorRoot->terrain_->CreatePatchGeometry(pPatch->GetEastPatch());
 			}
 		}
+
+		//重新刷新所有地表，这样效率太低
+		pEditorRoot->terrain_->SetHeightMap(pHeightMap);
 	}
 	else
 	{
 		//add_mesh_test(worldPos.x_,worldPos.y_,worldPos.z_);
 	}
-
-	//terrain->SetHeightMap(pHeightMap);
 }
 
 void TerrainEditor::InitDefaultScene()

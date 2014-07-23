@@ -59,6 +59,7 @@ public:
 	QAction* pasteAction_;
 	QAction* deleteAction_;
 private:
+	void CreateActions();
     void CreateMenuBar();
 
 	void CreateToolBars();
@@ -79,6 +80,12 @@ private:
 	QAction* selectAction_;
 	QAction* moveAction_;
 	QAction* rotateAction_;
+
+	QAction* modelTransAction_;
+
+	QAction* helpAction_;
+	QAction* aboutAction_;
+
 
 	//Dock窗口
 	QDockWidget* dockLeft;
@@ -109,21 +116,25 @@ private:
 	void HandleSelectionChanged(StringHash eventType, VariantMap& eventData);
 private Q_SLOTS:
 	void onModeChanged(int index);
-	void onScreenshot();
-	void cmdUndo();
-	void cmdRedo();
+	void HandleScreenshotAction();
+
+	void HandleUndoAction();
+	void HandleRedoAction();
 
 	//模型工具
-	void cmdModelTool();
+	void HandleModelToolAction();
 
-	void sltSetToolSelect(bool checked);
-	void sltSetToolMove(bool checked);
-	void sltSetToolRotate(bool checked);
+	void HandleSelectTool(bool checked);
+	void HandleMoveTool(bool checked);
+	void HandleRotateTool(bool checked);
 
-	void cmdCut();
-	void cmdCopy();
-	void cmdPaste();
-	void cmdDelete();
-	void cmdAttachTerrain(bool);
-	void cmdTestEffect(bool);
+	void HandleOpenAction();
+	void HandleSaveAction();
+
+	void HandleCutAction();
+	void HandleCopyAction();
+	void HandlePasteAction();
+	void HandleDeleteAction();
+	void HandleAttachTerrainAction(bool);
+	void HandleTestEffectAction(bool);
 };

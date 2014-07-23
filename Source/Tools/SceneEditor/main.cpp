@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "EditorApplication.h"
 #include <qsplashscreen.h>
-#include <qtest.h>
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
@@ -13,7 +12,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	EditorApplication editorApp(1, &lpCmdLine,context);
 
 	QSplashScreen* splash = new QSplashScreen();
-	splash->setPixmap(QPixmap("Images/Splash.png"));
+	splash->setPixmap(QPixmap(":/Images/Splash.png"));
 	splash->show();
 	Qt::Alignment topRight = Qt::AlignRight | Qt::AlignTop;
 	splash->showMessage(QObject::tr("start editor..."),topRight,Qt::red);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ColorPickerWidget.h"
-#include <qcolordialog.h>
+#include <QColorDialog>
 
 Urho3D::Color ColorPickerWidget::getColor()
 {

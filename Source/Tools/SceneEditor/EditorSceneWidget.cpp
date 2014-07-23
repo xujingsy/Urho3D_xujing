@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "EditorSceneWidget.h"
 #include "Manager/SceneHelper.h"
-#include <qmenu.h>
 #include "EditorMainWindow.h"
 
 EditorSceneWidget::EditorSceneWidget(QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, flags)

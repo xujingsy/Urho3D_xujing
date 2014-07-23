@@ -37,11 +37,11 @@ INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/Assimp/include)
 
 # define Project Files
 file (GLOB_RECURSE H_FILES *.h)
-file (GLOB_RECURSE CPP_TMPS *.cpp)
+file (GLOB_RECURSE CPP_FILES *.cpp)
 
-foreach (FILE ${CPP_TMPS})
-	list (APPEND ${CPP_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
-endforeach()
+#foreach (FILE ${CPP_TMPS})
+#	list (APPEND ${CPP_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
+#endforeach()
 
 # foreach (FILE ${H_TMPS})
 #	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
@@ -58,8 +58,8 @@ source_group( moc FILES ${MOC_FILES})
 # qt4_wrap_ui( UI_HEADERS ${UI_FILES} )
 
 # Rccing qrc files
-# file (GLOB QRC_FILES *.qrc)
-# qt4_add_resources( RCC_FILES ${QRC_FILES} )
+file (GLOB QRC_FILES *.qrc)
+qt4_add_resources( RCC_FILES ${QRC_FILES} )
 
 # PreCompile
 if (MSVC)

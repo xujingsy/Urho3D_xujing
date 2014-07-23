@@ -26,27 +26,27 @@ void MainWindow::CreateWidgets()
 
 void MainWindow::CreateActions()
 {
-	newAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/New.png"), tr("New"), this);
+	newAction_ = new QAction(QIcon(":/Images/New.png"), tr("New"), this);
 	newAction_->setShortcut(QKeySequence::fromString("Ctrl+N"));
 	connect(newAction_, SIGNAL(triggered(bool)), this, SLOT(HandleNewAction));
 
-	openAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/Open.png"), tr("Open..."), this);
+	openAction_ = new QAction(QIcon(":/Images/Open.png"), tr("Open..."), this);
 	openAction_->setShortcut(QKeySequence::fromString("Ctrl+O"));
 	connect(openAction_, SIGNAL(triggered(bool)), this, SLOT(HandleOpenAction()));
 
-	saveAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/Save.png"), tr("Save"), this);
+	saveAction_ = new QAction(QIcon(":/Images/Save.png"), tr("Save"), this);
 	saveAction_->setShortcut(QKeySequence::fromString("Ctrl+S"));
 	connect(saveAction_, SIGNAL(triggered(bool)), this, SLOT(HandleSaveAction()));
 
-	zoomInAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/ZoomIn.png"), tr("Zoom In"), this);
+	zoomInAction_ = new QAction(QIcon(":/Images/ZoomIn.png"), tr("Zoom In"), this);
 	zoomInAction_->setShortcut(QKeySequence::fromString("Ctrl++"));
 	connect(zoomInAction_, SIGNAL(triggered(bool)), this, SLOT(HandleZoomAction()));
 
-	zoomOutAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/ZoomOut.png"), tr("Zoom Out"), this);
+	zoomOutAction_ = new QAction(QIcon(":/Images/ZoomOut.png"), tr("Zoom Out"), this);
 	zoomOutAction_->setShortcut(QKeySequence::fromString("Ctrl+-"));
 	connect(zoomOutAction_, SIGNAL(triggered(bool)), this, SLOT(HandleZoomAction()));
 
-	zoomResetAction_ = new QAction(QIcon("Images/Particle3dEditor/Actions/ZoomReset.png"), tr("Zoom Reset"), this);
+	zoomResetAction_ = new QAction(QIcon(":/Images/ZoomReset.png"), tr("Zoom Reset"), this);
 	zoomResetAction_->setShortcut(QKeySequence::fromString("Ctrl+0"));
 	connect(zoomResetAction_, SIGNAL(triggered(bool)), this, SLOT(HandleZoomAction()));
 

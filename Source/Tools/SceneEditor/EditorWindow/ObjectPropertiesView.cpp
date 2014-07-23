@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "ObjectPropertiesView.h"
-#include <qscrollbar.h>
-#include <qscrollarea.h>
 #include "Skybox.h"
 
 ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
