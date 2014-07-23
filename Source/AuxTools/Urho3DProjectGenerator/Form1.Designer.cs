@@ -72,24 +72,24 @@
             // radOpenGL2
             // 
             this.radOpenGL2.AutoSize = true;
+            this.radOpenGL2.Checked = true;
             this.radOpenGL2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radOpenGL2.Location = new System.Drawing.Point(17, 43);
             this.radOpenGL2.Name = "radOpenGL2";
             this.radOpenGL2.Size = new System.Drawing.Size(203, 16);
             this.radOpenGL2.TabIndex = 1;
+            this.radOpenGL2.TabStop = true;
             this.radOpenGL2.Text = "OpenGL 2.0 (-DURHO3D_OPENGL=1)";
             this.radOpenGL2.UseVisualStyleBackColor = true;
             // 
             // radDirectX9
             // 
             this.radDirectX9.AutoSize = true;
-            this.radDirectX9.Checked = true;
             this.radDirectX9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radDirectX9.Location = new System.Drawing.Point(17, 21);
             this.radDirectX9.Name = "radDirectX9";
             this.radDirectX9.Size = new System.Drawing.Size(131, 16);
             this.radDirectX9.TabIndex = 0;
-            this.radDirectX9.TabStop = true;
             this.radDirectX9.Text = "DirectX 9.0 (默认)";
             this.radDirectX9.UseVisualStyleBackColor = true;
             // 
@@ -111,6 +111,8 @@
             // chkLuaJit
             // 
             this.chkLuaJit.AutoSize = true;
+            this.chkLuaJit.Checked = true;
+            this.chkLuaJit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLuaJit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkLuaJit.Enabled = false;
             this.chkLuaJit.Location = new System.Drawing.Point(17, 64);
@@ -137,6 +139,8 @@
             // chkAngleScript
             // 
             this.chkAngleScript.AutoSize = true;
+            this.chkAngleScript.Checked = true;
+            this.chkAngleScript.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkAngleScript.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkAngleScript.Location = new System.Drawing.Point(16, 113);
             this.chkAngleScript.Name = "chkAngleScript";
@@ -148,6 +152,8 @@
             // chkLua
             // 
             this.chkLua.AutoSize = true;
+            this.chkLua.Checked = true;
+            this.chkLua.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLua.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkLua.Location = new System.Drawing.Point(17, 42);
             this.chkLua.Name = "chkLua";
@@ -174,6 +180,8 @@
             // chkSamples
             // 
             this.chkSamples.AutoSize = true;
+            this.chkSamples.Checked = true;
+            this.chkSamples.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSamples.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkSamples.Location = new System.Drawing.Point(17, 91);
             this.chkSamples.Name = "chkSamples";
@@ -290,24 +298,24 @@
             // radDllBuild
             // 
             this.radDllBuild.AutoSize = true;
+            this.radDllBuild.Checked = true;
             this.radDllBuild.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radDllBuild.Location = new System.Drawing.Point(18, 45);
             this.radDllBuild.Name = "radDllBuild";
             this.radDllBuild.Size = new System.Drawing.Size(257, 16);
             this.radDllBuild.TabIndex = 1;
+            this.radDllBuild.TabStop = true;
             this.radDllBuild.Text = "Urho3D dll库 (-DURHO3D_LIB_TYPE=SHARED)";
             this.radDllBuild.UseVisualStyleBackColor = true;
             // 
             // radCommonBuild
             // 
             this.radCommonBuild.AutoSize = true;
-            this.radCommonBuild.Checked = true;
             this.radCommonBuild.Cursor = System.Windows.Forms.Cursors.Hand;
             this.radCommonBuild.Location = new System.Drawing.Point(17, 22);
             this.radCommonBuild.Name = "radCommonBuild";
             this.radCommonBuild.Size = new System.Drawing.Size(113, 16);
             this.radCommonBuild.TabIndex = 0;
-            this.radCommonBuild.TabStop = true;
             this.radCommonBuild.Text = "普通方式 (默认)";
             this.radCommonBuild.UseVisualStyleBackColor = true;
             // 
