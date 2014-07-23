@@ -28,7 +28,7 @@ source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES})
 # PreCompile
 if (MSVC)
     foreach (FILE ${CPP_FILES})
-        if (FILE MATCHES ".*stdafx.cpp.*")
+        if (FILE MATCHES ".*stdafx.*")
             set_source_files_properties (${FILE} PROPERTIES COMPILE_FLAGS "/Ycstdafx.h")
         else ()
             set_source_files_properties (${FILE} PROPERTIES COMPILE_FLAGS "/Yustdafx.h")
@@ -36,12 +36,9 @@ if (MSVC)
     endforeach ()
 endif ()
 
-# group
+# vs group
 SET (SubDirs Widgets)
-foreach (SubDir ${SubDirs})
-	FILE (GLOB ${SubDir}_Files ${SubDir}/*.*)
-	source_group (${SubDir} FILES ${${SubDir}_Files})
-endforeach ()
+add_project_dirs (${SubDirs})
 
 SET (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${RCC_FILES})
 
