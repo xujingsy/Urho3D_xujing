@@ -54,11 +54,11 @@ set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 # vs group
 set (SubDirs Widgets)
 foreach (SubDir ${SubDirs})
-
 	file (GLOB ${SubDir}_Files ${SubDir}/*.*)
-	message (${${SubDir}_Files})
 	source_group (${SubDir} FILES ${${SubDir}_Files})
 endforeach ()
+
+source_group (QtGenCpps FILES ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 
 # Setup target with resource copying
 setup_main_executable ()
