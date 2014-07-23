@@ -1331,6 +1331,11 @@ namespace Urho3D
 - %Shadow %Distance : float
 - %Animation %LOD %Bias : float
 - %Is %Emitting : bool
+- %Max %Lights : int
+- %View %Mask : int
+- %Light %Mask : int
+- %Shadow %Mask : int
+- %Zone %Mask : int
 
 ### ParticleEmitter2D
 - %Particle %Effect : ResourceRef
@@ -1939,6 +1944,7 @@ namespace Urho3D
 - %Override %Mode : bool
 - %Ambient %Gradient : bool
 - %Priority : int
+- %Zone %Texture : ResourceRef
 - %Light %Mask : int
 - %Shadow %Mask : int
 - %Zone %Mask : int
@@ -11587,6 +11593,7 @@ Properties:
 - int weakRefs // readonly
 - BoundingBox worldBoundingBox // readonly
 - uint zoneMask
+- Texture@ zoneTexture
 
 \section ScriptAPI_Enums Enumerations
 
@@ -11922,6 +11929,7 @@ Properties:
 - TU_DEPTHBUFFER
 - TU_LIGHTBUFFER
 - TU_VOLUMEMAP
+- TU_ZONE
 - MAX_MATERIAL_TEXTURE_UNITS
 - MAX_TEXTURE_UNITS
 

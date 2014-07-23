@@ -41,7 +41,7 @@ task :scaffolding do
   scaffolding(abs_path, project, target)
   abs_path = Pathname.new(abs_path).realpath
   puts "\nNew project created in #{abs_path}\n\n"
-  puts "To build the new project, you may need to first define and export either 'URHO3D_HOME' or 'URHO3D_INSTALL_PREFIX' environment variable"
+  puts "To build the new project, you may need to first define and export either 'URHO3D_HOME' or 'CMAKE_PREFIX_PATH' environment variable"
   puts "Please see http://urho3d.github.io/documentation/a00004.html for more detail. For example:\n\n"
   puts "$ URHO3D_HOME=#{Dir.pwd}; export URHO3D_HOME\n$ cd #{abs_path}\n$ ./cmake_gcc.sh -DURHO3D_64BIT=1 -DURHO3D_LUAJIT=1\n$ cd Build\n$ make\n\n"
 end
@@ -183,13 +183,19 @@ cmake_minimum_required (VERSION 2.8.6)
 
 if (COMMAND cmake_policy)
     cmake_policy (SET CMP0003 NEW)
+    if (CMAKE_VERSION VERSION_GREATER 2.8.12 OR CMAKE_VERSION VERSION_EQUAL 2.8.12)
+        cmake_policy (SET CMP0022 NEW) # INTERFACE_LINK_LIBRARIES defines the link interface
+    endif ()
+    if (CMAKE_VERSION VERSION_GREATER 3.0.0 OR CMAKE_VERSION VERSION_EQUAL 3.0.0)
+        cmake_policy (SET CMP0026 OLD) # Disallow use of the LOCATION target property - therefore we set to OLD as we still need it
+        cmake_policy (SET CMP0042 NEW) # MACOSX_RPATH is enabled by default
+    endif ()
 endif ()
 
 # Set CMake modules search path
 set (CMAKE_MODULE_PATH
     \\$ENV{URHO3D_HOME}/Source/CMake/Modules
-    \\$ENV{URHO3D_INSTALL_PREFIX}/share/Urho3D/CMake/Modules
-    \\${CMAKE_INSTALL_PREFIX}/share/Urho3D/CMake/Modules
+    \\$ENV{CMAKE_PREFIX_PATH}/share/Urho3D/CMake/Modules
     CACHE PATH \"Path to Urho3D-specific CMake modules\")
 
 # Include Urho3D CMake common module
