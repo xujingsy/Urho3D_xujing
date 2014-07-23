@@ -39,6 +39,8 @@ private slots:
     void OnTimeout();
 
 private:
+	void InitUI();
+
     /// µ÷ÊÔÃæ°å
     void CreateDebugHud();
 

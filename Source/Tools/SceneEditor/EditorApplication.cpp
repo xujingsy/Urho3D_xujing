@@ -118,6 +118,18 @@ void EditorApplication::CreateDebugHud()
     debugHud->SetDefaultStyle(xmlFile);
 }
 
+void EditorApplication::InitUI()
+{
+	ResourceCache* cache = GetSubsystem<ResourceCache>();
+
+	UI* ui = context_->GetSubsystem<UI>();
+	
+
+	UIElement* pRoot = ui->GetRoot();
+//	pRoot->AddChild(toolBox);
+	//toolBox->SetAlignment(HA_RIGHT,VA_TOP);
+}
+
 void EditorApplication::HandleKeyDown(StringHash eventType, VariantMap& eventData)
 {
     using namespace KeyDown;

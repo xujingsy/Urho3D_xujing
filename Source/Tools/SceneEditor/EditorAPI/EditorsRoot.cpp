@@ -12,6 +12,7 @@
 #include "BillboardSet.h"
 #include "ParticleEmitter.h"
 #include "SceneEvents.h"
+#include "Window.h"
 
 EditorsRoot::EditorsRoot()
 {
@@ -53,10 +54,20 @@ void EditorsRoot::InitEditorUI(Context* context)
 {
 	UIRoot_ = context->GetSubsystem<UI>()->GetRoot();
 
+	Window* window_ = new Window(context);
+	UIRoot_->AddChild(window_);
+	window_->SetMinSize(150, 155);
+	window_->SetLayout(LM_VERTICAL, 6, IntRect(6, 6, 6, 6));
+	window_->SetAlignment(HA_RIGHT, VA_TOP);
+	window_->SetName("Window");
+
 	ResourceCache* cache = context->GetSubsystem<ResourceCache>();
 	XMLFile* style = cache->GetResource<XMLFile>("UI/DefaultStyle.xml");
 
 	UIRoot_->SetDefaultStyle(style);
+
+	//µØÐÎUI
+	window_->AddChild(context->GetSubsystem<UI>()->LoadLayout(cache->GetResource<XMLFile>("UI/TerrainEditorToolBox.xml")));
 
 	ObjectNameTip_ = new ObjectNameTip();
 	RectSelectionFrame_ = new RectSelectionFrame();
