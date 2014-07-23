@@ -32,7 +32,7 @@ endmacro ()
 
 #Add all project dirs
 macro (add_project_dirs SubDirs)
-    foreach (SubDir ${SubDirs})
+    foreach (SubDir ${ARGV})
         file (GLOB_RECURSE ${SubDir}_Files ${SubDir}/*.*)
         source_group (${SubDir} FILES ${${SubDir}_Files})
     endforeach ()

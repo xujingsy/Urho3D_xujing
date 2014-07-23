@@ -53,10 +53,7 @@ set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 
 # vs group
 set (SubDirs Widgets)
-foreach (SubDir ${SubDirs})
-	file (GLOB ${SubDir}_Files ${SubDir}/*.*)
-	source_group (${SubDir} FILES ${${SubDir}_Files})
-endforeach ()
+add_project_dirs (${SubDirs})
 
 source_group (QtGenCpps FILES ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 
