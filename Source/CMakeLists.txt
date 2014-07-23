@@ -32,10 +32,12 @@ endmacro ()
 
 #Add all project dirs
 macro (add_project_dirs SubDirs)
+    message (${TARGET_NAME}:\n Create SubFolders: ${ARGC})
     foreach (SubDir ${ARGV})
         file (GLOB_RECURSE ${SubDir}_Files ${SubDir}/*.*)
         source_group (${SubDir} FILES ${${SubDir}_Files})
     endforeach ()
+    message (CreateFolder End\n)
 endmacro ()
 
 # Set minimum version
