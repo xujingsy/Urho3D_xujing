@@ -403,6 +403,15 @@ void EditorsRoot::OnMouseMiddleUp(float x,float y,unsigned int buttons)
 
 void EditorsRoot::OnMouseWheel(float x,float y,unsigned int buttons)
 {
+	Camera* camera = cameraNode_->GetComponent<Camera>();
+
 	Input* input = context_->GetSubsystem<Input>();
-	cameraNode_->Translate(Vector3::FORWARD * input->GetMouseMoveWheel());
+	float dWheel = (float)input->GetMouseMoveWheel() + 0.2f;
+	float zoom = camera->GetZoom() * (1.0f + dWheel);
+	if (zoom < 0.5f)
+		zoom = 0.5f;
+	if(zoom > 3.0f)
+		zoom = 3.0f;
+
+	camera->SetZoom(zoom);
 }
