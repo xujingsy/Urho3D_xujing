@@ -23,7 +23,7 @@
 #pragma once
 
 #include "ParticleEffectEditor.h"
-#include "ScrollAreaWidget.h"
+#include "Widgets/ScrollAreaWidget.h"
 
 class QComboBox;
 class QLineEdit;

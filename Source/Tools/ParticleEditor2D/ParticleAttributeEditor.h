@@ -23,7 +23,7 @@
 #pragma once
 
 #include "ParticleEffectEditor.h"
-#include "ScrollAreaWidget.h"
+#include "Widgets/ScrollAreaWidget.h"
 
 namespace Urho3D
 {

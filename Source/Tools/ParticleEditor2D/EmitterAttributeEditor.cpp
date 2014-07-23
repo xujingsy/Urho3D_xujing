@@ -23,14 +23,16 @@
 #include "Context.h"
 #include "CoreEvents.h"
 #include "EmitterAttributeEditor.h"
-#include "FloatEditor.h"
-#include "IntEditor.h"
+#include "Widgets/FloatEditor.h"
+#include "Widgets/IntEditor.h"
+#include "Widgets/ValueVarianceEditor.h"
+#include "Widgets/Vector2Editor.h"
+
 #include "ParticleEffect2D.h"
 #include "ParticleEmitter2D.h"
 #include "ResourceCache.h"
 #include "Texture2D.h"
-#include "ValueVarianceEditor.h"
-#include "Vector2Editor.h"
+
 #include <QApplication>
 #include <QComboBox>
 #include <QFileDialog.h>

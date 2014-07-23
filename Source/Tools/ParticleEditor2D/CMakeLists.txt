@@ -34,7 +34,9 @@ add_definitions(${QT_DEFINITIONS})
 # INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # Define source files
-define_source_files ()
+file (GLOB_RECURSE H_FILES *.h)
+file (GLOB_RECURSE CPP_FILES *.cpp)
+set (SOURCE_FILES ${H_FILES} ${CPP_FILES})
 
 # Moccing h files
 qt4_wrap_cpp( MOC_FILES ${H_FILES} )
@@ -48,6 +50,15 @@ file (GLOB QRC_FILES *.qrc)
 qt4_add_resources( RCC_FILES ${QRC_FILES} )
 
 set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
+
+# vs group
+set (SubDirs Widgets)
+foreach (SubDir ${SubDirs})
+
+	file (GLOB ${SubDir}_Files ${SubDir}/*.*)
+	message (${${SubDir}_Files})
+	source_group (${SubDir} FILES ${${SubDir}_Files})
+endforeach ()
 
 # Setup target with resource copying
 setup_main_executable ()

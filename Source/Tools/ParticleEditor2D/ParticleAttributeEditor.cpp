@@ -20,10 +20,10 @@
 // THE SOFTWARE.
 //
 
-#include "ColorVarianceEditor.h"
+#include "Widgets/ColorVarianceEditor.h"
+#include "Widgets/ValueVarianceEditor.h"
 #include "ParticleAttributeEditor.h"
 #include "ParticleEffect2D.h"
-#include "ValueVarianceEditor.h"
 #include <QVBoxLayout>
 
 namespace Urho3D
