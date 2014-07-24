@@ -19,6 +19,7 @@ private slots:
 	void HandleOpenAction();
 	void HandleSaveAction();
 	void HandleZoomAction();
+	void HandleBackgroundAction();
 private:
 	void CreateActions();
 	void CreateMenuBar();
@@ -33,6 +34,8 @@ private:
 	QAction* zoomInAction_;
 	QAction* zoomOutAction_;
 	QAction* zoomResetAction_;
+
+	QAction* backgroundAction_;
 
 	QMenu* fileMenu_;
 	QMenu* viewMenu_;

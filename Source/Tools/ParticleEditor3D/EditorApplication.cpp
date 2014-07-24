@@ -70,7 +70,8 @@ int EditorApplication::Run()
 
 void EditorApplication::New()
 {
-
+	Open("Particle//Smoke.xml");
+	fileName_.Clear();	//new file
 }
 
 void EditorApplication::Open(const String& fileName)
@@ -82,7 +83,7 @@ void EditorApplication::Open(const String& fileName)
 	}
 
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
-	ParticleEffect* effect = cache->GetResource<ParticleEffect>(fileName);
+	effect = cache->GetResource<ParticleEffect>(fileName);
 	if(effect == NULL)
 		return;
 
@@ -90,7 +91,6 @@ void EditorApplication::Open(const String& fileName)
 
 	ParticleEmitter* emitter = particleNode_->CreateComponent<ParticleEmitter>();
 	emitter->SetEffect(effect);
-	//emitter->l
 }
 
 void EditorApplication::Save(const String& fileName)
@@ -98,10 +98,34 @@ void EditorApplication::Save(const String& fileName)
 
 }
 
+ParticleEffect* EditorApplication::GetEffect() const
+{
+	ParticleEmitter* emitter = GetEmitter();
+	if (!emitter)
+		return 0;
+
+	return emitter->GetEffect();
+}
+
+ParticleEmitter* EditorApplication::GetEmitter() const
+{
+	return particleNode_->GetComponent<ParticleEmitter>();
+}
+
 void EditorApplication::OnTimer()
 {
 	if (engine_ && !engine_->IsExiting())
 		engine_->RunFrame();
+}
+
+EditorApplication* EditorApplication::Get()
+{
+	return qobject_cast<EditorApplication*>(qApp);
+}
+
+Camera* EditorApplication::GetCamera() const
+{
+	return cameraNode_->GetComponent<Camera>();
 }
 
 void EditorApplication::CreateScene()
@@ -127,7 +151,7 @@ void EditorApplication::CreateScene()
 	light->SetLightType(LIGHT_DIRECTIONAL);
 	light->SetBrightness(2.0f);
 
-	Open("Particle//Smoke.xml");
+	New();
 }
 
 void EditorApplication::CreateConsole()
@@ -179,13 +203,20 @@ void EditorApplication::HandleMouseWheel(StringHash eventType, VariantMap& event
 
 	Camera* camera = cameraNode_->GetComponent<Camera>();
 
+	float fZoom = camera->GetZoom();
 	if (wheel > 0)
 	{
-		camera->SetZoom(camera->GetZoom() * 1.25f);
+		fZoom *= 1.25f;
+		if(fZoom > 10.f)
+			fZoom = 10.f;
+		camera->SetZoom(fZoom);
 	}
 	else
 	{
-		camera->SetZoom(camera->GetZoom() * 0.80f);
+		fZoom *= 0.8f;
+		if(fZoom < 0.1f)
+			fZoom = 0.1f;
+		camera->SetZoom(fZoom);
 	}
 }
 

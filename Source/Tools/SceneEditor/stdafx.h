@@ -9,7 +9,6 @@
 #include <Windows.h>
 
 #include "glew.h"
-#include <gl/glut.h>
 
 //Urho3d的一些常见头文件
 #include "Graphics.h"

@@ -5,6 +5,9 @@
 #include "Engine.h"
 #include "Scene.h"
 #include "Node.h"
+#include "Camera.h"
+#include "ParticleEffect.h"
+#include "ParticleEmitter.h"
 using namespace Urho3D;
 
 #include <QApplication>
@@ -28,6 +31,17 @@ public:
 
 	void Save(const String& fileName);
 
+	static EditorApplication* Get();
+
+	Camera* GetCamera() const;
+
+	const String& GetFileName() const
+	{
+		return fileName_;
+	}
+
+	ParticleEffect* GetEffect() const;
+	ParticleEmitter* GetEmitter() const;
 private slots:
 	void OnTimer();
 
@@ -47,6 +61,11 @@ private:
 	Engine* engine_;
 	Scene* scene_;
 
+	/// Current Edit Particle File
+	String fileName_;
+
 	Node* cameraNode_;
 	Node* particleNode_;
+
+	ParticleEffect* effect;
 };

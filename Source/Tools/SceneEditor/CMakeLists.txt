@@ -49,17 +49,17 @@ file (GLOB_RECURSE CPP_FILES *.cpp)
 
 set (SOURCE_FILES ${H_FILES} ${CPP_FILES})
 
-# Moccing h files
-qt4_wrap_cpp( MOC_FILES ${H_FILES} )
-source_group( moc FILES ${MOC_FILES})
-
 # Compile ui files
 # file (GLOB UI_FILES *.ui)
-# qt4_wrap_ui( UI_HEADERS ${UI_FILES} )
+# qt4_wrap_ui (UI_HEADERS ${UI_FILES})
 
 # Rccing qrc files
 file (GLOB QRC_FILES *.qrc)
-qt4_add_resources( RCC_FILES ${QRC_FILES} )
+qt4_add_resources (RCC_FILES ${QRC_FILES})
+
+# Moccing h files
+qt4_wrap_cpp (MOC_FILES ${H_FILES} )
+source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES})
 
 # PreCompile
 if (MSVC)
@@ -76,10 +76,7 @@ endif ()
 
 # group
 set (SubDirs Controls EditorAPI EditorAssist EditorInfo EditorWindow Manager ObjectEditor OtherTools Terrain)
-foreach (SubDir ${SubDirs})
-	file (GLOB ${SubDir}_Files ${SubDir}/*.*)
-	source_group (${SubDir} FILES ${${SubDir}_Files})
-endforeach ()
+add_project_dirs (${SubDirs})
 
 set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})
 
