@@ -35,70 +35,81 @@ namespace Urho3DGenerator
                 return;
             }
 
-            //1. vs xxx
-            string batName = "";
-            if (radVS2008.Checked == true)
-            {
-                batName = "cmake_vs2008.bat";
-            }
-            else if (radVS2010.Checked == true)
-            {
-                batName = "cmake_vs2010.bat";
-            }
-            else if (radVS2012.Checked == true)
-            {
-                batName = "cmake_vs2012.bat";
-            }
-            else if (radVS2013.Checked == true)
-            {
-                batName = "cmake_vs2013.bat";
-            }
-            else
-            {
-                MessageBox.Show("非法的开发平台！");
-                return;
-            }
+            //1. command
+			string batName = get_command_string();
 
-            //2.Ogl,Dx
-            string renderer = "";
-            if (radOpenGL2.Checked == true)
-            {
-                renderer = "-DURHO3D_OPENGL=1";
-            }
+            //2. param
+			string strParams = get_param_string();
 
-            //3.option
-            string strOption = "";
-            if (chkLua.Checked == true)
-            {
-                strOption += " -DURHO3D_LUA=1";
-            }
-            if (chkLuaJit.Checked == true)
-            {
-                strOption += " -DURHO3D_LUAJIT=1";
-            }
-            if (chkSamples.Checked == true)
-            {
-                strOption += " -DURHO3D_SAMPLES=1";
-            }
-            if (chkAngleScript.Checked == true)
-            {
-                strOption += " -DURHO3D_ANGLESCRIPT=1";
-            }
-
-            //4.Lib Type
-            string strLibType = ""; //默认
-            if (radDllBuild.Checked == true)
-            {
-                strLibType += " -DURHO3D_LIB_TYPE=SHARED";
-            }
-            if (radStaticLib.Checked == true)
-            {
-                strLibType += " -DURHO3D_LIB_TYPE=STATIC";
-            }
-
-            string strParams = renderer + strOption + strLibType;
             Process pro = Process.Start(batName, strParams);
         }
+
+		private string get_command_string()
+		{
+			if (radVS2008.Checked == true)
+			{
+				return "cmake_vs2008.bat";
+			}
+			else if (radVS2010.Checked == true)
+			{
+				return "cmake_vs2010.bat";
+			}
+			else if (radVS2012.Checked == true)
+			{
+				return "cmake_vs2012.bat";
+			}
+			else if (radVS2013.Checked == true)
+			{
+				return "cmake_vs2013.bat";
+			}
+			else
+			{
+				MessageBox.Show("非法的开发平台！");
+				return "";
+			}
+		}
+
+		private string get_param_string()
+		{
+			string renderer = "";
+			if (radOpenGL2.Checked == true)
+			{
+				renderer = "-DURHO3D_OPENGL=1";
+			}
+
+			string strOption = "";
+			if (chkLua.Checked == true)
+			{
+				strOption += " -DURHO3D_LUA=1";
+			}
+			if (chkLuaJit.Checked == true)
+			{
+				strOption += " -DURHO3D_LUAJIT=1";
+			}
+			if (chkSamples.Checked == true)
+			{
+				strOption += " -DURHO3D_SAMPLES=1";
+			}
+			if (chkAngleScript.Checked == true)
+			{
+				strOption += " -DURHO3D_ANGLESCRIPT=1";
+			}
+
+			//4.Lib Type
+			string strLibType = ""; //默认
+			if (radDllBuild.Checked == true)
+			{
+				strLibType += " -DURHO3D_LIB_TYPE=SHARED";
+			}
+			if (radStaticLib.Checked == true)
+			{
+				strLibType += " -DURHO3D_LIB_TYPE=STATIC";
+			}
+
+			string strParams = renderer + strOption + strLibType;
+
+			return strParams;
+		}
 
         private void btnClean_Click(object sender, EventArgs e)
         {
@@ -117,5 +128,10 @@ namespace Urho3DGenerator
                 chkLuaJit.Enabled = true;
             }
         }
+
+		private void lnkRefresh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		{
+			textBox1.Text = get_command_string() + " " + get_param_string();
+		}
 	}
 }
