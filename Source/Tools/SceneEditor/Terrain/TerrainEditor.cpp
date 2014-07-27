@@ -140,9 +140,7 @@ void TerrainEditor::on_terrain_click(Vector3& worldPos)
 			for(int yy = - nRange;yy < nRange;yy ++)
 			{
 				//点击的坐标与Heightmap坐标对应关系
-				Color color = pHeightMap->GetPixel(tileX + xx,tileZ + yy);
-				color.r_ += 0.02 * (abs(xx) + abs(yy)) / nRange;
-				color.g_ += 0.02 ;
+				Color color = pHeightMap->GetPixel(tileX + xx,tileZ + yy).Lerp(Color(1.0, 0, 0),pHeightMap->GetPixel(tileX, tileZ).r_ * 0.1);
 				pHeightMap->SetPixel(tileX + xx,tileZ + yy,color);
 			}
 		}
@@ -409,33 +407,33 @@ Node* TerrainEditor::add_mesh_test(const char* name,float x,float y,float z,cons
 	//rotator->SetRotationSpeed(Vector3(Vector3(0.0f, 20.0f, 0.0f)));
 
 	
-	AnimatedModel* modelObject = mushroomNode->CreateComponent<AnimatedModel>();
-	Material* matObj = cache->GetResource<Material>("Materials/che.xml");
-	SharedPtr<ValueAnimation> specColorAnimation(new ValueAnimation(context_));
-	specColorAnimation->SetKeyFrame(0.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
-	specColorAnimation->SetKeyFrame(1.0f, Color(1.0f, 0.0f, 0.0f, 2.0f));
-	specColorAnimation->SetKeyFrame(2.0f, Color(1.0f, 1.0f, 0.0f, 2.0f));
-	specColorAnimation->SetKeyFrame(3.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
-	matObj->SetShaderParameterAnimation("MatSpecColor", specColorAnimation);
+	//AnimatedModel* modelObject = mushroomNode->CreateComponent<AnimatedModel>();
+	//Material* matObj = cache->GetResource<Material>("Materials/che.xml");
+	//SharedPtr<ValueAnimation> specColorAnimation(new ValueAnimation(context_));
+	//specColorAnimation->SetKeyFrame(0.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
+	//specColorAnimation->SetKeyFrame(1.0f, Color(1.0f, 0.0f, 0.0f, 2.0f));
+	//specColorAnimation->SetKeyFrame(2.0f, Color(1.0f, 1.0f, 0.0f, 2.0f));
+	//specColorAnimation->SetKeyFrame(3.0f, Color(0.1f, 0.1f, 0.1f, 16.0f));
+	//matObj->SetShaderParameterAnimation("MatSpecColor", specColorAnimation);
 
-	modelObject->SetModel(cache->GetResource<Model>(modelUrl));	//"Akali/Akali.mdl"
-	modelObject->SetMaterial(0,matObj);
-	modelObject->SetCastShadows(true);
+	//modelObject->SetModel(cache->GetResource<Model>(modelUrl));	//"Akali/Akali.mdl"
+	//modelObject->SetMaterial(0,matObj);
+	//modelObject->SetCastShadows(true);
 
 	//指定一个动作
-	Animation* walkAnimation = cache->GetResource<Animation>("Models/che1_Bone01.ani");
-	AnimationState* state = modelObject->AddAnimationState(walkAnimation);
-	if(state)
-	{
-		state->SetWeight(1.0f);
-		state->SetLooped(true);
-	}
+	//Animation* walkAnimation = cache->GetResource<Animation>("Models/che1_Bone01.ani");
+	//AnimationState* state = modelObject->AddAnimationState(walkAnimation);
+	//if(state)
+	//{
+	//	state->SetWeight(1.0f);
+	//	state->SetLooped(true);
+	//}
 
-	const float MODEL_MOVE_SPEED = 2.0f;
-	const float MODEL_ROTATE_SPEED = 100.0f;
-	const BoundingBox bounds(Vector3(-47.0f, 0.0f, -47.0f), Vector3(47.0f, 0.0f, 47.0f));
-	Mover* mover = mushroomNode->CreateComponent<Mover>();
-	mover->SetParameters(MODEL_MOVE_SPEED, MODEL_ROTATE_SPEED, bounds);
+	//const float MODEL_MOVE_SPEED = 2.0f;
+	//const float MODEL_ROTATE_SPEED = 100.0f;
+	//const BoundingBox bounds(Vector3(-47.0f, 0.0f, -47.0f), Vector3(47.0f, 0.0f, 47.0f));
+	//Mover* mover = mushroomNode->CreateComponent<Mover>();
+	//mover->SetParameters(MODEL_MOVE_SPEED, MODEL_ROTATE_SPEED, bounds);
 
 	return mushroomNode;
 }
