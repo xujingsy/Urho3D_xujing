@@ -55,11 +55,11 @@ int EditorApplication::Run()
 	if( !engine_->Initialize(engineParams))
 		return -1;
 
+	mainWindow_->CreateWidgets();
+
 	CreateScene();
 	CreateConsole();
 	CreateDebugHud();
-
-	mainWindow_->CreateWidgets();
 
 	QTimer timer;
 	connect(&timer, SIGNAL(timeout()), this, SLOT(OnTimer()));
@@ -91,6 +91,8 @@ void EditorApplication::Open(const String& fileName)
 
 	ParticleEmitter* emitter = particleNode_->CreateComponent<ParticleEmitter>();
 	emitter->SetEffect(effect);
+
+	mainWindow_->UpdateWidgets();
 }
 
 void EditorApplication::Save(const String& fileName)

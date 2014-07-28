@@ -1,7 +1,9 @@
 #pragma once
+
 #include <QScrollArea>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+
+class QHBoxLayout;
+class QVBoxLayout;
 
 class ScrollAreaWidget : public QScrollArea
 {

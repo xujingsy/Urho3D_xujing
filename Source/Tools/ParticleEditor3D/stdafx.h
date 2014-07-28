@@ -57,15 +57,20 @@
 using namespace Urho3D;
 
 //Qt常用头文件
-#include <qwidget.h>
+#include <QWidget>
 #include <QMenuBar.h>
 #include <QMenu.h>
-#include <qtoolbar.h>
-#include <qstatusbar.h>
-#include <qtreewidget.h>
-#include <qcombobox.h>
-#include <qboxlayout.h>
-#include <qdockwidget.h>
-#include <qlist.h>
-#include <qurl.h>
-#include <qstatusbar.h>
+#include <QToolBox>
+#include <QStatusBar>
+#include <QTreeWidget>
+#include <QComboBox>
+#include <QBoxLayout>
+#include <QDockWidget>
+#include <QList>
+#include <QUrl>
+#include <QStatusBar>
+#include <QGroupBox>
+#include <QSlider>
+#include <QLabel>
+#include <QSpinBox>
+#include <QToolBar>

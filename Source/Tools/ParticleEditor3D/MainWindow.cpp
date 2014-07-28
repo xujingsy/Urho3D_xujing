@@ -17,6 +17,9 @@ MainWindow::MainWindow(Context* context) :
 	widget->setMinimumSize(128, 128);
 	widget->setUpdatesEnabled(false);
 	widget->setFocusPolicy(Qt::StrongFocus);
+
+	emitterAttributeEditor_ = NULL;
+	particleAttributeEditor_ = NULL;
 }
 
 void MainWindow::CreateWidgets()
@@ -25,6 +28,15 @@ void MainWindow::CreateWidgets()
 	CreateMenuBar();
 	CreateToolBar();
 	CreateDockWidgets();
+}
+
+void MainWindow::UpdateWidgets()
+{
+	if(emitterAttributeEditor_)
+		emitterAttributeEditor_->UpdateWidget();
+
+	if(particleAttributeEditor_)
+		particleAttributeEditor_->UpdateWidget();
 }
 
 void MainWindow::CreateActions()
@@ -95,7 +107,18 @@ void MainWindow::CreateToolBar()
 
 void MainWindow::CreateDockWidgets()
 {
+	emitterAttributeEditor_ = new EmitterAttributeEditor(context_);
 
+	QDockWidget* eDockWidget = new QDockWidget(tr("Emitter Attributes"));
+	addDockWidget(Qt::LeftDockWidgetArea, eDockWidget);
+	eDockWidget->setWidget(emitterAttributeEditor_);
+
+	//Particle Attr
+	particleAttributeEditor_ = new ParticleAttributeEditor(context_);
+
+	QDockWidget* pDockWidget = new QDockWidget(tr("Particle Attributes"));
+	addDockWidget(Qt::RightDockWidgetArea,pDockWidget);
+	pDockWidget->setWidget(particleAttributeEditor_);
 }
 
 void MainWindow::HandleNewAction()

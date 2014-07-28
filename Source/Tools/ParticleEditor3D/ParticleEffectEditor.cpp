@@ -1,4 +1,6 @@
+#include "stdafx.h"
 #include "ParticleEffectEditor.h"
+#include "EditorApplication.h"
 
 ParticleEffectEditor::ParticleEffectEditor(Context* context) :
 	Object(context)
@@ -18,4 +20,14 @@ void ParticleEffectEditor::UpdateWidget()
 	HandleUpdateWidget();
 
 	updatingWidget_ = false;
+}
+
+ParticleEffect* ParticleEffectEditor::GetEffect()
+{
+	return EditorApplication::Get()->GetEffect();
+}
+
+ParticleEmitter* ParticleEffectEditor::GetEmitter()
+{
+	return EditorApplication::Get()->GetEmitter();
 }
