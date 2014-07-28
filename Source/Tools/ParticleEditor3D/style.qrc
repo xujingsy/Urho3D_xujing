@@ -10,4 +10,7 @@
     <file>Images/ZoomOut.png</file>
     <file>Images/ZoomReset.png</file>
 </qresource>
+<qresource prefix="">
+	<file>style.qss</file>
+</qresource>
 </RCC>

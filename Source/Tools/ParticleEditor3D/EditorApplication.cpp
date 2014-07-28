@@ -6,6 +6,7 @@
 #include "Console.h"
 #include "ParticleEffect.h"
 #include "ParticleEmitter.h"
+#include "Text3D.h"
 
 #include <QTimer>
 #include <QFile>
@@ -18,8 +19,10 @@ EditorApplication::EditorApplication(int argc, char** argv, Context* context) :
 	engine_ = new Engine(context);
 	scene_ = new Scene(context);
 
-	SetStyleSheet(":/Images/stylesheets/dark.qss");
+	SetStyleSheet(":/style.qss");
 	mainWindow_ = new MainWindow(context);
+
+	axisLen = 30;
 
 	SubscribeToEvent(E_UPDATE, HANDLER(EditorApplication, HandleUpdate));
 	SubscribeToEvent(E_KEYDOWN, HANDLER(EditorApplication, HandleKeyDown));
@@ -137,8 +140,9 @@ void EditorApplication::CreateScene()
 	scene_->CreateComponent<DebugRenderer>();
 
 	cameraNode_ = scene_->CreateChild("Camera");
-	cameraNode_->SetWorldPosition(Vector3(0,0,-80));
+	cameraNode_->SetWorldPosition(Vector3(30,30,-80));
 	Camera* camera = cameraNode_->CreateComponent<Camera>();
+	cameraNode_->SetWorldDirection(Vector3(0,0,0) - cameraNode_->GetWorldPosition());
 	camera->SetOrthographic(false);
 
 	Graphics* graphics = GetSubsystem<Graphics>();
@@ -152,6 +156,29 @@ void EditorApplication::CreateScene()
 	Light* light = lightNode->CreateComponent<Light>();
 	light->SetLightType(LIGHT_DIRECTIONAL);
 	light->SetBrightness(2.0f);
+
+	//AxisName Show
+	Node* xNode = scene_->CreateChild("X");
+	xNode->SetPosition(Vector3(axisLen * 0.9, 0, 0));
+	Text3D* flag3D = xNode->CreateComponent<Text3D>();
+	flag3D->SetText("X");
+	flag3D->SetColor(Color::YELLOW);
+	ResourceCache* cache = GetSubsystem<ResourceCache>();
+	flag3D->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 105);
+
+	Node* yNode = scene_->CreateChild("Y");
+	yNode->SetPosition(Vector3(0, axisLen * 0.9, 0));
+	flag3D = yNode->CreateComponent<Text3D>();
+	flag3D->SetText("Y");
+	flag3D->SetColor(Color::YELLOW);
+	flag3D->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 105);
+
+	Node* zNode = scene_->CreateChild("Z");
+	zNode->SetPosition(Vector3(0, 0, axisLen * 0.9));
+	flag3D = zNode->CreateComponent<Text3D>();
+	flag3D->SetText("Z");
+	flag3D->SetColor(Color::YELLOW);
+	flag3D->SetFont(cache->GetResource<Font>("Fonts/Anonymous Pro.ttf"), 105);
 
 	New();
 }
@@ -228,14 +255,13 @@ void EditorApplication::HandleRenderUpdate(StringHash eventType, VariantMap& eve
 	DebugRenderer* debugRenderer = scene_->GetComponent<DebugRenderer>();
 
 	const Color color(0.0f, 0.5f, 0.0f, 0.5f);
-	int len = 30;
 
 	//x
-	debugRenderer->AddLine(Vector3(- len, 0.0f, 0.0f), Vector3(len, 0.0f, 0.0f), color);
+	debugRenderer->AddLine(Vector3(- axisLen, 0.0f, 0.0f), Vector3(axisLen, 0.0f, 0.0f), color);
 	//y
-	debugRenderer->AddLine(Vector3(0.0f,- len,  0.0f), Vector3(0.0f, len, 0.0f), color);
+	debugRenderer->AddLine(Vector3(0.0f,- axisLen,  0.0f), Vector3(0.0f, axisLen, 0.0f), color);
 	//z
-	debugRenderer->AddLine(Vector3(0.0f, 0.0f, - len), Vector3(0.0f, 0.0f, len), color);
+	debugRenderer->AddLine(Vector3(0.0f, 0.0f, - axisLen), Vector3(0.0f, 0.0f, axisLen), color);
 
 	debugRenderer->Render();
 }

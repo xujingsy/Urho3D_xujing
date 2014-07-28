@@ -68,4 +68,6 @@ private:
 	Node* particleNode_;
 
 	ParticleEffect* effect;
+
+	int axisLen;
 };
