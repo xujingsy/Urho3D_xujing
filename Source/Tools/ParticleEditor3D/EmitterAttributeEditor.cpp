@@ -17,7 +17,6 @@ EmitterAttributeEditor::EmitterAttributeEditor(Context* context) :
 	CreateIsSorted();
 
 	vBoxLayout_->addStretch(1);
-	maxParticlesChanged_ = false;
 
 	SubscribeToEvent(E_POSTUPDATE, HANDLER(EmitterAttributeEditor, HandlePostUpdate));
 }
@@ -198,10 +197,5 @@ void EmitterAttributeEditor::HandleIsSortedChanged(int value)
 ///
 void EmitterAttributeEditor::HandlePostUpdate(StringHash eventType, VariantMap& eventData)
 {
-	if(!maxParticlesChanged_)
-		return;
 
-	maxParticlesChanged_ = false;
-
-	GetEffect()->SetNumParticles(maxParticleEditor_->value());
 }
