@@ -147,6 +147,8 @@ void ParticleAttributeEditor::CreateConstantForce()
 void ParticleAttributeEditor::CreateColorFrame()
 {
 	tblColorFrames = new QTableWidget();
+	tblColorFrames->setSelectionBehavior(QAbstractItemView::SelectRows);
+	tblColorFrames->setSelectionMode(QAbstractItemView::SingleSelection);
 	tblColorFrames->setGridStyle(Qt::DotLine);
 	
 	tblColorFrames->setColumnCount(2);
@@ -156,6 +158,8 @@ void ParticleAttributeEditor::CreateColorFrame()
 
 	vBoxLayout_->addWidget(tblColorFrames);
 
+	connect(tblColorFrames, SIGNAL(itemSelectionChanged()), this, SLOT(HandleColorFrameTableSelectionChanged()));
+
 	//Color FrameÏêÏ¸ÐÅÏ¢¿ò
 	QHBoxLayout* hColorFrameDetail = AddHBoxLayout();
 	QPushButton* btnSelColor = new QPushButton("Color");
@@ -163,7 +167,7 @@ void ParticleAttributeEditor::CreateColorFrame()
 	hColorFrameDetail->addWidget(btnSelColor);
 	connect(btnSelColor, SIGNAL(clicked(bool)), this, SLOT(HandleSelectColorFrameButtonClicked()));
 
-	FloatEditor* colorFrameTime = new FloatEditor("Time");
+	colorFrameTime = new FloatEditor("Time");
 	colorFrameTime->setRange(0.01f, 10.0f);
 	hColorFrameDetail->addLayout(colorFrameTime);
 	connect(colorFrameTime, SIGNAL(valueChanged(float)), this, SLOT(HandleColorFrameTimeChanged(float)));
@@ -200,7 +204,7 @@ void ParticleAttributeEditor::buildColorFrameTableFromEffect()
 		QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_);
 
 		char szColor[64];
-		sprintf(szColor, "(%d,%d,%d)", qColor.red(), qColor.green(), qColor.blue());
+		sprintf(szColor, "(%d,%d,%d:%d)", qColor.red(), qColor.green(), qColor.blue(), qColor.alpha());
 		QTableWidgetItem* itemColor = new QTableWidgetItem(szColor);
 		itemColor->setBackgroundColor(qColor);
 		tblColorFrames->setItem(i, 0, itemColor);
@@ -365,10 +369,14 @@ void ParticleAttributeEditor::HandleSelectColorFrameButtonClicked()
 	if(row < 0)
 		return;
 
-	QColor newQColor = QColorDialog::getColor();
-	Color newColor(newQColor.redF(), newQColor.greenF(), newQColor.blueF());
-
 	Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
+
+	Color curColor = colorFrames[row].color_;
+	QColor curQColor = QColor::fromRgbF(curColor.r_, curColor.g_, curColor.b_,curColor.a_);
+
+	QColor newQColor = QColorDialog::getColor(curQColor, this, "Select ColorFrame Color", QColorDialog::ShowAlphaChannel);
+	Color newColor(newQColor.redF(), newQColor.greenF(), newQColor.blueF(), newQColor.alphaF());
+
 	colorFrames[row].color_ = newColor;
 	GetEffect()->SetColorFrames(colorFrames);
 
@@ -389,4 +397,13 @@ void ParticleAttributeEditor::HandleColorFrameTimeChanged(float value)
 	buildColorFrameTableFromEffect();
 
 	tblColorFrames->setCurrentCell(row, 0);
+}
+
+void ParticleAttributeEditor::HandleColorFrameTableSelectionChanged()
+{
+	int row = tblColorFrames->currentRow();
+	if(row < 0)
+		return;
+
+	colorFrameTime->setValue(GetEffect()->GetColorFrames()[row].time_);
 }
