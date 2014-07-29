@@ -159,6 +159,7 @@ void EmitterAttributeEditor::HandleActiveTimeChanged(float value)
 		return;
 
 	GetEffect()->SetActiveTime(value);
+	GetEmitter()->ApplyEffect();
 }
 
 void EmitterAttributeEditor::HandleInActiveTimeChanged(float value)
