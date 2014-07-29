@@ -142,7 +142,7 @@ void ParticleAttributeEditor::CreateConstantForce()
 
 void ParticleAttributeEditor::CreateColorFrame()
 {
-	//todo:
+	//QHBoxLayout* hLayout = AddHBoxLayout();
 }
 
 //slots
