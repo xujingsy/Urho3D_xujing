@@ -4,7 +4,6 @@
 #include "ParticleEffectEditor.h"
 
 /// 发射器相关属性编辑
-
 class EmitterAttributeEditor : public ScrollAreaWidget, public ParticleEffectEditor
 {
 	Q_OBJECT
@@ -35,10 +34,10 @@ private:
 	void CreateRelative();
 	void CreateActiveTime();
 	void CreateInActiveTime();
+
+	//1秒发射几次
 	void CreateEmissionRate();
 	void CreateIsSorted();
-
-	void HandlePostUpdate(StringHash eventType, VariantMap& eventData);
 
 	QComboBox* emitterTypeEditor_;
 	QLineEdit* materialPathEditor_;

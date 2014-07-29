@@ -20,8 +20,6 @@ EmitterAttributeEditor::EmitterAttributeEditor(Context* context) :
 	CreateIsSorted();
 
 	vBoxLayout_->addStretch(1);
-
-	SubscribeToEvent(E_POSTUPDATE, HANDLER(EmitterAttributeEditor, HandlePostUpdate));
 }
 
 EmitterAttributeEditor::~EmitterAttributeEditor()
@@ -98,9 +96,11 @@ void EmitterAttributeEditor::CreateRelative()
 	connect(chkRelative, SIGNAL(stateChanged(int)), this, SLOT(HandleRelativeChanged(int)));
 }
 
+//unit:second
 void EmitterAttributeEditor::CreateActiveTime()
 {
 	activeTimeEditor_ = new FloatEditor("ActiveTime");
+	activeTimeEditor_->setRange(0.0f, 360.f);	//6 minute
 	vBoxLayout_->addLayout(activeTimeEditor_);
 
 	connect(activeTimeEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleActiveTimeChanged(float)));
@@ -109,6 +109,7 @@ void EmitterAttributeEditor::CreateActiveTime()
 void EmitterAttributeEditor::CreateInActiveTime()
 {
 	inActiveTimeEditor_ = new FloatEditor("InActiveTime");
+	activeTimeEditor_->setRange(0.0f, 360.f);
 	vBoxLayout_->addLayout(inActiveTimeEditor_);
 
 	connect(inActiveTimeEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleInActiveTimeChanged(float)));
@@ -116,12 +117,14 @@ void EmitterAttributeEditor::CreateInActiveTime()
 
 void EmitterAttributeEditor::CreateEmissionRate()
 {
-	emissionRateMinEditor_ = new FloatEditor("EmissionRate", false);
+	emissionRateMinEditor_ = new FloatEditor("EmissionRateMin", false);
+	emissionRateMinEditor_->setRange(1, 3600);
 	vBoxLayout_->addLayout(emissionRateMinEditor_);
 
 	connect(emissionRateMinEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleEmissionRateChanged(float)));
 
-	emissionRateMaxEditor_ = new FloatEditor("EmissionRate", false);
+	emissionRateMaxEditor_ = new FloatEditor("EmissionRateMax", false);
+	emissionRateMaxEditor_->setRange(1, 3600);
 	vBoxLayout_->addLayout(emissionRateMaxEditor_);
 
 	connect(emissionRateMaxEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleEmissionRateChanged(float)));
@@ -240,10 +243,4 @@ void EmitterAttributeEditor::HandleIsSortedChanged(int value)
 
 	GetEffect()->SetSorted(value == 1);
 	GetEmitter()->SetSorted(value == 1);
-}
-
-///
-void EmitterAttributeEditor::HandlePostUpdate(StringHash eventType, VariantMap& eventData)
-{
-
 }

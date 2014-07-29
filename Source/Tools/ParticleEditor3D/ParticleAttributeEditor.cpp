@@ -52,10 +52,12 @@ void ParticleAttributeEditor::HandleUpdateWidget()
 void ParticleAttributeEditor::CreateRotationSpeed()
 {
 	rotationSpeedMinEditor_ = new FloatEditor("RotationSpeedMin", false);
+	rotationSpeedMinEditor_->setRange(0.0f, 360.0f);
 	vBoxLayout_->addLayout(rotationSpeedMinEditor_);
 	connect(rotationSpeedMinEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleRotationSpeedChanged(float)));
 
 	rotationSpeedMaxEditor_ = new FloatEditor("RotationSpeedMax", false);
+	rotationSpeedMaxEditor_->setRange(0.0f, 360.0f);
 	vBoxLayout_->addLayout(rotationSpeedMaxEditor_);
 	connect(rotationSpeedMaxEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleRotationSpeedChanged(float)));
 }
@@ -63,10 +65,12 @@ void ParticleAttributeEditor::CreateRotationSpeed()
 void ParticleAttributeEditor::CreateDirection()
 {
 	directionMinEditor_ = new Vector3Editor("DirectionMin");
+	directionMinEditor_->setRange(Vector3(), Vector3(360.0f, 360.0f, 360.0f));
 	vBoxLayout_->addWidget(directionMinEditor_);
 	connect(directionMinEditor_, SIGNAL(valueChanged(const Vector3&)), this, SLOT(HandleDirectionChanged(const Vector3&)));
 
 	directionMaxEditor_ = new Vector3Editor("DirectionMax");
+	directionMaxEditor_->setRange(Vector3(), Vector3(360.0f, 360.0f, 360.0f));
 	vBoxLayout_->addWidget(directionMaxEditor_);
 	connect(directionMaxEditor_, SIGNAL(valueChanged(const Vector3&)), this, SLOT(HandleDirectionChanged(const Vector3&)));
 }
@@ -85,25 +89,30 @@ void ParticleAttributeEditor::CreateVelocity()
 void ParticleAttributeEditor::CreateParticleSize()
 {
 	particleSizeMinEditor_ = new Vector2Editor("ParticleSizeMin");
+	particleSizeMinEditor_->setRange(Vector2(0.01f, 0.01f), Vector2(10.0f, 10.0f));
 	vBoxLayout_->addWidget(particleSizeMinEditor_);
 	connect(particleSizeMinEditor_, SIGNAL(valueChanged(const Vector2&)), this, SLOT(HandleParticleSizeChanged(const Vector2&)));
 
 	particleSizeMaxEditor_ = new Vector2Editor("ParticleSizeMax");
+	particleSizeMaxEditor_->setRange(Vector2(0.01f, 0.01f), Vector2(10.0f, 10.0f));
 	vBoxLayout_->addWidget(particleSizeMaxEditor_);
 	connect(particleSizeMaxEditor_, SIGNAL(valueChanged(const Vector2&)), this, SLOT(HandleParticleSizeChanged(const Vector2&)));
 }
 
-//逐帧增大小
+//逐帧增大小，定义为每秒增加的缩放比
 void ParticleAttributeEditor::CreateSizeAdd()
 {
 	sizeAddEditor_ = new FloatEditor("SizeAdd", false);
+	sizeAddEditor_->setRange(0.0f, 10.0f);
 	vBoxLayout_->addLayout(sizeAddEditor_);
 	connect(sizeAddEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleSizeAddChanged(float)));
 }
 
+//和SizeAdd不同的是，这里的增加是按照乘法累积递增的
 void ParticleAttributeEditor::CreateSizeMul()
 {
 	sizeMulEditor_ = new FloatEditor("SizeMul", false);
+	sizeMulEditor_->setRange(0.0f, 5.0f);
 	vBoxLayout_->addLayout(sizeMulEditor_);
 	connect(sizeMulEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleSizeMulChanged(float)));
 }
@@ -111,18 +120,24 @@ void ParticleAttributeEditor::CreateSizeMul()
 void ParticleAttributeEditor::CreateTimeToLive()
 {
 	timeToLiveMinEditor_ = new FloatEditor("TimeToLiveMin", false);
+	timeToLiveMinEditor_->setRange(0, 360.0f);
 	vBoxLayout_->addLayout(timeToLiveMinEditor_);
 	connect(timeToLiveMinEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleTimeToLiveChanged(float)));
 
 	timeToLiveMaxEditor_ = new FloatEditor("TimeToLiveMax", false);
+	timeToLiveMaxEditor_->setRange(0, 360.0f);
 	vBoxLayout_->addLayout(timeToLiveMaxEditor_);
 	connect(timeToLiveMaxEditor_, SIGNAL(valueChanged(float)), this, SLOT(HandleTimeToLiveChanged(float)));
 }
 
+//加速度
 void ParticleAttributeEditor::CreateConstantForce()
 {
 	constantForceEditor_ = new Vector3Editor("ConstantForce");
+	constantForceEditor_->setRange(Vector3(), Vector3(100.0f, 100.0f, 100.0f));
 	vBoxLayout_->addWidget(constantForceEditor_);
+
+	connect(constantForceEditor_, SIGNAL(valueChanged(const Vector3&)), this, SLOT(HandleConstanceForceChanged(const Vector3&)));
 }
 
 void ParticleAttributeEditor::CreateColorFrame()

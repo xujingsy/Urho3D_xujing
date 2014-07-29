@@ -1,6 +1,7 @@
 #pragma once
 #include "ParticleEffectEditor.h"
 
+/// 粒子本身属性的编辑
 class ParticleAttributeEditor : public ScrollAreaWidget, public ParticleEffectEditor
 {
 	Q_OBJECT;
