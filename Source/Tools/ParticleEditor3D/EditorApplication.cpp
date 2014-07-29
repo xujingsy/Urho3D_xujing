@@ -97,7 +97,20 @@ void EditorApplication::Open(const String& fileName)
 
 void EditorApplication::Save(const String& fileName)
 {
+	ParticleEffect* effect = GetEffect();
+	if(!effect)
+		return;
 
+	File file(context_);
+	if(!file.Open(fileName, FILE_WRITE))
+	{
+		LOGERROR("Open file failed " + fileName);
+		return;
+	}
+
+	effect->Save(file);
+
+	fileName_ = fileName;
 }
 
 ParticleEffect* EditorApplication::GetEffect() const
