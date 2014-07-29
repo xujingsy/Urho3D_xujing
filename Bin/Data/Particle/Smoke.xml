@@ -3,7 +3,7 @@
     <updateinvisible enable="true" />
     <relative enable="false" />
     <numparticles value="10" />
-    <activetime value="2" />
+    <activetime value="0" />
     <inactivetime value="0" />
     <emissionrate value="13.333" />
     <sorted enable="true" />
