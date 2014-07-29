@@ -22,6 +22,8 @@ private slots:
 
 	void HandleConstanceForceChanged(const Vector3& value);
 	void HandleColorFrameButtonClicked();
+	void HandleSelectColorFrameButtonClicked();
+	void HandleColorFrameTimeChanged(float value);
 private:
 	void CreateRotationSpeed();
 	void CreateDirection();
@@ -60,7 +62,6 @@ private:
 	Vector3Editor* constantForceEditor_;
 
 	QTableWidget* tblColorFrames;
-	QPushButton* btnSaveColorFrame;
 	QPushButton* btnDeleteColorFrame;
 	QPushButton* btnAddColorFrame;
 };

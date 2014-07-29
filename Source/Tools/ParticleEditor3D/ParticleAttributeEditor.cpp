@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ParticleAttributeEditor.h"
 #include <QMessageBox>
+#include <QColorDialog>
 
 ParticleAttributeEditor::ParticleAttributeEditor(Context* context) : ParticleEffectEditor(context)
 {
@@ -155,11 +156,20 @@ void ParticleAttributeEditor::CreateColorFrame()
 
 	vBoxLayout_->addWidget(tblColorFrames);
 
+	//Color FrameÏêÏ¸ÐÅÏ¢¿ò
+	QHBoxLayout* hColorFrameDetail = AddHBoxLayout();
+	QPushButton* btnSelColor = new QPushButton("Color");
+	btnSelColor->setFixedWidth(60);
+	hColorFrameDetail->addWidget(btnSelColor);
+	connect(btnSelColor, SIGNAL(clicked(bool)), this, SLOT(HandleSelectColorFrameButtonClicked()));
+
+	FloatEditor* colorFrameTime = new FloatEditor("Time");
+	colorFrameTime->setRange(0.01f, 10.0f);
+	hColorFrameDetail->addLayout(colorFrameTime);
+	connect(colorFrameTime, SIGNAL(valueChanged(float)), this, SLOT(HandleColorFrameTimeChanged(float)));
+
 	//±à¼­°´Å¥
 	QHBoxLayout* hLayout = AddHBoxLayout();
-	btnSaveColorFrame = new QPushButton("Save");
-	btnSaveColorFrame->setFixedWidth(80);
-	hLayout->addWidget(btnSaveColorFrame);
 	
 	btnDeleteColorFrame = new QPushButton("Delete");
 	btnDeleteColorFrame->setFixedWidth(80);
@@ -313,11 +323,7 @@ void ParticleAttributeEditor::HandleConstanceForceChanged(const Vector3& value)
 void ParticleAttributeEditor::HandleColorFrameButtonClicked()
 {
 	QPushButton* button = (QPushButton*)sender();
-	if(button == btnSaveColorFrame)
-	{
-
-	}
-	else if(button == btnDeleteColorFrame)
+	if(button == btnDeleteColorFrame)
 	{
 		if(tblColorFrames->rowCount() <= 0)
 			return;
@@ -351,4 +357,36 @@ void ParticleAttributeEditor::HandleColorFrameButtonClicked()
 		GetEffect()->SetColorFrames(colorFrames);
 		buildColorFrameTableFromEffect();
 	}
+}
+
+void ParticleAttributeEditor::HandleSelectColorFrameButtonClicked()
+{
+	int row = tblColorFrames->currentRow();
+	if(row < 0)
+		return;
+
+	QColor newQColor = QColorDialog::getColor();
+	Color newColor(newQColor.redF(), newQColor.greenF(), newQColor.blueF());
+
+	Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
+	colorFrames[row].color_ = newColor;
+	GetEffect()->SetColorFrames(colorFrames);
+
+	buildColorFrameTableFromEffect();
+
+	tblColorFrames->setCurrentCell(row, 0);
+}
+
+void ParticleAttributeEditor::HandleColorFrameTimeChanged(float value)
+{
+	int row = tblColorFrames->currentRow();
+	if(row < 0)
+		return;
+
+	Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
+	colorFrames[row].time_ = value;
+	GetEffect()->SetColorFrames(colorFrames);
+	buildColorFrameTableFromEffect();
+
+	tblColorFrames->setCurrentCell(row, 0);
 }
