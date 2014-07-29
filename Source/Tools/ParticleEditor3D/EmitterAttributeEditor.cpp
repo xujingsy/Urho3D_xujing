@@ -141,9 +141,6 @@ void EmitterAttributeEditor::CreateIsSorted()
 //slots
 void EmitterAttributeEditor::HandleSelectMaterialClick()
 {
-	if(updatingWidget_)
-		return;
-
 	QString fileName = QFileDialog::getOpenFileName(0, tr("Material"), "./Data/Materials/", "*.xml");
 	if(fileName.isEmpty())
 		return;

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ParticleAttributeEditor.h"
-#include <QPushButton>
+#include <QMessageBox>
 
 ParticleAttributeEditor::ParticleAttributeEditor(Context* context) : ParticleEffectEditor(context)
 {
@@ -157,13 +157,19 @@ void ParticleAttributeEditor::CreateColorFrame()
 
 	//±à¼­°´Å¥
 	QHBoxLayout* hLayout = AddHBoxLayout();
-	QPushButton* btnSave = new QPushButton("Save");
-	btnSave->setFixedWidth(80);
-	hLayout->addWidget(btnSave);
+	btnSaveColorFrame = new QPushButton("Save");
+	btnSaveColorFrame->setFixedWidth(80);
+	hLayout->addWidget(btnSaveColorFrame);
 	
-	QPushButton* btnDelete = new QPushButton("Delete");
-	btnDelete->setFixedWidth(80);
-	hLayout->addWidget(btnDelete);
+	btnDeleteColorFrame = new QPushButton("Delete");
+	btnDeleteColorFrame->setFixedWidth(80);
+	hLayout->addWidget(btnDeleteColorFrame);
+	connect(btnDeleteColorFrame, SIGNAL(clicked(bool)), this, SLOT(HandleColorFrameButtonClicked()));
+
+	btnAddColorFrame = new QPushButton("New");
+	btnAddColorFrame->setFixedWidth(80);
+	hLayout->addWidget(btnAddColorFrame);
+	connect(btnAddColorFrame, SIGNAL(clicked(bool)), this, SLOT(HandleColorFrameButtonClicked()));
 }
 
 void ParticleAttributeEditor::buildColorFrameTableFromEffect()
@@ -302,4 +308,47 @@ void ParticleAttributeEditor::HandleConstanceForceChanged(const Vector3& value)
 		return;
 
 	GetEffect()->SetConstantForce(value);
+}
+
+void ParticleAttributeEditor::HandleColorFrameButtonClicked()
+{
+	QPushButton* button = (QPushButton*)sender();
+	if(button == btnSaveColorFrame)
+	{
+
+	}
+	else if(button == btnDeleteColorFrame)
+	{
+		if(tblColorFrames->rowCount() <= 0)
+			return;
+
+		if(tblColorFrames->rowCount() == 1)
+		{
+			QMessageBox msg(QMessageBox::Warning, "Warning", "At less one color frame!");
+			msg.exec();
+			return;
+		}
+
+		int row = tblColorFrames->currentRow();
+		if(row < 0)
+			return;
+
+		tblColorFrames->removeRow(row);
+
+		Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
+		colorFrames.Erase(row);
+
+		GetEffect()->SetColorFrames(colorFrames);
+	}
+	else if(button == btnAddColorFrame)
+	{
+		Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
+		ColorFrame frame;
+		frame.color_ = Color(0.2f, 0.3f, 0.9f);
+		frame.time_ = 1.0f;
+		colorFrames.Push(frame);
+
+		GetEffect()->SetColorFrames(colorFrames);
+		buildColorFrameTableFromEffect();
+	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <QTableWidget>
+#include <QPushButton>
 #include "ParticleEffectEditor.h"
 
 /// 粒子本身属性的编辑
@@ -20,6 +21,7 @@ private slots:
 	void HandleTimeToLiveChanged(float value);
 
 	void HandleConstanceForceChanged(const Vector3& value);
+	void HandleColorFrameButtonClicked();
 private:
 	void CreateRotationSpeed();
 	void CreateDirection();
@@ -58,4 +60,7 @@ private:
 	Vector3Editor* constantForceEditor_;
 
 	QTableWidget* tblColorFrames;
+	QPushButton* btnSaveColorFrame;
+	QPushButton* btnDeleteColorFrame;
+	QPushButton* btnAddColorFrame;
 };
