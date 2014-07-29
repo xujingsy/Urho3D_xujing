@@ -2,12 +2,15 @@
 #include "EmitterAttributeEditor.h"
 #include "EditorApplication.h"
 #include <QCheckBox>
+#include <QPushButton>
+#include <QFileDialog>
 
 EmitterAttributeEditor::EmitterAttributeEditor(Context* context) :
 	ParticleEffectEditor(context)
 {
 	CreateEmitterTypeEditor();
 	CreateMaxParticleEditor();
+	CreateSelectMaterialEditor();
 	CreateUpdateInvisible();
 
 	CreateRelative();
@@ -30,6 +33,7 @@ void EmitterAttributeEditor::HandleUpdateWidget()
 {
 	ParticleEffect* effect_ = GetEffect();
 
+	materialPathEditor_->setText(effect_->GetMaterial()->GetName().CString());
 	emitterTypeEditor_->setCurrentIndex(effect_->GetEmitterType());
 	maxParticleEditor_->setValue(effect_->GetNumParticles());
 
@@ -49,6 +53,22 @@ void EmitterAttributeEditor::CreateEmitterTypeEditor()
 	emitterTypeEditor_->setCurrentIndex(-1);
 
 	connect(emitterTypeEditor_, SIGNAL(currentIndexChanged(int)), this, SLOT(HandleEmitterTypeEditorChanged(int)));
+}
+
+void EmitterAttributeEditor::CreateSelectMaterialEditor()
+{
+	QHBoxLayout* hBoxLayout = AddHBoxLayout();
+	hBoxLayout->addWidget(new QLabel(tr("Material")));
+
+	materialPathEditor_ = new QLineEdit();
+	materialPathEditor_->setReadOnly(true);
+	hBoxLayout->addWidget(materialPathEditor_, 1);
+
+	QPushButton* selectButton = new QPushButton("...");
+	selectButton->setFixedWidth(32);
+	hBoxLayout->addWidget(selectButton);
+
+	connect(selectButton, SIGNAL(clicked(bool)), this, SLOT(HandleSelectMaterialClick()));
 }
 
 void EmitterAttributeEditor::CreateMaxParticleEditor()
@@ -116,6 +136,33 @@ void EmitterAttributeEditor::CreateIsSorted()
 }
 
 //slots
+void EmitterAttributeEditor::HandleSelectMaterialClick()
+{
+	if(updatingWidget_)
+		return;
+
+	QString fileName = QFileDialog::getOpenFileName(0, tr("Material"), "./Data/Materials/", "*.xml");
+	if(fileName.isEmpty())
+		return;
+
+	//must in app path
+	static QString dataPath = qApp->applicationDirPath() + "/Data/";
+	if(fileName.toUpper().left(dataPath.toUpper().length()) != dataPath.toUpper())
+		return;
+
+	fileName = fileName.right(fileName.length() - dataPath.length());
+
+	ResourceCache* cache = GetSubsystem<ResourceCache>();
+
+	Material* material = cache->GetResource<Material>(fileName.toLatin1().data());
+	if(material == NULL)
+		return;
+
+	materialPathEditor_->setText(fileName);
+	GetEffect()->SetMaterial(material);
+	GetEmitter()->SetMaterial(material);
+}
+
 void EmitterAttributeEditor::HandleEmitterTypeEditorChanged(int value)
 {
 	if(updatingWidget_)

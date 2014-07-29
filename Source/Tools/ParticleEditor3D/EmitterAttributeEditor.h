@@ -1,5 +1,6 @@
 #pragma once
 #include <QComboBox>
+#include <QLineEdit>
 #include "ParticleEffectEditor.h"
 
 /// 发射器相关属性编辑
@@ -13,6 +14,7 @@ public:
 	virtual ~EmitterAttributeEditor();
 private slots:
 	void HandleEmitterTypeEditorChanged(int value);
+	void HandleSelectMaterialClick();
 	void HandleMaxParticlesEditorValueChanged(int value);
 	void HandleUpdateInvisibleChanged(int value);
 
@@ -25,6 +27,7 @@ private:
 	virtual void HandleUpdateWidget();
 
 	void CreateEmitterTypeEditor();
+	void CreateSelectMaterialEditor();
 	void CreateMaxParticleEditor();
 	//当粒子不可见时是否更新
 	void CreateUpdateInvisible();
@@ -38,6 +41,7 @@ private:
 	void HandlePostUpdate(StringHash eventType, VariantMap& eventData);
 
 	QComboBox* emitterTypeEditor_;
+	QLineEdit* materialPathEditor_;
 	IntEditor* maxParticleEditor_;
 	FloatEditor* activeTimeEditor_;
 	FloatEditor* inActiveTimeEditor_;
