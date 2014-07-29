@@ -19,7 +19,7 @@ EditorApplication::EditorApplication(int argc, char** argv, Context* context) :
 	engine_ = new Engine(context);
 	scene_ = new Scene(context);
 
-	SetStyleSheet(":/style.qss");
+	SetStyleSheet(":/qss_icons/style.qss");
 	mainWindow_ = new MainWindow(context);
 
 	axisLen = 30;
