@@ -185,9 +185,9 @@ void MainWindow::HandleBackgroundAction()
 
 	const Color& color = renderer->GetDefaultZone()->GetFogColor();
 
-	QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_);
+	QColor qColor = ParticleEffectEditor::GetQColorByColor(color);
 	QColor newQcolor = QColorDialog::getColor(qColor, this);
+	Color newColor = ParticleEffectEditor::GetColorByQColor(newQcolor);
 
-	Color newColor(newQcolor.redF(), newQcolor.greenF(), newQcolor.blueF());
 	renderer->GetDefaultZone()->SetFogColor(newColor);
 }

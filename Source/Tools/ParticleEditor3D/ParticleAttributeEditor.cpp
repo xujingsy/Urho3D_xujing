@@ -200,8 +200,7 @@ void ParticleAttributeEditor::buildColorFrameTableFromEffect()
 		sprintf(szNum, "%d", i);
 		headers << szNum;
 
-		Color& color = colorFrames[i].color_;
-		QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_);
+		QColor qColor = GetQColorByColor(colorFrames[i].color_);
 
 		char szColor[64];
 		sprintf(szColor, "(%d,%d,%d:%d)", qColor.red(), qColor.green(), qColor.blue(), qColor.alpha());
@@ -371,11 +370,10 @@ void ParticleAttributeEditor::HandleSelectColorFrameButtonClicked()
 
 	Vector<ColorFrame> colorFrames = GetEffect()->GetColorFrames();
 
-	Color curColor = colorFrames[row].color_;
-	QColor curQColor = QColor::fromRgbF(curColor.r_, curColor.g_, curColor.b_,curColor.a_);
+	QColor curQColor = GetQColorByColor(colorFrames[row].color_);
 
 	QColor newQColor = QColorDialog::getColor(curQColor, this, "Select ColorFrame Color", QColorDialog::ShowAlphaChannel);
-	Color newColor(newQColor.redF(), newQColor.greenF(), newQColor.blueF(), newQColor.alphaF());
+	Color newColor = GetColorByQColor(newQColor);
 
 	colorFrames[row].color_ = newColor;
 	GetEffect()->SetColorFrames(colorFrames);

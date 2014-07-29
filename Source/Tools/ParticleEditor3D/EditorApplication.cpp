@@ -32,7 +32,8 @@ EditorApplication::EditorApplication(int argc, char** argv, Context* context) :
 
 EditorApplication::~EditorApplication()
 {
-
+	delete mainWindow_;
+	delete scene_;
 }
 
 void EditorApplication::SetStyleSheet(const char* qssPath)

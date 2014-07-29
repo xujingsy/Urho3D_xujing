@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "EmitterAttributeEditor.h"
 #include "EditorApplication.h"
-#include <QCheckBox>
-#include <QPushButton>
 #include <QFileDialog>
 
 EmitterAttributeEditor::EmitterAttributeEditor(Context* context) :

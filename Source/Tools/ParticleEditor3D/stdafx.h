@@ -58,6 +58,8 @@ using namespace Urho3D;
 
 //Qt常用头文件
 #include <QWidget>
+#include <QPushButton>
+#include <QCheckBox>
 #include <QMenuBar.h>
 #include <QMenu.h>
 #include <QToolBox>

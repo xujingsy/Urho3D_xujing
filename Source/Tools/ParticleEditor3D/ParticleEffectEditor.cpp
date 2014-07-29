@@ -42,3 +42,15 @@ ParticleEmitter* ParticleEffectEditor::GetEmitter()
 {
 	return EditorApplication::Get()->GetEmitter();
 }
+
+Color ParticleEffectEditor::GetColorByQColor(const QColor& qColor)
+{
+	Color color(qColor.redF(), qColor.greenF(), qColor.blueF(), qColor.alphaF());
+	return color;
+}
+
+QColor ParticleEffectEditor::GetQColorByColor(const Color& color)
+{
+	QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_, color.a_);
+	return qColor;
+}

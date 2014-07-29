@@ -1,8 +1,10 @@
 #pragma once
 #include "Object.h"
+#include "Color.h"
 #include "ParticleEffect.h"
 #include "ParticleEmitter.h"
 #include <QString>
+#include <QColor>
 
 #include "Widgets/FloatEditor.h"
 #include "Widgets/IntEditor.h"
@@ -21,6 +23,9 @@ public:
 
 	// Update widget
 	void UpdateWidget();
+
+	static Color GetColorByQColor(const QColor& qColor);
+	static QColor GetQColorByColor(const Color& color);
 
 protected:
 	// 数据变化时更新界面
