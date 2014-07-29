@@ -1,4 +1,5 @@
 #pragma once
+#include <QTableWidget>
 #include "ParticleEffectEditor.h"
 
 /// 粒子本身属性的编辑
@@ -32,6 +33,7 @@ private:
 	void CreateTimeToLive();
 	void CreateConstantForce();
 	void CreateColorFrame();
+	void buildColorFrameTableFromEffect();
 
 	virtual void HandleUpdateWidget();
 
@@ -54,4 +56,6 @@ private:
 	FloatEditor* timeToLiveMaxEditor_;
 
 	Vector3Editor* constantForceEditor_;
+
+	QTableWidget* tblColorFrames;
 };

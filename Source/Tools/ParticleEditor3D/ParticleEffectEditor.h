@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "ParticleEffect.h"
 #include "ParticleEmitter.h"
+#include <QString>
 
 #include "Widgets/FloatEditor.h"
 #include "Widgets/IntEditor.h"
@@ -24,6 +25,8 @@ public:
 protected:
 	// 数据变化时更新界面
 	virtual void HandleUpdateWidget() = 0;
+
+	QString getColorStyleString(float r, float g, float b);
 
 	ParticleEffect* GetEffect();
 	ParticleEmitter* GetEmitter();

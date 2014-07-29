@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ParticleAttributeEditor.h"
+#include <QPushButton>
 
 ParticleAttributeEditor::ParticleAttributeEditor(Context* context) : ParticleEffectEditor(context)
 {
@@ -47,6 +48,8 @@ void ParticleAttributeEditor::HandleUpdateWidget()
 	timeToLiveMaxEditor_->setValue(effect_->GetMaxTimeToLive());
 
 	constantForceEditor_->setValue(effect_->GetConstantForce());
+
+	buildColorFrameTableFromEffect();
 }
 
 void ParticleAttributeEditor::CreateRotationSpeed()
@@ -142,7 +145,55 @@ void ParticleAttributeEditor::CreateConstantForce()
 
 void ParticleAttributeEditor::CreateColorFrame()
 {
-	//QHBoxLayout* hLayout = AddHBoxLayout();
+	tblColorFrames = new QTableWidget();
+	tblColorFrames->setGridStyle(Qt::DotLine);
+	
+	tblColorFrames->setColumnCount(2);
+	QStringList headers;
+	headers << "Color" << "Time(s)";
+	tblColorFrames->setHorizontalHeaderLabels(headers);
+
+	vBoxLayout_->addWidget(tblColorFrames);
+
+	//±à¼­°´Å¥
+	QHBoxLayout* hLayout = AddHBoxLayout();
+	QPushButton* btnSave = new QPushButton("Save");
+	btnSave->setFixedWidth(80);
+	hLayout->addWidget(btnSave);
+	
+	QPushButton* btnDelete = new QPushButton("Delete");
+	btnDelete->setFixedWidth(80);
+	hLayout->addWidget(btnDelete);
+}
+
+void ParticleAttributeEditor::buildColorFrameTableFromEffect()
+{
+	ParticleEffect* effect = GetEffect();
+	Vector<ColorFrame> colorFrames = effect->GetColorFrames();
+
+	tblColorFrames->setRowCount(colorFrames.Size());
+
+	QStringList headers;
+	for(int i = 0;i < tblColorFrames->rowCount();i ++)
+	{
+		char szNum[32];
+		sprintf(szNum, "%d", i);
+		headers << szNum;
+
+		Color& color = colorFrames[i].color_;
+		QColor qColor = QColor::fromRgbF(color.r_, color.g_, color.b_);
+
+		char szColor[64];
+		sprintf(szColor, "(%d,%d,%d)", qColor.red(), qColor.green(), qColor.blue());
+		QTableWidgetItem* itemColor = new QTableWidgetItem(szColor);
+		itemColor->setBackgroundColor(qColor);
+		tblColorFrames->setItem(i, 0, itemColor);
+		
+		char szTime[64];
+		sprintf(szTime, "%f", colorFrames[i].time_);
+		QTableWidgetItem* itemTime = new QTableWidgetItem(szTime);
+		tblColorFrames->setItem(i, 1, itemTime);
+	}
 }
 
 //slots
