@@ -13,7 +13,7 @@ INCLUDE_DIRECTORIES (${CMAKE_SOURCE_DIR}/ThirdParty/GLEW)
 FILE (GLOB_RECURSE H_FILES *.h)
 FILE (GLOB_RECURSE CPP_FILES *.cpp)
 
-SET (SOURCE_FILES ${H_FILES} ${CPP_FILES})
+SET (SOURCE_FILES ${H_FILES} ${CPP_FILES} app.rc)
 
 # Moccing h Files
 qt4_wrap_cpp (MOC_FILES ${H_FILES})
@@ -21,6 +21,8 @@ qt4_wrap_cpp (MOC_FILES ${H_FILES})
 # Rccing qrc files
 file (GLOB QRC_FILES *.qrc)
 qt4_add_resources( RCC_FILES ${QRC_FILES} )
+
+qt4_add_resources( app.rc)
 
 # Group Moc Generated Cpp Files
 source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES})

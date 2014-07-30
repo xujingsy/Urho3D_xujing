@@ -60,7 +60,7 @@ void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 			brush_ = brushNode_->CreateComponent<TerrainBrush>();
 
 			ResourceCache* cache = GetSubsystem<ResourceCache>();
-			brush_->SetMaterial(cache->GetResource<Material>("Materials/GreenUnlit.xml"));
+			brush_->SetMaterial(cache->GetResource<Material>("Materials/Editor/GreenUnlit.xml"));
 			brush_->SetOwner(editorRoot_->terrain_);
 			//brush_->SetBrushTexture(cache->GetResource<Texture2D>(":/Images/Brushes/noisy_circular2.png"));
 			//brush_->SetViewMask(0xfffffffe);

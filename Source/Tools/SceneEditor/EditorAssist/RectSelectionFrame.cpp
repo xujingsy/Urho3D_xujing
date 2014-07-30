@@ -9,7 +9,7 @@ RectSelectionFrame::RectSelectionFrame()
 	border_ = new BorderImage(context_);
 	ResourceCache* cache = EditorsRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
 
-	border_->SetTexture(cache->GetResource<Texture2D>(":/Images/Brushes/Rect.png"));
+	border_->SetTexture(cache->GetResource<Texture2D>("Textures/Brushes/Rect.png"));
 	border_->SetBlendMode(BlendMode::BLEND_SUBTRACT);
 	border_->SetPosition(100,100);
 
