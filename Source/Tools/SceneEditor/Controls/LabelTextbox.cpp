@@ -12,16 +12,15 @@ LabelTextBox::LabelTextBox(QWidget* parent)
 	isReadOnly = false;
 
 	QHBoxLayout* layout = new QHBoxLayout();
+	layout->setSpacing(1);
 	this->setLayout(layout);
 
 	lblName = new QLabel();
-	lblName->setMaximumHeight(20);
 	lblName->setText("Name");
 	layout->addWidget(lblName);
 
 	txtValue = new QLineEdit();
-	txtValue->setMaximumHeight(20);
-	txtValue->setFixedWidth(40);
+	txtValue->setFixedWidth(50);
 	layout->addWidget(txtValue);
 
 	//×¢²áÊÂ¼ş

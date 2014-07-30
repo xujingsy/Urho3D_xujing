@@ -15,10 +15,6 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 	//Header一些描述
 	descWidget_ = new LabelTextBox();
 	descWidget_->txtValue->setFixedWidth(150);
-	
-	//char szQss[256];
-	//sprintf(szQss, "background-color:rgb(%d,%d,%d)", 125, 125,0);
-	//descWidget_->setStyleSheet(szQss);
 
 	layout->addWidget(descWidget_);
 	
@@ -28,7 +24,7 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 
 	QScrollArea* scroll = new QScrollArea();
 	scroll->setWidgetResizable(true);
-	scroll->setBackgroundRole(QPalette::Dark);// 设置滚动区域的背景
+	//scroll->setBackgroundRole(QPalette::Dark);// 设置滚动区域的背景 会导致里面的文本颜色无法设置
 	scroll->setWidget(wContent);
 
 	//坐标调整
@@ -49,6 +45,9 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 
 	terrainWidget_ = new TerrainWidget();
 	lstWidges.push_back(terrainWidget_);
+
+	btnAddComponent = new QPushButton("Add Component");
+	//lstWidges.push_back(btnAddComponent);
 
 	layout->addWidget(scroll);
 
@@ -107,6 +106,8 @@ void ObjectPropertiesView::SetTarget(Node* pTarget)
 		skyboxWidget_->Init(pTarget);
 		vContentLayout->addWidget(skyboxWidget_);
 	}
+
+	vContentLayout->addWidget(btnAddComponent);
 
 	vContentLayout->addWidget(fixWidget);
 }

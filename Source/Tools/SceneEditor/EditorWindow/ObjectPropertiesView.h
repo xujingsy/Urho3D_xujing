@@ -1,7 +1,8 @@
 #pragma once
 #include <list>
 using namespace std;
-#include <qwidget.h>
+#include <QWidget>
+#include <QPushButton>
 #include "../Controls/LabelTextbox.h"
 #include "../ObjectEditor/EditorComponent/PositonEditorComponent.h"
 #include "../Controls/ShowHidePanel.h"
@@ -30,6 +31,7 @@ private:
 	SkyboxWidget* skyboxWidget_;
 	StaticModelWidget* staticModelWidget_;
 	TerrainWidget* terrainWidget_;
+	QPushButton* btnAddComponent;
 
 	list<ShowHidePanel*> lstWidges;
 

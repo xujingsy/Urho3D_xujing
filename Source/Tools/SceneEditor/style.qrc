@@ -1,5 +1,6 @@
 <RCC>
 	<qresource prefix="">
+    <file>Images/Actions/Attach.png</file>
     <file>Images/Actions/Camera.png</file>
     <file>Images/Actions/Copy.png</file>
     <file>Images/Actions/Cut.png</file>
@@ -56,7 +57,7 @@
     <file>Images/Components/Zone.png</file>
     <file>Images/Components/Root.png</file>
 	</qresource>
-
+ 
   <qresource prefix="qss_icons">
     <file>rc/up_arrow_disabled.png</file>
     <file>rc/Hmovetoolbar.png</file>

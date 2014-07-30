@@ -46,6 +46,9 @@ QHBoxLayout* ShowHidePanel::getNewRow()
 {
 	QWidget* wRow = new QWidget();
 	QHBoxLayout* layout = new QHBoxLayout();
+	layout->setStretch(0, 2);
+	layout->setSpacing(0);
+	layout->setMargin(0);
 	wRow->setLayout(layout);
 
 	frameLayout_->addWidget(wRow);
