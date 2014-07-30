@@ -47,7 +47,7 @@ file (GLOB_RECURSE CPP_FILES *.cpp)
 #	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
 # endforeach()
 
-set (SOURCE_FILES ${H_FILES} ${CPP_FILES})
+set (SOURCE_FILES ${H_FILES} ${CPP_FILES} app.rc)
 
 # Compile ui files
 # file (GLOB UI_FILES *.ui)
@@ -56,6 +56,8 @@ set (SOURCE_FILES ${H_FILES} ${CPP_FILES})
 # Rccing qrc files
 file (GLOB QRC_FILES *.qrc)
 qt4_add_resources (RCC_FILES ${QRC_FILES})
+
+QT4_ADD_RESOURCES(app.rc)
 
 # Moccing h files
 qt4_wrap_cpp (MOC_FILES ${H_FILES} )
