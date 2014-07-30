@@ -3,6 +3,7 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qboxlayout.h>
+#include <QGroupBox>
 
 namespace Urho3D
 {
@@ -24,7 +25,7 @@ private slots:
 	void buttonClicked(bool checked);
 protected:
 	QVBoxLayout* vLayout;
-	QFrame* frame_;
+	QGroupBox* frame_;
 	QVBoxLayout* frameLayout_;
 	QHBoxLayout* getNewRow();
 private:

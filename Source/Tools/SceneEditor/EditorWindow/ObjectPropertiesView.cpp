@@ -29,6 +29,7 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 
 	//坐标调整
 	positionWidget_ = new PositonEditorComponent();
+	positionWidget_->Show();	//默认打开
 	lstWidges.push_back(positionWidget_);
 
 	lightWidget_ = new LightWidget();

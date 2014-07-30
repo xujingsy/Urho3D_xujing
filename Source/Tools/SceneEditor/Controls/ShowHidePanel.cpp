@@ -6,6 +6,7 @@ ShowHidePanel::ShowHidePanel(QWidget* parent)
 	vLayout = new QVBoxLayout();
 	setLayout(vLayout);
 
+	vLayout->setSpacing(0);
 	vLayout->setMargin(0);
 
 	//Header
@@ -30,9 +31,9 @@ ShowHidePanel::ShowHidePanel(QWidget* parent)
 	hHeader->addWidget(lblName_);
 
 	//Frame
-	frame_ = new QFrame();
-	frame_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-	frame_->setLineWidth(1);
+	frame_ = new QGroupBox();
+	//frame_->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+	//frame_->setLineWidth(1);
 	frameLayout_ = new QVBoxLayout();
 	frame_->setLayout(frameLayout_);
 	//frame_->setContentsMargins(0,0,0,0);
