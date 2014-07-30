@@ -162,7 +162,7 @@ void ParticleAttributeEditor::CreateColorFrame()
 
 	//Color FrameÏêÏ¸ÐÅÏ¢¿ò
 	QHBoxLayout* hColorFrameDetail = AddHBoxLayout();
-	QPushButton* btnSelColor = new QPushButton("Color");
+	btnSelColor = new QPushButton("Color");
 	btnSelColor->setFixedWidth(60);
 	hColorFrameDetail->addWidget(btnSelColor);
 	connect(btnSelColor, SIGNAL(clicked(bool)), this, SLOT(HandleSelectColorFrameButtonClicked()));
@@ -381,6 +381,7 @@ void ParticleAttributeEditor::HandleSelectColorFrameButtonClicked()
 	buildColorFrameTableFromEffect();
 
 	tblColorFrames->setCurrentCell(row, 0);
+	HandleColorFrameTableSelectionChanged();
 }
 
 void ParticleAttributeEditor::HandleColorFrameTimeChanged(float value)
@@ -403,5 +404,11 @@ void ParticleAttributeEditor::HandleColorFrameTableSelectionChanged()
 	if(row < 0)
 		return;
 
-	colorFrameTime->setValue(GetEffect()->GetColorFrames()[row].time_);
+	const ColorFrame& frame = GetEffect()->GetColorFrames()[row];
+
+	char szQss[256];
+	sprintf(szQss, "background-color:rgb(%d,%d,%d)", int(frame.color_.r_ * 255), int(frame.color_.g_ * 255), int(frame.color_.b_ * 255));
+	btnSelColor->setStyleSheet(szQss);
+	
+	colorFrameTime->setValue(frame.time_);
 }

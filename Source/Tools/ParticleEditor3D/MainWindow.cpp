@@ -69,7 +69,7 @@ void MainWindow::CreateActions()
 	exitAction_->setShortcut(QKeySequence::fromString("Alt+F4"));
 	connect(exitAction_, SIGNAL(triggered(bool)), this, SLOT(close()));
 
-	backgroundAction_ = new QAction(tr("Background"), this);
+	backgroundAction_ = new QAction(QIcon(":/Images/background.png"), tr("Background"), this);
 	backgroundAction_->setShortcut(QKeySequence::fromString("Ctrl+B"));
 	connect(backgroundAction_, SIGNAL(triggered(bool)), this, SLOT(HandleBackgroundAction()));
 }

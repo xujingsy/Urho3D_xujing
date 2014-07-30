@@ -9,6 +9,7 @@
     <file>Images/ZoomIn.png</file>
     <file>Images/ZoomOut.png</file>
     <file>Images/ZoomReset.png</file>
+    <file>Images/background.png</file>
 </qresource>
 <qresource prefix="qss_icons">
 	<file>style.qss</file>

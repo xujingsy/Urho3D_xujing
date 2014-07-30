@@ -64,6 +64,7 @@ private:
 
 	FloatEditor* colorFrameTime;
 	QTableWidget* tblColorFrames;
+	QPushButton* btnSelColor;
 	QPushButton* btnDeleteColorFrame;
 	QPushButton* btnAddColorFrame;
 };
