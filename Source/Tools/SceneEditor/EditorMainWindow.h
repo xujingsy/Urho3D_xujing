@@ -137,4 +137,7 @@ private Q_SLOTS:
 	void HandleDeleteAction();
 	void HandleAttachTerrainAction(bool);
 	void HandleTestEffectAction(bool);
+
+	//打开关于对话框
+	void HandleAbout();
 };

@@ -40,6 +40,13 @@ class EditorRoot : public Singleton<EditorRoot>
 {
 public:
 	EditorRoot();
+	~EditorRoot();
+
+	void New();
+
+	void Open(const String& fileName);
+
+	void Save(const String& fileName);
 
 	//Ìí¼ÓÐÂµÄToolBar
 	void RegisterToolBar(void* plugin,void * toolbar);

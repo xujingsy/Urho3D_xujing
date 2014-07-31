@@ -6,6 +6,7 @@
 #include "EditorInfo/EditorGlobalInfo.h"
 #include "EditorAPI/EditorEvents.h"
 #include "EditorAssist/RTTScene.h"
+#include "EditorWindow/AboutDlg.h"
 
 //主要通过Dock分隔窗口
 EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
@@ -154,6 +155,7 @@ void EditorMainWindow::CreateActions()
 
 	helpAction_ = new QAction(QIcon(":/Images/Actions/Help.png"), tr("Help"), this);
 	aboutAction_ = new QAction(QIcon(":/Images/Actions/Info.png"), tr("About"), this);
+	connect(aboutAction_, SIGNAL(triggered()), this, SLOT(HandleAbout()));
 
 	//Select
 	selectAction_ = new QAction(QIcon(":/Images/Actions/Select.png"), tr("Select"), this);
@@ -440,4 +442,10 @@ void EditorMainWindow::onModeChanged(int index)
 		gEditorGlobalInfo->SetFillMode((FillMode)index);
 		break;
 	}
+}
+
+void EditorMainWindow::HandleAbout()
+{
+	AboutDlg dlg;
+	dlg.exec();
 }

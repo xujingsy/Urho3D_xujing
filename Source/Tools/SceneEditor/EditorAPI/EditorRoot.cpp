@@ -40,6 +40,31 @@ EditorRoot::EditorRoot()
 	rttScene_ = NULL;
 }
 
+EditorRoot::~EditorRoot()
+{
+
+}
+
+void EditorRoot::New()
+{
+	Open("Scenes/BlankTerrain.xml");
+	fileName_.Clear();
+}
+
+void EditorRoot::Open(const String& fileName)
+{
+	if(scene_)
+	{
+		scene_->Remove();
+	}
+	//fileName
+}
+
+void EditorRoot::Save(const String& fileName)
+{
+
+}
+
 void EditorRoot::InitEditors(Context* context)
 {
 	context_ = context;
