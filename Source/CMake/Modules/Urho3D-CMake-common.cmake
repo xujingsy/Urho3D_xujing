@@ -718,12 +718,16 @@ macro (define_source_files)
     cmake_parse_arguments (ARG "PCH;PARENT_SCOPE" "GROUP" "EXTRA_CPP_FILES;EXTRA_H_FILES;GLOB_CPP_PATTERNS;GLOB_H_PATTERNS" ${ARGN})
 
     # Source files are defined by globbing source files in current source directory and also by including the extra source files if provided
-    file (GLOB CPP_FILES *.cpp)
-    file (GLOB H_FILES *.h)
-    
+    if (NOT ARG_GLOB_CPP_PATTERNS)
+        set (ARG_GLOB_CPP_PATTERNS *.cpp)    # Default glob pattern
+    endif ()
+    if (NOT ARG_GLOB_H_PATTERNS)
+        set (ARG_GLOB_H_PATTERNS *.h)
+    endif ()
+    file (GLOB CPP_FILES ${ARG_GLOB_CPP_PATTERNS})
+    file (GLOB H_FILES ${ARG_GLOB_H_PATTERNS})
     list (APPEND CPP_FILES ${ARG_EXTRA_CPP_FILES})
     list (APPEND H_FILES ${ARG_EXTRA_H_FILES})
-    
     set (SOURCE_FILES ${CPP_FILES} ${H_FILES})
     
     # Optionally enable PCH
