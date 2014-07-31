@@ -162,7 +162,7 @@ if (NOT WIN32)
 endif ()
 
 # Add targets
-foreach (TARGET Box2D Bullet Civetweb Detour FreeType JO kNet LZ4 PugiXml Recast SDL StanHull STB)
+foreach (TARGET Box2D Bullet Civetweb Detour FreeType kNet LZ4 PugiXml Recast SDL StanHull STB)
     add_subdirectory (ThirdParty/${TARGET})
 endforeach ()
 if (URHO3D_ANGELSCRIPT)
