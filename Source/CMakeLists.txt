@@ -30,6 +30,10 @@ macro (add_project_dir DIR PROJFOLDER)
     set_target_properties(${DIR} PROPERTIES FOLDER ${PROJFOLDER})
 endmacro ()
 
+macro (add_solution_folder TARGET PROJECTFOLDER)
+    set_target_properties(${TARGET} PROPERTIES FOLDER ${PROJECTFOLDER})
+endmacro ()
+
 #Add all project dirs
 macro (add_project_dirs SubDirs)
     message (${TARGET_NAME}:\n Create SubFolders: ${ARGC})

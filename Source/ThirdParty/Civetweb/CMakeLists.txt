@@ -11,3 +11,4 @@ set (INCLUDE_DIRS_ONLY include)
 
 # Setup target
 setup_library ()
+add_solution_folder (${TARGET_NAME} ThirdParty)

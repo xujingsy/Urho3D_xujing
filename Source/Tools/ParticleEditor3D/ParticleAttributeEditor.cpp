@@ -174,16 +174,16 @@ void ParticleAttributeEditor::CreateColorFrame()
 
 	//±à¼­°´Å¥
 	QHBoxLayout* hLayout = AddHBoxLayout();
-	
-	btnDeleteColorFrame = new QPushButton("Delete");
-	btnDeleteColorFrame->setFixedWidth(80);
-	hLayout->addWidget(btnDeleteColorFrame);
-	connect(btnDeleteColorFrame, SIGNAL(clicked(bool)), this, SLOT(HandleColorFrameButtonClicked()));
 
 	btnAddColorFrame = new QPushButton("New");
 	btnAddColorFrame->setFixedWidth(80);
 	hLayout->addWidget(btnAddColorFrame);
 	connect(btnAddColorFrame, SIGNAL(clicked(bool)), this, SLOT(HandleColorFrameButtonClicked()));
+
+	btnDeleteColorFrame = new QPushButton("Delete");
+	btnDeleteColorFrame->setFixedWidth(80);
+	hLayout->addWidget(btnDeleteColorFrame);
+	connect(btnDeleteColorFrame, SIGNAL(clicked(bool)), this, SLOT(HandleColorFrameButtonClicked()));
 }
 
 void ParticleAttributeEditor::buildColorFrameTableFromEffect()

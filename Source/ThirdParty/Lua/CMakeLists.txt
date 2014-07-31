@@ -63,3 +63,4 @@ if (NOT IOS AND URHO3D_TOOLS)
     # Setup target
     setup_executable (NODEPS)
 endif ()
+add_solution_folder (${TARGET_NAME} ThirdParty)

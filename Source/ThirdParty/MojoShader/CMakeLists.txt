@@ -12,3 +12,4 @@ endif (MSVC)
 
 # Setup target
 setup_library ()
+add_solution_folder (${TARGET_NAME} ThirdParty)

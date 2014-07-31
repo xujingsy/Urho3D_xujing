@@ -8,3 +8,5 @@ set (SOURCE_FILES ${CPP_FILES} ${H_FILES})
 
 # Setup target
 setup_library ()
+
+add_solution_folder (${TARGET_NAME} ThirdParty)

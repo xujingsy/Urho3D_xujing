@@ -305,3 +305,4 @@ endif ()
 set (LUA_RDIR Data/LuaScripts/)     # Relative directory
 set (LUA_IDIR ${CMAKE_INSTALL_PREFIX}/${DEST_RUNTIME_DIR}/Data/LuaScripts/)     # Installation directory
 add_definitions (-DLUA_RDIR="${LUA_RDIR}" -DLUA_IDIR="${LUA_IDIR}")
+add_solution_folder (${TARGET_NAME} ThirdParty)
