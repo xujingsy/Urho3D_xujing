@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "DebugRenderer.h"
 
-SceneHelper::SceneHelper() : Object(EditorsRoot::Instance()->context_)
+SceneHelper::SceneHelper() : Object(EditorRoot::Instance()->context_)
 {
 	scene2D = new Scene(context_);
 	scene2D->CreateComponent<Octree>();
@@ -34,8 +34,8 @@ void SceneHelper::Init2DScene()
 
 void SceneHelper::HandleUpdate(StringHash eventType, VariantMap& eventData)
 {
-	EditorsRoot* pEditorsRoot = EditorsRoot::Instance();
-	RectSelectionFrame* frame = pEditorsRoot->RectSelectionFrame_;
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
+	RectSelectionFrame* frame = pEditorRoot->RectSelectionFrame_;
 	if(frame && frame->isBegin)
 	{
 		DebugRenderer* render = scene2D->GetComponent<DebugRenderer>();
@@ -76,7 +76,7 @@ Vector2 SceneHelper::GetViewPos(const Vector2& screenPos)
 
 vector<SceneHitResult> SceneHelper::QueryCurrentMousePosObjects(float maxDistance,IntVector2* screenPos)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 
 	vector<SceneHitResult> vecObjects;
 
@@ -120,7 +120,7 @@ vector<SceneHitResult> SceneHelper::QueryCurrentMousePosObjects(float maxDistanc
 vector<Node*> SceneHelper::QueryScreenRectNodes(const Vector2& vecStart,const Vector2& vecEnd)
 {
 	vector<Node*> vResults;
-	query_node_in_rect(EditorsRoot::Instance()->scene_,vResults,vecStart,vecEnd);
+	query_node_in_rect(EditorRoot::Instance()->scene_,vResults,vecStart,vecEnd);
 
 	return vResults;
 }
@@ -137,7 +137,7 @@ void SceneHelper::query_node_in_rect(Node* node,vector<Node*>& outNodes,const Ve
 			{
 				Graphics* graphics = GetSubsystem<Graphics>();
 				//判断Node中心点的投影是否落在矩形内
-				Camera* pCamera = EditorsRoot::Instance()->cameraNode_->GetComponent<Camera>();
+				Camera* pCamera = EditorRoot::Instance()->cameraNode_->GetComponent<Camera>();
 				Vector2 scrPos = pCamera->WorldToScreenPoint(node->GetWorldPosition());
 				scrPos.x_ *= graphics->GetWidth();
 				scrPos.y_ *= graphics->GetHeight();

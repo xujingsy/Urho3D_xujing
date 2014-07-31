@@ -16,7 +16,7 @@ ObjectPositionEditor::ObjectPositionEditor(Context* context) : Object(context)
 //显示选中物体的包围盒
 void ObjectPositionEditor::HandlePostRenderUpdate(StringHash eventType, VariantMap& eventData)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 	DebugRenderer* debug = pEditorRoot->scene_->GetComponent<DebugRenderer>();
 	if(debug == NULL)
 		return;
@@ -73,7 +73,7 @@ void ObjectPositionEditor::HandlePostRenderUpdate(StringHash eventType, VariantM
 
 void ObjectPositionEditor::OnMouseLeftDown(float x,float y,unsigned int buttons)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 	Editor3dGizmo* pGizmo = pEditorRoot->GetGizmo();
 
 	//判断点击的内容，如果是物件判断有没有按住Ctrl多重选择
@@ -140,7 +140,7 @@ void ObjectPositionEditor::OnMouseLeftDown(float x,float y,unsigned int buttons)
 
 void ObjectPositionEditor::OnMouseLeftUp(float x,float y,unsigned int buttons)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 
 	if(isRectSelectionMode == true)
 	{
@@ -168,7 +168,7 @@ Drawable* ObjectPositionEditor::get_edit_object(const vector<SceneHitResult>& re
 		const Urho3D::String& typeName = obj.object->GetTypeName();
 		if(typeName == "StaticModel" || typeName == "AnimatedModel")
 		{
-			if(obj.object != EditorsRoot::Instance()->GetGizmo()->GetModel())
+			if(obj.object != EditorRoot::Instance()->GetGizmo()->GetModel())
 			{
 				return obj.object;
 			}
@@ -187,7 +187,7 @@ bool ObjectPositionEditor::is_axis_object(const vector<SceneHitResult>& result)
 		const Urho3D::String& typeName = obj.object->GetTypeName();
 		if(typeName == "StaticModel" || typeName == "AnimatedModel")
 		{
-			if(obj.object == EditorsRoot::Instance()->GetGizmo()->GetModel())
+			if(obj.object == EditorRoot::Instance()->GetGizmo()->GetModel())
 			{
 				return true;
 			}
@@ -201,7 +201,7 @@ bool ObjectPositionEditor::is_axis_object(const vector<SceneHitResult>& result)
 //2.单选还是移动
 void ObjectPositionEditor::OnMouseMove(float x,float y,unsigned int buttons)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 	//显示名字UI
 	char szName[256];
 
@@ -259,11 +259,11 @@ void ObjectPositionEditor::OnMouseMove(float x,float y,unsigned int buttons)
 
 				if(bXHover || bYHover || bZHover)
 				{
-					EditorsRoot::Instance()->GetMainWindow()->setCursor(Qt::SizeAllCursor);
+					EditorRoot::Instance()->GetMainWindow()->setCursor(Qt::SizeAllCursor);
 				}
 				else
 				{
-					EditorsRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
+					EditorRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
 				}
 			}
 			else
@@ -272,7 +272,7 @@ void ObjectPositionEditor::OnMouseMove(float x,float y,unsigned int buttons)
 				if(selObject == NULL)
 				{
 					//非当前可编辑的对象，直接退出
-					EditorsRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
+					EditorRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
 					return;
 				}
 
@@ -286,12 +286,12 @@ void ObjectPositionEditor::OnMouseMove(float x,float y,unsigned int buttons)
 				//仅当在非当前选择的节点上时才显示+
 				if(isHoverInSel == false)
 				{
-					EditorsRoot::Instance()->GetMainWindow()->setCursor(Qt::CrossCursor);
+					EditorRoot::Instance()->GetMainWindow()->setCursor(Qt::CrossCursor);
 				}
 
 				if(isHoverInSel == false && selObject == NULL)
 				{
-					EditorsRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
+					EditorRoot::Instance()->GetMainWindow()->setCursor(Qt::ArrowCursor);
 				}
 			}
 		}
@@ -303,7 +303,7 @@ bool ObjectPositionEditor::IsEditObject(Drawable* obj)
 	const Urho3D::String& typeName = obj->GetTypeName();
 	if(typeName == "StaticModel" || typeName == "AnimatedModel")
 	{
-		if(obj != EditorsRoot::Instance()->GetGizmo()->GetModel())
+		if(obj != EditorRoot::Instance()->GetGizmo()->GetModel())
 		{
 			return true;
 		}
@@ -327,7 +327,7 @@ bool ObjectPositionEditor::OnKeyUp(unsigned short key)
 {
 	if(key == 46)
 	{
-		vector<Node*>& editNodes = EditorsRoot::Instance()->SelectionNodes;
+		vector<Node*>& editNodes = EditorRoot::Instance()->SelectionNodes;
 		for(int i = 0;i < editNodes.size();i ++)
 		{
 			Node* pNode = editNodes[i];
@@ -343,14 +343,14 @@ bool ObjectPositionEditor::OnKeyUp(unsigned short key)
 
 void ObjectPositionEditor::OnObjectSelect(Node* pNode)
 {
-	EditorsRoot* pEditorsRoot = EditorsRoot::Instance();
-	if(pEditorsRoot->IsCtrlPressed() == false)
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
+	if(pEditorRoot->IsCtrlPressed() == false)
 	{
-		pEditorsRoot->CancelAllSelection();
+		pEditorRoot->CancelAllSelection();
 	}
 	
 	//判断有没有
-	vector<Node*>& editNodes = pEditorsRoot->SelectionNodes;
+	vector<Node*>& editNodes = pEditorRoot->SelectionNodes;
 	vector<Node*>::iterator it = editNodes.begin();
 	while(it != editNodes.end())
 	{
@@ -377,8 +377,8 @@ void ObjectPositionEditor::OnNodesCopy()
 {
 	nodes_clipboard_data.clear();
 
-	EditorsRoot* pEditorsRoot = EditorsRoot::Instance();
-	const vector<Node*>& nodes = pEditorsRoot->SelectionNodes;
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
+	const vector<Node*>& nodes = pEditorRoot->SelectionNodes;
 	for(int i = 0;i < nodes.size();i ++)
 	{
 		const Node* pNode = nodes[i];
@@ -386,7 +386,7 @@ void ObjectPositionEditor::OnNodesCopy()
 		NodeData nodeData;
 		nodeData.NodeID = pNode->GetID();
 		nodeData.ParentNodeID = pNode->GetParent()->GetID();
-		nodeData.xmlData = new XMLFile(pEditorsRoot->context_);
+		nodeData.xmlData = new XMLFile(pEditorRoot->context_);
 		pNode->SaveXML(nodeData.xmlData->CreateRoot("Node"));
 
 		nodes_clipboard_data.push_back(nodeData);
@@ -396,20 +396,20 @@ void ObjectPositionEditor::OnNodesCopy()
 //粘贴以后剪贴板不释放
 void ObjectPositionEditor::OnNodesPaste()
 {
-	EditorsRoot* pEditorsRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 
 	list<NodeData>::iterator it = nodes_clipboard_data.begin();
 	while(it != nodes_clipboard_data.end())
 	{
 		NodeData& data = *it;
 
-		Node* pParentNode = pEditorsRoot->scene_->GetNode(data.ParentNodeID);
+		Node* pParentNode = pEditorRoot->scene_->GetNode(data.ParentNodeID);
 		if(pParentNode != NULL)
 		{
 			Node* pNode = pParentNode->CreateChild();
 			pNode->LoadXML(data.xmlData->GetRoot("Node"));
-			pEditorsRoot->SendNodeUpdateShowEvent(pNode);
-			//pNode->SetID(pEditorsRoot->scene_->GetFreeNodeID(CreateMode::REPLICATED));
+			pEditorRoot->SendNodeUpdateShowEvent(pNode);
+			//pNode->SetID(pEditorRoot->scene_->GetFreeNodeID(CreateMode::REPLICATED));
 			//pParentNode->AddChild(pNode);
 			//pNode->SetName(String::EMPTY);
 

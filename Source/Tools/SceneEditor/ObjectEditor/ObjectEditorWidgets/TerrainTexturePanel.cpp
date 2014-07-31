@@ -8,10 +8,10 @@ TerrainTexturePanel::TerrainTexturePanel(QWidget* parent)
 
 void TerrainTexturePanel::BeginEditParams(Node* pNode)
 {
-	EditorsRoot::Instance()->ActiveTool = TOOL_PAINT;
+	EditorRoot::Instance()->ActiveTool = TOOL_PAINT;
 }
 
 void TerrainTexturePanel::EndEditParams()
 {
-	EditorsRoot::Instance()->ActiveTool = TOOL_SELECT;
+	EditorRoot::Instance()->ActiveTool = TOOL_SELECT;
 }

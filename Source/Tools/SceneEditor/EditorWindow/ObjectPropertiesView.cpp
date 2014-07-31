@@ -72,7 +72,7 @@ void ObjectPropertiesView::SetTarget(Node* pTarget)
 		++ it;
 	}
 
-	if(pTarget == EditorsRoot::Instance()->scene_)
+	if(pTarget == EditorRoot::Instance()->scene_)
 	{
 		sceneWidget_->Init(pTarget);
 		vContentLayout->addWidget(sceneWidget_);

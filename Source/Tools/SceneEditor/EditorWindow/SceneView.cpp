@@ -27,7 +27,7 @@ void SceneView::mouseReleaseEvent(QMouseEvent *evt)
 {
 	if(evt->button() == Qt::RightButton)
 	{
-		EditorsRoot::Instance()->GetMainWindow()->GetSceneWidget()->showObjectMenu();
+		EditorRoot::Instance()->GetMainWindow()->GetSceneWidget()->showObjectMenu();
 	}
 }
 
@@ -77,7 +77,7 @@ void SceneView::HandleNodeSelectionChange(StringHash eventType, VariantMap& even
 	ClearAllSelection();
 
 	bSelectTrigger = false;
-	vector<Node*>& SelectionNodes = EditorsRoot::Instance()->SelectionNodes;
+	vector<Node*>& SelectionNodes = EditorRoot::Instance()->SelectionNodes;
 	for(int i = 0;i < SelectionNodes.size();i ++)
 	{
 		QTreeWidgetItem* item = get_item_by_node(SelectionNodes[i]);
@@ -183,11 +183,11 @@ bool SceneView::update_node_icon(QTreeWidgetItem* item,Node* pNode)
 	{
 		item->setIcon(0,QIcon(":/Images/Components/Zone.png"));
 	}
-	else if(pNode == EditorsRoot::Instance()->scene_)
+	else if(pNode == EditorRoot::Instance()->scene_)
 	{
 		item->setIcon(0,QIcon(":/Images/Components/Root.png"));
 	}
-	else if(pNode == EditorsRoot::Instance()->GetGizmo()->GetNode())
+	else if(pNode == EditorRoot::Instance()->GetGizmo()->GetNode())
 	{
 		this->removeItemWidget(item,0);
 		return false;
@@ -222,7 +222,7 @@ void SceneView::selectionChanged()
 
 void SceneView::on_node_select(Node* pNode)
 {
-	EditorsRoot::Instance()->OnNodeSelect(pNode);
+	EditorRoot::Instance()->OnNodeSelect(pNode);
 }
 
 //双击摄像机跳转
@@ -231,14 +231,14 @@ void SceneView::itemDoubleClicked(QTreeWidgetItem *item, int column)
 	Node* pNode = get_node_by_item(item);
 	if(pNode != NULL)
 	{
-		Node* cameraNode_ = EditorsRoot::Instance()->cameraNode_;
+		Node* cameraNode_ = EditorRoot::Instance()->cameraNode_;
 		//focus
 		Camera* pCamera = cameraNode_->GetComponent<Camera>();
 		if(pCamera)
 		{
 			Ray cameraRay = pCamera->GetScreenRay(0.5,0.5);
 			Vector3 objPosition = pNode->GetWorldPosition();
-			Vector3 dist = cameraRay.direction_ * (EditorsRoot::Instance()->GetNodeSize(pNode) + 5.);	//当前Camera角度方向远离15单元 todo:根据物体大小进行调整
+			Vector3 dist = cameraRay.direction_ * (EditorRoot::Instance()->GetNodeSize(pNode) + 5.);	//当前Camera角度方向远离15单元 todo:根据物体大小进行调整
 
 			cameraNode_->SetWorldPosition(objPosition - dist);
 		}
@@ -250,7 +250,7 @@ Node* SceneView::get_node_by_item(QTreeWidgetItem* item)
 	int ID = item->whatsThis(0).toInt();
 	if(ID > 0)
 	{
-		Node* pNode = EditorsRoot::Instance()->scene_->GetNode(ID);
+		Node* pNode = EditorRoot::Instance()->scene_->GetNode(ID);
 		return pNode;
 	}
 	else

@@ -15,7 +15,7 @@ bool GizmoAxis::QueryRaySelect(const Ray& worldRay)
 	d = axisRay.Distance(closest);	//两边间的间距
 
 	//判断坐标轴是否在视野的后面
-	Node* cameraNode = EditorsRoot::Instance()->cameraNode_;
+	Node* cameraNode = EditorRoot::Instance()->cameraNode_;
 	Plane axisPlane(cameraNode->GetWorldPosition(),pOwnerGizmo->GetNode()->GetWorldPosition(),axisRay.origin_ + axisRay.direction_);
 	if(axisPlane.Distance(closest) < 0.0)
 		d = -d;
@@ -55,16 +55,16 @@ void Editor3dGizmo::BeginDrag()
 	gizmoAxisZ->lastD = gizmoAxisZ->d;
 
 	//todo:
-	posOnClick_ = EditorsRoot::Instance()->SelectionNodes[0]->GetWorldPosition();
+	posOnClick_ = EditorRoot::Instance()->SelectionNodes[0]->GetWorldPosition();
 }
 
 void Editor3dGizmo::EndDrag()
 {
 	IsDrag = false;
 
-	if(EditorsRoot::Instance()->SelectionNodes.size() > 0)
+	if(EditorRoot::Instance()->SelectionNodes.size() > 0)
 	{
-		Node* pNode = EditorsRoot::Instance()->SelectionNodes[0];
+		Node* pNode = EditorRoot::Instance()->SelectionNodes[0];
 		gizmoNode->SetWorldPosition(pNode->GetWorldPosition());
 	}
 
@@ -82,7 +82,7 @@ void Editor3dGizmo::UpdateMovePosition()
 		adjust += Vector3(0,0,1) * (gizmoAxisZ->t - gizmoAxisZ->lastT);
 
 	//todo:多个Node的情况
-	Node* pNode = EditorsRoot::Instance()->SelectionNodes[0];
+	Node* pNode = EditorRoot::Instance()->SelectionNodes[0];
 	pNode->SetWorldPosition(posOnClick_ + adjust);
 
 	gizmoNode->SetEnabled(false);
@@ -92,7 +92,7 @@ void Editor3dGizmo::CreateGizmo()
 {
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
-	gizmoNode = EditorsRoot::Instance()->scene_->CreateChild("Axis");
+	gizmoNode = EditorRoot::Instance()->scene_->CreateChild("Axis");
 	gizmo = gizmoNode->CreateComponent<StaticModel>();
 	gizmo->SetTemporary(true);	//这样不会被保存
 
@@ -103,7 +103,7 @@ void Editor3dGizmo::CreateGizmo()
 	//gizmo->SetMaterial(2,cache->GetResource<Material>("Materials/Editor/BlueUnlit.xml"));
 	gizmo->SetEnabled(false);
 
-	EditorsRoot::Instance()->SendNodeUpdateShowEvent(gizmoNode);
+	EditorRoot::Instance()->SendNodeUpdateShowEvent(gizmoNode);
 
 	//
 	gizmoAxisX = new GizmoAxis(context_);
@@ -127,7 +127,7 @@ void Editor3dGizmo::HandleUpdate(StringHash eventType, VariantMap& eventData)
 	if(gizmo->IsEnabled() == false)
 		return;
 
-	Node* cameraNode_ = EditorsRoot::Instance()->cameraNode_;
+	Node* cameraNode_ = EditorRoot::Instance()->cameraNode_;
 	Camera* pCamera = cameraNode_->GetComponent<Camera>();
 	if(pCamera != NULL)
 	{

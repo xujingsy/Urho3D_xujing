@@ -101,10 +101,10 @@ void TerrainPanel::brushIndexChanged()
 
 	QString str = brushWidget->currentItem()->whatsThis();
 
-	TerrainBrush* brush = EditorsRoot::Instance()->GetTerrainEditor()->GetBrush();
+	TerrainBrush* brush = EditorRoot::Instance()->GetTerrainEditor()->GetBrush();
 	if(brush != NULL)
 	{
-		ResourceCache* cache = EditorsRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
+		ResourceCache* cache = EditorRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
 		brush->SetBrushTexture(cache->GetResource<Texture2D>(str.toStdString().c_str()));
 	}
 }
@@ -118,25 +118,25 @@ void TerrainPanel::add_brush(const char* pBrushTex)
 
 void TerrainPanel::BeginEditParams(Node* pNode)
 {
-	TerrainBrush* brush = EditorsRoot::Instance()->GetTerrainEditor()->GetBrush();
+	TerrainBrush* brush = EditorRoot::Instance()->GetTerrainEditor()->GetBrush();
 	if(brush != NULL)
 	{
 		sldBrushSize->setSliderPosition(brush->GetBrushSize());
 	}
 
-	EditorsRoot::Instance()->ActiveTool = TOOL_DEFORM;
+	EditorRoot::Instance()->ActiveTool = TOOL_DEFORM;
 }
 
 void TerrainPanel::EndEditParams()
 {
-	EditorsRoot::Instance()->ActiveTool = TOOL_SELECT;
+	EditorRoot::Instance()->ActiveTool = TOOL_SELECT;
 }
 
 void TerrainPanel::brushSizeValueChanged ( int value )
 {
 	lblBrushSize->setText(QString::number(sldBrushSize->sliderPosition(),10));
 
-	TerrainEditor* pEditor = EditorsRoot::Instance()->GetTerrainEditor();
+	TerrainEditor* pEditor = EditorRoot::Instance()->GetTerrainEditor();
 	if(pEditor != NULL)
 	{
 		TerrainBrush* brush = pEditor->GetBrush();

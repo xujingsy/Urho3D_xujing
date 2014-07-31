@@ -4,16 +4,16 @@
 
 RectSelectionFrame::RectSelectionFrame()
 {
-	Context* context_ = EditorsRoot::Instance()->context_;
+	Context* context_ = EditorRoot::Instance()->context_;
 
 	border_ = new BorderImage(context_);
-	ResourceCache* cache = EditorsRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
+	ResourceCache* cache = EditorRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
 
 	border_->SetTexture(cache->GetResource<Texture2D>("Textures/Brushes/Rect.png"));
 	border_->SetBlendMode(BlendMode::BLEND_SUBTRACT);
 	border_->SetPosition(100,100);
 
-	EditorsRoot::Instance()->UIRoot_->AddChild(border_);
+	EditorRoot::Instance()->UIRoot_->AddChild(border_);
 
 	isBegin = false;
 }
