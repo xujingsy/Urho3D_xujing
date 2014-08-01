@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "EditorApplication.h"
-#include <qsplashscreen.h>
+#include <QSplashScreen>
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,

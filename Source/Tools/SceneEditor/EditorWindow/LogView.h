@@ -1,8 +1,8 @@
 #pragma once
-#include <qwidget.h>
-#include <qlistwidget.h>
-#include <qtoolbar.h>
-#include <qpushbutton.h>
+#include <QWidget>
+#include <QListWidget>
+#include <QToolBar>
+#include <QPushButton>
 
 class LogView : public QWidget
 {

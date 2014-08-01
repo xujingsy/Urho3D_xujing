@@ -1,16 +1,17 @@
 #pragma once
-#include <qwidget.h>
-#include <qdialog.h>
-#include <qcheckbox.h>
-#include <qradiobutton.h>
-#include <qboxlayout.h>
-#include <qicon.h>
-#include <qpushbutton.h>
+#include <QWidget>
+#include <QDialog>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QBoxLayout>
+#include <QIcon>
+#include <QPushButton>
 
 namespace Urho3D
 {
 	class Context;
 }
+
 using namespace Urho3D;
 
 class ModelTool : public QDialog

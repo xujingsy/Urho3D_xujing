@@ -1,8 +1,8 @@
 #pragma once
-#include <qwidget.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qboxlayout.h>
+#include <QWidget>
+#include <QLabel>
+#include <QPushButton>
+#include <QBoxLayout>
 #include <QGroupBox>
 
 namespace Urho3D

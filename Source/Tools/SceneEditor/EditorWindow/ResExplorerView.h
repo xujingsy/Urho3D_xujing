@@ -1,7 +1,7 @@
 #pragma once
-#include <qwidget.h>
-#include <qtreewidget.h>
-#include <qevent.h>
+#include <QWidget>
+#include <QTreeWidget>
+#include <QEvent>
 
 class ResExplorerView : public QTreeWidget
 {

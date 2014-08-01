@@ -1,7 +1,8 @@
 #pragma once
-#include <qwidget.h>
-#include <qtreewidget.h>
-#include <qmenu.h>
+#include <QWidget>
+#include <QTreeWidget>
+#include <QMenu>
+
 #include "Object.h"
 
 namespace Urho3D

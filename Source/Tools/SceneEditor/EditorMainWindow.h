@@ -1,13 +1,15 @@
 #pragma once
 #include <QMainWindow.h>
-#include <qlistwidget.h>
-#include <qtabwidget.h>
-#include <qdockwidget.h>
+#include <QListWidget>
+#include <QTabWidget>
+#include <QDockWidget>
+
 #include "EditorWindow/SceneView.h"
 #include "EditorWindow/ObjectPropertiesView.h"
 #include "EditorWindow/ResExplorerView.h"
 #include "OtherTools/ModelTool.h"
 #include "EditorWindow/LogView.h"
+
 #include "Object.h"
 using namespace Urho3D;
 

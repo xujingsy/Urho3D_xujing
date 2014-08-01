@@ -1,5 +1,5 @@
 #pragma once
-#include <qwidget.h>
+#include <QWidget>
 #include "Node.h"
 using namespace Urho3D;
 

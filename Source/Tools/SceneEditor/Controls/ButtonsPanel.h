@@ -2,12 +2,13 @@
 #include <vector>
 #include <string>
 using namespace std;
-#include <qframe.h>
-#include <qpushbutton.h>
-#include <qscrollarea.h>
+#include <QFrame>
+#include <QPushButton>
+#include <QScrollArea>
+#include <QBoxLayout>
+#include <QtGui/QSplitter>
+
 #include "EditTool.h"
-#include <qboxlayout.h>
-#include <QtGui/qsplitter.h>
 
 class ButtonsPanel : public QWidget
 {

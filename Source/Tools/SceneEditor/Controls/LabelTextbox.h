@@ -1,8 +1,9 @@
 #pragma once
-#include <qwidget.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <Windows.h>
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+
+#include <Windows.h>	//todo:使用Qt自身的坐标
 
 class LabelTextBox : public QWidget
 {

@@ -1,8 +1,9 @@
 #pragma once
-#include <qwidget.h>
-#include <qcolor.h>
-#include <qpainter.h>
-#include "Color.h"	//Urho Color
+#include <QWidget>
+#include <QColor>
+#include <QPainter>
+
+#include "Color.h"
 
 class ColorPickerWidget : public QWidget
 {

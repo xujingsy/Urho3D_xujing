@@ -1,6 +1,6 @@
 #pragma once
-#include <QWidget.h>
-#include <qevent.h>
+#include <QWidget>
+#include <QEvent>
 #include <Windows.h>
 
 //ÒıÇæäÖÈ¾´°¿Ú

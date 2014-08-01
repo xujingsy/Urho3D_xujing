@@ -59,29 +59,36 @@ using namespace Urho3D;
 #include "EditorAPI/EditorRoot.h"
 
 //Qt常用头文件
-#include <QAction>
 #include <QWidget>
-#include <QMenuBar>
-#include <QMenu>
-#include <QFont>
 #include <QTextEdit>
-#include <QPushButton>
 #include <QLabel>
-#include <QImage>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QComboBox>
+#include <QPushButton>
+
+#include <QList>
+#include <QFrame>
+#include <QTreeWidget>
 #include <QToolBar>
 #include <QStatusBar>
-#include <QTreeWidget>
-#include <QComboBox>
-#include <QBoxLayout>
-#include <QGridLayout>
-#include <QDockWidget>
-#include <QList>
-#include <QUrl>
-#include <QStatusBar>
-#include <QFile>
-#include <QTimer.h>
-#include <QColor>
 #include <QScrollBar>
 #include <QScrollArea>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+#include <QListWidget>
+
+#include <QBoxLayout>
+#include <QGridLayout>
+#include <QDockWidget>
+
+#include <QImage>
+#include <QUrl>
+#include <QFile>
+#include <QTimer>
+#include <QColor>
+#include <QFont>
+#include <QMouseEvent>
