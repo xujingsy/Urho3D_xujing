@@ -45,24 +45,115 @@ EditorRoot::~EditorRoot()
 
 }
 
-void EditorRoot::New()
-{
-	Open("Scenes/BlankTerrain.xml");
-	fileName_.Clear();
-}
-
-void EditorRoot::Open(const String& fileName)
+void EditorRoot::NewScene()
 {
 	if(scene_)
 	{
 		scene_->Remove();
 	}
-	//fileName
+	else
+	{
+		scene_ = new Scene(context_);
+	}
+
+	ResourceCache* cache = context_->GetSubsystem<ResourceCache>();
+
+	scene_->CreateComponent<DebugRenderer>();
+	scene_->CreateComponent<Octree>();
+
+	//创建默认Zone
+	Node* zoneNode = scene_->CreateChild("Zone");
+	Zone* zone = zoneNode->CreateComponent<Zone>();
+	zone->SetBoundingBox(BoundingBox(-1000.0f, 1000.0f));
+	zone->SetAmbientColor(Color(250./255.,208./255.,160./255.));
+	zone->SetOccluder(true);
+	zone->SetAmbientGradient(true);
+	zone->SetFogColor(Color(0.1f, 0.2f, 0.3f));
+	zone->SetFogStart(10.0f);
+	zone->SetFogEnd(100.0f);
+
+	//创建默认的天空盒
+	Node* skyNode = scene_->CreateChild("Sky");
+	skyNode->SetScale(500.0f); // The scale actually does not matter
+	Skybox* skybox = skyNode->CreateComponent<Skybox>();
+	skybox->SetModel(cache->GetResource<Model>("Models/Box.mdl"));
+	skybox->SetMaterial(cache->GetResource<Material>("Materials/Skybox.xml"));
+
+	// 创建默认地形
+	terrainNode = scene_->CreateChild("Terrain");
+	terrainNode->SetPosition(Vector3::ZERO);
+	terrain_ = terrainNode->CreateComponent<Terrain>();
+	terrain_->SetPatchSize(64);
+	terrain_->SetSpacing(Vector3(2.0f, 0.1f, 2.0f)); // Spacing between vertices and vertical resolution of the height map
+	terrain_->SetSmoothing(false);
+	terrain_->SetHeightMap(cache->GetResource<Image>("Textures/HeightMap.png"));
+	terrain_->SetMaterial(cache->GetResource<Material>("Materials/Terrain.xml"));
+	// The terrain consists of large triangles, which fits well for occlusion rendering, as a hill can occlude all
+	// terrain patches and other objects behind it
+	terrain_->SetOccluder(true);
+
+	//创建默认灯光
+	Node* lightNode = scene_->CreateChild("DirectionalLight");
+	lightNode->SetDirection(Vector3(1.6f, -1.0f, 0.8f)); // The direction vector does not need to be normalized
+	Light* light = lightNode->CreateComponent<Light>();
+	light->SetLightType(LIGHT_DIRECTIONAL);
+	float fBri = light->GetBrightness();
+	light->SetBrightness(1.0f);
+	light->SetCastShadows(true);
+	//light->SetShadowBias(BiasParameters(0.00025f, 0.5f));
+	light->SetShadowCascade(CascadeParameters(10.0f, 50.0f, 200.0f, 0.0f, 0.8f));
+	light->SetShadowIntensity(1.0);
+
+	//创建主Camera
+	cameraNode_ = scene_->CreateChild("Camera");
+	cameraNode_->CreateComponent<Camera>();
+	cameraNode_->SetPosition(Vector3(0.0f, 15.0f, 0.0f));	//初始位置
+
+	Camera* pCamera = cameraNode_->GetComponent<Camera>();
+	pCamera->SetFarClip(300.0f);
+
+	//设置默认ViewPort
+	SharedPtr<Viewport> viewport(new Viewport(context_, scene_, cameraNode_->GetComponent<Camera>()));
+	Renderer* renderer = context_->GetSubsystem<Renderer>();
+	renderer->SetViewport(0, viewport);
+
+	//////////////////////////////////////////////////////////////////////////
+	fileName_.Clear();
 }
 
-void EditorRoot::Save(const String& fileName)
+bool EditorRoot::OpenScene(const char* sceneFile)
 {
+	if(scene_)
+	{
+		scene_->Remove();
+	}
+	else
+	{
+		scene_ = new Scene(context_);
+	}
 
+	File file(context_);
+	if(!file.Open(sceneFile, FILE_READ))
+	{
+		LOGERROR("Open " + String(sceneFile) + " failed");
+		return false;
+	}
+
+	bool result = scene_->LoadXML(file);
+
+	return result;
+}
+
+void EditorRoot::SaveScene(const char* sceneFile)
+{
+	File file(context_);
+	if(!file.Open(sceneFile, FILE_WRITE))
+	{
+		LOGERROR("Open " + String(sceneFile) + " failed");
+		return;
+	}
+
+	scene_->SaveXML(file);
 }
 
 void EditorRoot::InitEditors(Context* context)
@@ -140,11 +231,6 @@ float EditorRoot::GetNodeSize(Node* pNode)
 	}
 
 	return 0;
-}
-
-void EditorRoot::OpenScene(const char* sceneFile)
-{
-
 }
 
 void EditorRoot::CancelAllSelection()

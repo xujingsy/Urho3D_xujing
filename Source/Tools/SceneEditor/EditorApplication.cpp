@@ -13,7 +13,7 @@ EditorApplication::EditorApplication(int argc, char** argv,Context* context) : Q
 {
 	EditorRoot::Instance()->context_ = context;
 
-	SetStyleSheet(":/qdarkstyle/style.qss");
+	SetStyleSheet("makehuman.qss");
 
     mainWindow_ = new EditorMainWindow();
 }
@@ -88,7 +88,7 @@ int EditorApplication::Run()
 	editorRoot_->InitEditorUI(context_);
 
 	//创建默认场景
-	EditorRoot::Instance()->GetTerrainEditor()->InitDefaultScene();
+	EditorRoot::Instance()->NewScene();
 
 	mainWindow_->GetProjectView()->Init(EditorRoot::Instance()->scene_);
 
@@ -96,7 +96,6 @@ int EditorApplication::Run()
     connect(&timer, SIGNAL(timeout()), this, SLOT(OnTimeout()));
     timer.start(1000 / 60);
 
-	EditorRoot::Instance()->GetMainWindow()->GetPropertiesView()->SetTarget(EditorRoot::Instance()->cameraNode_);
 
     return QApplication::exec();
 }

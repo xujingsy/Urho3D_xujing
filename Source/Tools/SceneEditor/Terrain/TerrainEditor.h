@@ -47,11 +47,6 @@ public:
 	//设置当前编辑模式
 	void setEditMode(unsigned int mode);
 
-	//打开编辑器时初始化一个默认的场景
-	void InitDefaultScene();
-
-	void InitDefault2DScene();
-
 	TerrainBrush* GetBrush()
 	{
 		return brush_;
@@ -64,8 +59,6 @@ private:
 
 	Node* brushNode_;
 	TerrainBrush* brush_;
-
-	void setupViewport();
 
 	//当
 	void on_viewport_click(float x,float y);

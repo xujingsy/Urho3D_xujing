@@ -42,12 +42,6 @@ public:
 	EditorRoot();
 	~EditorRoot();
 
-	void New();
-
-	void Open(const String& fileName);
-
-	void Save(const String& fileName);
-
 	//添加新的ToolBar
 	void RegisterToolBar(void* plugin,void * toolbar);
 
@@ -88,7 +82,11 @@ public:
 	ObjectNameTip* ObjectNameTip_;
 	RectSelectionFrame* RectSelectionFrame_;
 
-	void OpenScene(const char* sceneFile);
+	void NewScene();
+
+	void SaveScene(const char* sceneFile);
+
+	bool OpenScene(const char* sceneFile);
 
 	//当前活跃的编辑方式
 	enEditorTools ActiveTool;

@@ -10,11 +10,11 @@ AboutDlg::AboutDlg(QWidget* parent)
 
 	QPixmap bmp(QString::fromUtf8(":/Images/Icon.png"));
 	lblIcon->setPixmap(bmp);
-	lblIcon->setGeometry(QRect(225, 75, 136, 137));
+	lblIcon->setGeometry(QRect(225, 40, 136, 137));
 
 	QLabel* lblInfo = new QLabel("Urho3D Scene Editor", this);
-	lblInfo->setGeometry(QRect(50, 30, 250, 36));
-	lblInfo->setFont(QFont("Times", 20, QFont::Bold));
+	lblInfo->setGeometry(QRect(50, 30, 173, 36));
+	lblInfo->setFont(QFont("Times", 18, QFont::Bold));
 
 	QLabel* lblVersion = new QLabel("Version: 0.0.0.1", this);
 	lblVersion->setGeometry(QRect(50, 130, 125, 30));

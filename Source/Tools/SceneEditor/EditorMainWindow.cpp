@@ -319,7 +319,19 @@ void EditorMainWindow::HandleOpenAction()
 
 void EditorMainWindow::HandleSaveAction()
 {
+	const String fileName = EditorRoot::Instance()->GetFileName();
+	if(fileName == "")
+	{
+		QString  selFileName = QFileDialog::getSaveFileName(this, tr("Save Scene"), "./Data/Scene/", "*.xml");
+		if(selFileName.isEmpty())
+			return;
 
+		EditorRoot::Instance()->SaveScene(selFileName.toStdString().c_str());
+	}
+	else
+	{
+		EditorRoot::Instance()->SaveScene(fileName.CString());
+	}
 }
 
 void EditorMainWindow::HandleSelectTool(bool checked)
