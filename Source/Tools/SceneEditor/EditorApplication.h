@@ -18,7 +18,7 @@ namespace Urho3D
 	class Terrain;
 }
 
-class EditorMainWindow;
+class MainWindow;
 
 using namespace Urho3D;
 
@@ -58,6 +58,6 @@ private:
 
     SharedPtr<Engine> engine_;
 
-    EditorMainWindow* mainWindow_;
+    MainWindow* mainWindow_;
 	EditorRoot* editorRoot_;
 };

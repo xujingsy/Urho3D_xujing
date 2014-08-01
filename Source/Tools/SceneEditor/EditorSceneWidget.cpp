@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EditorSceneWidget.h"
 #include "Manager/SceneHelper.h"
-#include "EditorMainWindow.h"
+#include "MainWindow.h"
 
 EditorSceneWidget::EditorSceneWidget(QWidget* parent, Qt::WindowFlags flags) : QWidget(parent, flags)
 {
@@ -197,7 +197,7 @@ void EditorSceneWidget::showObjectMenu()
 	if(pEditorRoot->SelectionNodes.empty())
 		return;
 
-	EditorMainWindow* mMainWindow = pEditorRoot->GetMainWindow();
+	MainWindow* mMainWindow = pEditorRoot->GetMainWindow();
 
 	QMenu* contextMenu = new QMenu(this);
 	if(pEditorRoot->SelectionNodes.size() == 1)

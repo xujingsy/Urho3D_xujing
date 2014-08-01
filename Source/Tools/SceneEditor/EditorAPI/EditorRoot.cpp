@@ -141,6 +141,11 @@ bool EditorRoot::OpenScene(const char* sceneFile)
 
 	bool result = scene_->LoadXML(file);
 
+	if(result == true)
+	{
+		scene_->SendEvent(E_SCENE_RESET);
+	}
+
 	return result;
 }
 

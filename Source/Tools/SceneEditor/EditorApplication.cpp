@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EditorApplication.h"
 #include "ProcessUtils.h"
-#include "EditorMainWindow.h"
+#include "MainWindow.h"
 #include "DebugHud.h"
 #include "Skybox.h"
 #include "EditorSceneWidget.h"
@@ -15,7 +15,7 @@ EditorApplication::EditorApplication(int argc, char** argv,Context* context) : Q
 
 	SetStyleSheet("makehuman.qss");
 
-    mainWindow_ = new EditorMainWindow();
+    mainWindow_ = new MainWindow();
 }
 
 EditorApplication::~EditorApplication()

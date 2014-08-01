@@ -1,14 +1,14 @@
 #pragma once
-#include "../Single.h"
-#include "../EditorMainWindow.h"
-#include "../Terrain/TerrainEditor.h"
-#include "Context.h"
 #include <string>
 #include <map>
-
 using namespace std;
+
+#include "Context.h"
+
+#include "../Single.h"
+#include "../MainWindow.h"
+#include "../Terrain/TerrainEditor.h"
 #include "../EditorAssist/RTTScene.h"
-#include "../EditorMainWindow.h"
 #include "../EditorAssist/EditorGizmo.h"
 #include "../ObjectEditor/ObjectPositionEditor.h"
 #include "../EditorAssist/ObjectNameTip.h"
@@ -91,12 +91,12 @@ public:
 	//当前活跃的编辑方式
 	enEditorTools ActiveTool;
 
-	EditorMainWindow* GetMainWindow()
+	MainWindow* GetMainWindow()
 	{
 		return mainWindow_;
 	}
 
-	void SetMainWindow(EditorMainWindow* pWindow)
+	void SetMainWindow(MainWindow* pWindow)
 	{
 		mainWindow_ = pWindow;
 	}
@@ -183,7 +183,7 @@ private:
 	ObjectPositionEditor* objectEditor_;
 
 	Editor3dGizmo* gizmo_;
-	EditorMainWindow* mainWindow_;
+	MainWindow* mainWindow_;
 
 	RTTScene* rttScene_;
 

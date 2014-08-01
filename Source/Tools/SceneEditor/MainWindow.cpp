@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EditorMainWindow.h"
+#include "MainWindow.h"
 #include "EditorSceneWidget.h"
 #include "Manager/UndoManager.h"
 #include "Controls/ButtonsPanel.h"
@@ -9,7 +9,7 @@
 #include "EditorWindow/AboutDlg.h"
 
 //主要通过Dock分隔窗口
-EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
+MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
 {
     showMaximized();
 
@@ -82,20 +82,20 @@ EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMa
 	OnNewScene();
 
 	//注册一些引擎事件(用于更新UI显示)
-	SubscribeToEvent(E_NODE_SELECTION_CHANGE,HANDLER(EditorMainWindow,HandleSelectionChanged));
+	SubscribeToEvent(E_NODE_SELECTION_CHANGE,HANDLER(MainWindow, HandleSelectionChanged));
 }
 
-EditorMainWindow::~EditorMainWindow()
+MainWindow::~MainWindow()
 {
 
 }
 
-bool EditorMainWindow::eventFilter(QObject *obj,  QEvent *event)
+bool MainWindow::eventFilter(QObject *obj,  QEvent *event)
 {
 	return QMainWindow::eventFilter(obj,event);
 }
 
-void EditorMainWindow::HandleSelectionChanged(StringHash eventType, VariantMap& eventData)
+void MainWindow::HandleSelectionChanged(StringHash eventType, VariantMap& eventData)
 {
 	int SelCount = EditorRoot::Instance()->SelectionNodes.size();
 	renameAction_->setEnabled(SelCount == 1);
@@ -106,7 +106,7 @@ void EditorMainWindow::HandleSelectionChanged(StringHash eventType, VariantMap& 
 	btnAttachTerrain->setEnabled(SelCount > 0);
 }
 
-void EditorMainWindow::CreateActions()
+void MainWindow::CreateActions()
 {
 	//打开场景文件
 	openAction_ = new QAction(QIcon(":/Images/Actions/Open.png"), tr("Open ..."), this);
@@ -182,7 +182,7 @@ void EditorMainWindow::CreateActions()
 	connect(rotateAction_,SIGNAL(triggered(bool)), this, SLOT(HandleRotateTool(bool)));
 }
 
-void EditorMainWindow::CreateMenuBar()
+void MainWindow::CreateMenuBar()
 {
 	//文件菜单
     QMenu* fileMenu = menuBar()->addMenu(tr("&File"));
@@ -214,7 +214,7 @@ void EditorMainWindow::CreateMenuBar()
 	helpMenu->addAction(aboutAction_);
 }
 
-void EditorMainWindow::OnNewScene()
+void MainWindow::OnNewScene()
 {
 	renameAction_->setEnabled(false);
 	copyAction_->setEnabled(false);
@@ -225,7 +225,7 @@ void EditorMainWindow::OnNewScene()
 }
 
 //工具条上的按钮
-void EditorMainWindow::CreateToolBars()
+void MainWindow::CreateToolBars()
 {
 	fileToolBar = addToolBar(tr("File"));
 	fileToolBar->setIconSize(QSize(32,32));
@@ -275,12 +275,12 @@ void EditorMainWindow::CreateToolBars()
 	connect(pTestEffect,SIGNAL(clicked(bool)),this,SLOT(HandleTestEffectAction(bool)));
 }
 
-void EditorMainWindow::HandleAttachTerrainAction(bool)
+void MainWindow::HandleAttachTerrainAction(bool)
 {
 	EditorRoot::Instance()->AttachSelectionsToTerrain();
 }
 
-void EditorMainWindow::HandleTestEffectAction(bool)
+void MainWindow::HandleTestEffectAction(bool)
 {
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
@@ -295,7 +295,7 @@ void EditorMainWindow::HandleTestEffectAction(bool)
 	rttScene->SaveJpg("D:/aa.png");
 }
 
-void EditorMainWindow::HandleModelToolAction()
+void MainWindow::HandleModelToolAction()
 {
 	if(mModelTool == NULL)
 		mModelTool = new ModelTool();
@@ -303,12 +303,12 @@ void EditorMainWindow::HandleModelToolAction()
 	mModelTool->show();
 }
 
-void EditorMainWindow::setApplicationObject(QObject* obj)
+void MainWindow::setApplicationObject(QObject* obj)
 {
 	obj->installEventFilter(this);
 }
 
-void EditorMainWindow::HandleOpenAction()
+void MainWindow::HandleOpenAction()
 {
 	QString fileName = QFileDialog::getOpenFileName(0, tr("Open Scene Xml File"), "./Data/Scenes/", "*.xml");
 	if (fileName.isEmpty())
@@ -317,7 +317,7 @@ void EditorMainWindow::HandleOpenAction()
 	EditorRoot::Instance()->OpenScene(fileName.toLatin1().data());
 }
 
-void EditorMainWindow::HandleSaveAction()
+void MainWindow::HandleSaveAction()
 {
 	const String fileName = EditorRoot::Instance()->GetFileName();
 	if(fileName == "")
@@ -334,7 +334,7 @@ void EditorMainWindow::HandleSaveAction()
 	}
 }
 
-void EditorMainWindow::HandleSelectTool(bool checked)
+void MainWindow::HandleSelectTool(bool checked)
 {
 	EditorRoot::Instance()->mSelectedTool = TOOL_SELECT;
 
@@ -343,7 +343,7 @@ void EditorMainWindow::HandleSelectTool(bool checked)
 	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
-void EditorMainWindow::HandleMoveTool(bool checked)
+void MainWindow::HandleMoveTool(bool checked)
 {
 	EditorRoot::Instance()->mSelectedTool = TOOL_MOVE;
 
@@ -352,7 +352,7 @@ void EditorMainWindow::HandleMoveTool(bool checked)
 	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
-void EditorMainWindow::HandleRotateTool(bool checked)
+void MainWindow::HandleRotateTool(bool checked)
 {
 	EditorRoot::Instance()->mSelectedTool = TOOL_ROTATE;
 
@@ -361,22 +361,22 @@ void EditorMainWindow::HandleRotateTool(bool checked)
 	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Rotate);
 }
 
-void EditorMainWindow::HandleCutAction()
+void MainWindow::HandleCutAction()
 {
 	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesCut();
 }
 
-void EditorMainWindow::HandleCopyAction()
+void MainWindow::HandleCopyAction()
 {
 	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesCopy();
 }
 
-void EditorMainWindow::HandlePasteAction()
+void MainWindow::HandlePasteAction()
 {
 	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesPaste();
 }
 
-void EditorMainWindow::HandleDeleteAction()
+void MainWindow::HandleDeleteAction()
 {
 	int result = QMessageBox::question(this,"Question","Realy Delete?",QMessageBox::Ok|QMessageBox::Cancel,QMessageBox::Ok);
 	switch(result)
@@ -389,19 +389,19 @@ void EditorMainWindow::HandleDeleteAction()
 	}
 }
 
-void EditorMainWindow::HandleUndoAction()
+void MainWindow::HandleUndoAction()
 {
 	UndoManager::Instance()->Undo();
 	updateUndoRedoActions();
 }
 
-void EditorMainWindow::HandleRedoAction()
+void MainWindow::HandleRedoAction()
 {
 	UndoManager::Instance()->Redo();
 	updateUndoRedoActions();
 }
 
-void EditorMainWindow::updateUndoRedoActions()
+void MainWindow::updateUndoRedoActions()
 {
 	undoAction_->setToolTip(UndoManager::Instance()->GetUndoString().c_str());
 	undoAction_->setEnabled(UndoManager::Instance()->CanUndo());
@@ -410,7 +410,7 @@ void EditorMainWindow::updateUndoRedoActions()
 	redoAction_->setEnabled(UndoManager::Instance()->CanRedo());
 }
 
-void EditorMainWindow::updateActions()
+void MainWindow::updateActions()
 {
 	selectAction_->setChecked(EditorRoot::Instance()->mSelectedTool == TOOL_SELECT);
 	moveAction_->setChecked(EditorRoot::Instance()->mSelectedTool == TOOL_MOVE);
@@ -419,7 +419,7 @@ void EditorMainWindow::updateActions()
 	EditorRoot::Instance()->ActiveTool = EditorRoot::Instance()->mSelectedTool;
 }
 
-void EditorMainWindow::HandleScreenshotAction()
+void MainWindow::HandleScreenshotAction()
 {
 	Graphics* graphics = gEditorGlobalInfo->GetSubsystem<Graphics>();
 	Image screenshot(gEditorGlobalInfo->GetContext());
@@ -439,12 +439,12 @@ void EditorMainWindow::HandleScreenshotAction()
 	msg.exec();
 }
 
-void EditorMainWindow::AddLog(int type,const char* logContent)
+void MainWindow::AddLog(int type,const char* logContent)
 {
 	logView->AddLog(type,logContent);
 }
 
-void EditorMainWindow::onModeChanged(int index)
+void MainWindow::onModeChanged(int index)
 {
 	switch(index)
 	{
@@ -456,7 +456,7 @@ void EditorMainWindow::onModeChanged(int index)
 	}
 }
 
-void EditorMainWindow::HandleAbout()
+void MainWindow::HandleAbout()
 {
 	AboutDlg dlg;
 	dlg.exec();

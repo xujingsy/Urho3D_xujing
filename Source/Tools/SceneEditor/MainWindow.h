@@ -18,13 +18,13 @@ class QTreeWidget;
 class EditorSceneWidget;
 
 /// 整个地编的主窗口，包含项目栏，资源栏，渲染窗口，输出窗口等
-class EditorMainWindow : public QMainWindow , public Object
+class MainWindow : public QMainWindow , public Object
 {
     Q_OBJECT;
-	OBJECT(EditorMainWindow);
+	OBJECT(MainWindow);
 public:
-    EditorMainWindow(QWidget *parent=0, Qt::WindowFlags flags =0);
-    virtual ~EditorMainWindow();
+    MainWindow(QWidget *parent=0, Qt::WindowFlags flags =0);
+    virtual ~MainWindow();
 
 	EditorSceneWidget* GetSceneWidget()
 	{
