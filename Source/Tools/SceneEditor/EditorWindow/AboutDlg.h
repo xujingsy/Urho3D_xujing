@@ -8,8 +8,6 @@ public:
 	AboutDlg(QWidget* parent = 0);
 	virtual ~AboutDlg();
 
-private slots:
-	virtual void accept();
 private:
 
 };
