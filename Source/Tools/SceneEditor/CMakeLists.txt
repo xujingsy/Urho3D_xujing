@@ -47,11 +47,11 @@ file (GLOB_RECURSE CPP_FILES *.cpp)
 #	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
 # endforeach()
 
-set (SOURCE_FILES ${H_FILES} ${CPP_FILES} app.rc)
-
 # Compile ui files
-# file (GLOB UI_FILES *.ui)
-# qt4_wrap_ui (UI_HEADERS ${UI_FILES})
+file (GLOB UI_FILES *.ui)
+qt4_wrap_ui (UI_HEADERS ${UI_FILES})
+
+set (SOURCE_FILES ${H_FILES} ${CPP_FILES} ${UI_FILES} app.rc)
 
 # Rccing qrc files
 file (GLOB QRC_FILES *.qrc)
