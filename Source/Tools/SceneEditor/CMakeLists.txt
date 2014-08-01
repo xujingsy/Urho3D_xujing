@@ -47,6 +47,9 @@ file (GLOB_RECURSE CPP_FILES *.cpp)
 #	list (APPEND ${H_FILES} string (REPLACE ${FILE} (${CMAKE_SOURCE_DIR}) ("") (${FILE}) ))
 # endforeach()
 
+file (GLOB ROOT_FILES *.*)
+source_group (Main FILES ${ROOT_FILES})
+
 # Compile ui files
 file (GLOB UI_FILES *.ui)
 qt4_wrap_ui (UI_HEADERS ${UI_FILES})
@@ -61,7 +64,7 @@ QT4_ADD_RESOURCES(app.rc)
 
 # Moccing h files
 qt4_wrap_cpp (MOC_FILES ${H_FILES} )
-source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES} ${UI_HEADERS})
+source_group (QtGenFiles FILES ${MOC_FILES} ${RCC_FILES} ${UI_HEADERS})
 
 # PreCompile
 if (MSVC)

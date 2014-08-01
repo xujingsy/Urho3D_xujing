@@ -1,31 +1,46 @@
 #include "stdafx.h"
 #include "ResExplorerView.h"
-#include <qdirmodel.h>
-#include <qtreeview.h>
 
 ResExplorerView::ResExplorerView(QWidget* parent)
 {
-	//设置树显示的列数
-	setColumnCount(1);
-	setHeaderHidden(true);
-	setSelectionMode(QAbstractItemView::ExtendedSelection);
-	setAutoScroll(true);
+	QHBoxLayout* layout = new QHBoxLayout();
 
-	setAcceptDrops(true);
-	//预制的几个节点
-	//mModelsItem = new QTreeWidgetItem(QStringList("Models"));
-	//mModelsItem->setIcon(0,QIcon("Images/paint.svg"));
-	//addTopLevelItem(mModelsItem);
-
-	QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom);
-	this->setLayout(layout);
-
-	//test
 	QDirModel* model = new QDirModel();
-	QTreeView* tree = new QTreeView();
-	tree->setModel(model);
-	tree->setRootIndex(model->index(QDir::currentPath() + "/Data"));
-	tree->setAcceptDrops(true);
+	model->setFilter(QDir::AllDirs);
 
-	layout->addWidget(tree);
+	mDirWidget = new QTreeWidget();
+	//mDirWidget->setModel(model);
+	//mDirWidget->setColumnHidden(1, true);
+	//mDirWidget->setColumnHidden(2, true);
+	//mDirWidget->setColumnHidden(3, true);
+
+	mDirWidget->setRootIndex(model->index(QDir::currentPath() + "/Data"));
+	mDirWidget->setAcceptDrops(true);
+
+	layout->addWidget(mDirWidget);
+
+	connect(mDirWidget, SIGNAL(itemSelectionChanged()), this, SLOT(onDirChanged()));
+
+	//设置树显示的列数
+	//mDirWidget->setColumnCount(1);
+	mDirWidget->setHeaderHidden(true);
+	mDirWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+	mDirWidget->setAutoScroll(true);
+	
+	mFilesWidget = new QListWidget();
+	setAcceptDrops(true);
+
+	layout->addWidget(mFilesWidget);
+
+	this->setLayout(layout);
+}
+
+ResExplorerView::~ResExplorerView()
+{
+
+}
+
+void ResExplorerView::onDirChanged()
+{
+
 }
