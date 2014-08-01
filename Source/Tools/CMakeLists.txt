@@ -34,6 +34,7 @@ add_project_dir (Urho3DPlayer Tools)
 if (NOT IOS AND NOT ANDROID AND URHO3D_TOOLS)
     # Urho3D tools
     add_project_dir (AssetImporter Tools)
+    add_project_dir (HSceneEditor Tools)
     add_project_dir (OgreImporter Tools)
     add_project_dir (PackageTool Tools)
     add_project_dir (RampGenerator Tools)
