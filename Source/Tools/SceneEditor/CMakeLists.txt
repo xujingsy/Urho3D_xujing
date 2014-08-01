@@ -61,7 +61,7 @@ QT4_ADD_RESOURCES(app.rc)
 
 # Moccing h files
 qt4_wrap_cpp (MOC_FILES ${H_FILES} )
-source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES})
+source_group (QtGenCpps FILES ${MOC_FILES} ${RCC_FILES} ${UI_HEADERS})
 
 # PreCompile
 if (MSVC)
