@@ -24,10 +24,10 @@ TerrainEditor::TerrainEditor(Context* context) : Object(context)
 
 void TerrainEditor::OnMouseMove(float x,float y,unsigned int buttons)
 {
-	//if(EditorsRoot::Instance()->ActiveTool != TOOL_DEFORM)
+	//if(EditorRoot::Instance()->ActiveTool != TOOL_DEFORM)
 	//	return;
 
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 
 	IntVector2 pos(x,y);
 	vector<SceneHitResult> results = SceneHelper::Instance()->QueryCurrentMousePosObjects(250.f,&pos);
@@ -117,7 +117,7 @@ void TerrainEditor::on_viewport_click(float x,float y)
 
 void TerrainEditor::on_terrain_click(Vector3& worldPos)
 {
-	EditorsRoot* pEditorRoot = EditorsRoot::Instance();
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
 	if(pEditorRoot->ActiveTool == TOOL_DEFORM)
 	{
 		//转换成相对整个Terrain起始坐标
@@ -185,7 +185,7 @@ void TerrainEditor::InitDefaultScene()
 {
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 
 	editorRoot_->scene_ = new Scene(context_);
 	editorRoot_->scene_->CreateComponent<DebugRenderer>();
@@ -313,7 +313,7 @@ void TerrainEditor::InitDefaultScene()
 void TerrainEditor::setupViewport()
 {
 	Renderer* renderer = GetSubsystem<Renderer>();
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 
 	// Set up a viewport to the Renderer subsystem so that the 3D scene can be seen. We need to define the scene and the camera
 	// at minimum. Additionally we could configure the viewport screen size and the rendering path (eg. forward / deferred) to
@@ -324,7 +324,7 @@ void TerrainEditor::setupViewport()
 
 void TerrainEditor::InitDefault2DScene()
 {
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 	tiledNode = editorRoot_->scene_->CreateChild("TiledNode");
 	//test_2d_scene();
 
@@ -376,7 +376,7 @@ void TerrainEditor::test_2d_scene()
 
 Node* TerrainEditor::add_mesh_test(const char* name,float x,float y,float z,const char* modelUrl)
 {
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 

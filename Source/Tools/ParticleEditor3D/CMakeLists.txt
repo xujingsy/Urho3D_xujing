@@ -1,6 +1,10 @@
 # Define target name
 set (TARGET_NAME ParticleEditor3D)
 
+if (WIN32)
+    set (CMAKE_DEBUG_POSTFIX _d)
+endif ()
+
 # Qt
 find_package (Qt4 REQUIRED)
 include (${QT_USE_FILE})

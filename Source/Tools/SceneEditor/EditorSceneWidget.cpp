@@ -52,7 +52,7 @@ void EditorSceneWidget::dropEvent(QDropEvent *event)
 			const SceneHitResult& obj = results[i];
 			if(obj.object->GetTypeName() == "TerrainPatch")
 			{
-				EditorsRoot::Instance()->GetTerrainEditor()->add_mesh_test(fileName.toStdString().c_str(),obj.hitPos.x_,obj.hitPos.y_,obj.hitPos.z_,fileName.toStdString().c_str());
+				EditorRoot::Instance()->GetTerrainEditor()->add_mesh_test(fileName.toStdString().c_str(),obj.hitPos.x_,obj.hitPos.y_,obj.hitPos.z_,fileName.toStdString().c_str());
 				break;
 			}
 		}
@@ -64,7 +64,7 @@ void EditorSceneWidget::dropEvent(QDropEvent *event)
 		{
 			StaticModel* pModel = (StaticModel*)obj.object;
 
-			ResourceCache* cache = EditorsRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
+			ResourceCache* cache = EditorRoot::Instance()->engine_->GetContext()->GetSubsystem<ResourceCache>();
 
 			//Ñ¡Ôñ²ÄÖÊÐòºÅ
 			int index = 0;
@@ -84,7 +84,7 @@ void EditorSceneWidget::mouseMoveEvent(QMouseEvent *evt)
 	if(!hasFocus())
 		setFocus();
 
-	EditorsRoot* editorRoot_ = EditorsRoot::Instance();
+	EditorRoot* editorRoot_ = EditorRoot::Instance();
 	int x = evt->x();
 	int y = evt->y();
 
@@ -93,7 +93,7 @@ void EditorSceneWidget::mouseMoveEvent(QMouseEvent *evt)
 	sprintf(szPos,"x:%d y:%d",x,y);
 	editorRoot_->GetMainWindow()->statusBar()->showMessage(szPos);
 	
-	EditorsRoot::Instance()->OnMouseMove(x,y,0);
+	EditorRoot::Instance()->OnMouseMove(x,y,0);
 
 	//ÓÒ¼üÐý×ª
 	if(m_Captured)
@@ -135,7 +135,7 @@ void EditorSceneWidget::mousePressEvent(QMouseEvent* evt)
 
 	if(evt->button() == Qt::LeftButton)
 	{
-		EditorsRoot::Instance()->OnMouseLeftDown(x,y,getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseLeftDown(x,y,getMouseButton(evt->buttons(),evt->button()));
 	}
 	else if(evt->button() == Qt::RightButton)
 	{
@@ -148,11 +148,11 @@ void EditorSceneWidget::mousePressEvent(QMouseEvent* evt)
 			GetCursorPos(&m_savedpos);
 		}
 		
-		EditorsRoot::Instance()->OnMouseRightDown(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseRightDown(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
 	}
 	else if(evt->button() == Qt::MiddleButton)
 	{
-		EditorsRoot::Instance()->OnMouseMiddleDown(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseMiddleDown(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
 	}
 
 	MouseMovedSincePress = false;
@@ -164,15 +164,15 @@ void EditorSceneWidget::mouseReleaseEvent(QMouseEvent *evt)
 		setFocus();
 	if(evt->button() == Qt::LeftButton)
 	{
-		EditorsRoot::Instance()->OnMouseLeftUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseLeftUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
 	}
 	else if(evt->button() == Qt::RightButton)
 	{
-		EditorsRoot::Instance()->OnMouseRightUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseRightUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
 	}
 	else if(evt->button() == Qt::MiddleButton)
 	{
-		EditorsRoot::Instance()->OnMouseMiddleUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
+		EditorRoot::Instance()->OnMouseMiddleUp(evt->x(),evt->y(),getMouseButton(evt->buttons(),evt->button()));
 	}
 
 	if(m_Captured == true)	//
@@ -193,21 +193,21 @@ void EditorSceneWidget::mouseReleaseEvent(QMouseEvent *evt)
 
 void EditorSceneWidget::showObjectMenu()
 {
-	EditorsRoot* pEditorsRoot = EditorsRoot::Instance();
-	if(pEditorsRoot->SelectionNodes.empty())
+	EditorRoot* pEditorRoot = EditorRoot::Instance();
+	if(pEditorRoot->SelectionNodes.empty())
 		return;
 
-	EditorMainWindow* mMainWindow = pEditorsRoot->GetMainWindow();
+	EditorMainWindow* mMainWindow = pEditorRoot->GetMainWindow();
 
 	QMenu* contextMenu = new QMenu(this);
-	if(pEditorsRoot->SelectionNodes.size() == 1)
+	if(pEditorRoot->SelectionNodes.size() == 1)
 	{
-		Node* pNode = pEditorsRoot->SelectionNodes[0];
+		Node* pNode = pEditorRoot->SelectionNodes[0];
 		contextMenu->setTitle(tr("Object Menu : ") + QString(pNode->GetName().CString()));
 	}
 	else
 	{
-		contextMenu->setTitle(tr("Object Count : ") + QString::number(pEditorsRoot->SelectionNodes.size()));
+		contextMenu->setTitle(tr("Object Count : ") + QString::number(pEditorRoot->SelectionNodes.size()));
 	}
 
 	contextMenu->addAction(mMainWindow->renameAction_);
@@ -229,7 +229,7 @@ void EditorSceneWidget::leaveEvent(QEvent *evt)
 
 void EditorSceneWidget::wheelEvent(QWheelEvent *evt)
 {
-	EditorsRoot::Instance()->OnMouseWheel(evt->x(),evt->y(),0);
+	EditorRoot::Instance()->OnMouseWheel(evt->x(),evt->y(),0);
 }
 
 unsigned int EditorSceneWidget::getMouseButton(Qt::MouseButtons buttons,Qt::MouseButton button)
@@ -253,5 +253,5 @@ void EditorSceneWidget::keyPressEvent(QKeyEvent *evt)
 	if(key > 255)
 		key = (key & 0xFFF) + 0xFF;
 
-	EditorsRoot::Instance()->OnKeyDown(key);
+	EditorRoot::Instance()->OnKeyDown(key);
 }

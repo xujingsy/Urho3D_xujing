@@ -11,7 +11,7 @@
 
 EditorApplication::EditorApplication(int argc, char** argv,Context* context) : QApplication(argc, argv), Object(context)
 {
-	EditorsRoot::Instance()->context_ = context;
+	EditorRoot::Instance()->context_ = context;
 
 	SetStyleSheet(":/qdarkstyle/style.qss");
 
@@ -58,7 +58,7 @@ int EditorApplication::Run()
 
     engine_ = new Engine(context_);
 
-	editorRoot_ = EditorsRoot::Instance();
+	editorRoot_ = EditorRoot::Instance();
 
 	editorRoot_->engine_ = engine_;
 
@@ -88,15 +88,15 @@ int EditorApplication::Run()
 	editorRoot_->InitEditorUI(context_);
 
 	//创建默认场景
-	EditorsRoot::Instance()->GetTerrainEditor()->InitDefaultScene();
+	EditorRoot::Instance()->GetTerrainEditor()->InitDefaultScene();
 
-	mainWindow_->GetProjectView()->Init(EditorsRoot::Instance()->scene_);
+	mainWindow_->GetProjectView()->Init(EditorRoot::Instance()->scene_);
 
     QTimer timer;
     connect(&timer, SIGNAL(timeout()), this, SLOT(OnTimeout()));
     timer.start(1000 / 60);
 
-	EditorsRoot::Instance()->GetMainWindow()->GetPropertiesView()->SetTarget(EditorsRoot::Instance()->cameraNode_);
+	EditorRoot::Instance()->GetMainWindow()->GetPropertiesView()->SetTarget(EditorRoot::Instance()->cameraNode_);
 
     return QApplication::exec();
 }

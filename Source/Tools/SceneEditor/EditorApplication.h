@@ -5,7 +5,7 @@
 
 #include "EditorInfo/EditorGlobalInfo.h"
 #include "EditorAssist/TerrainBrush.h"
-#include "EditorAPI/EditorsRoot.h"
+#include "EditorAPI/EditorRoot.h"
 
 namespace Urho3D
 {
@@ -59,5 +59,5 @@ private:
     SharedPtr<Engine> engine_;
 
     EditorMainWindow* mainWindow_;
-	EditorsRoot* editorRoot_;
+	EditorRoot* editorRoot_;
 };

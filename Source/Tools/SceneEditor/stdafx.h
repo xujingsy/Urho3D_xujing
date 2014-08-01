@@ -56,7 +56,7 @@
 #include "DecalSet.h"
 using namespace Urho3D;
 
-#include "EditorAPI/EditorsRoot.h"
+#include "EditorAPI/EditorRoot.h"
 
 //Qt常用头文件
 #include <QAction>

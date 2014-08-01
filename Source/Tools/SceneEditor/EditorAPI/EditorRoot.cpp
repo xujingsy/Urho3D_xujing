@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EditorsRoot.h"
+#include "EditorRoot.h"
 #include "Skybox.h"
 #include "../ObjectEditor/LightWidget.h"
 #include "../ObjectEditor/SceneWidget.h"
@@ -14,7 +14,7 @@
 #include "SceneEvents.h"
 #include "Window.h"
 
-EditorsRoot::EditorsRoot()
+EditorRoot::EditorRoot()
 {
 	yaw_ = 0.0f;
 	pitch_ = 0.0f;
@@ -40,7 +40,32 @@ EditorsRoot::EditorsRoot()
 	rttScene_ = NULL;
 }
 
-void EditorsRoot::InitEditors(Context* context)
+EditorRoot::~EditorRoot()
+{
+
+}
+
+void EditorRoot::New()
+{
+	Open("Scenes/BlankTerrain.xml");
+	fileName_.Clear();
+}
+
+void EditorRoot::Open(const String& fileName)
+{
+	if(scene_)
+	{
+		scene_->Remove();
+	}
+	//fileName
+}
+
+void EditorRoot::Save(const String& fileName)
+{
+
+}
+
+void EditorRoot::InitEditors(Context* context)
 {
 	context_ = context;
 	terrainEditor_ = new TerrainEditor(context);
@@ -50,7 +75,7 @@ void EditorsRoot::InitEditors(Context* context)
 	pCurrentEditor = objectEditor_;
 }
 
-void EditorsRoot::InitEditorUI(Context* context)
+void EditorRoot::InitEditorUI(Context* context)
 {
 	UIRoot_ = context->GetSubsystem<UI>()->GetRoot();
 
@@ -76,7 +101,7 @@ void EditorsRoot::InitEditorUI(Context* context)
 	glLineWidth(2);
 }
 
-bool EditorsRoot::IsNodeInSelections(const Node* pNode)
+bool EditorRoot::IsNodeInSelections(const Node* pNode)
 {
 	for(int i = 0;i < SelectionNodes.size();i ++)
 	{
@@ -89,7 +114,7 @@ bool EditorsRoot::IsNodeInSelections(const Node* pNode)
 	return false;
 }
 
-float EditorsRoot::GetNodeSize(Node* pNode)
+float EditorRoot::GetNodeSize(Node* pNode)
 {
 	Vector3 scale = pNode->GetWorldScale();
 
@@ -117,12 +142,12 @@ float EditorsRoot::GetNodeSize(Node* pNode)
 	return 0;
 }
 
-void EditorsRoot::OpenScene(const char* sceneFile)
+void EditorRoot::OpenScene(const char* sceneFile)
 {
 
 }
 
-void EditorsRoot::CancelAllSelection()
+void EditorRoot::CancelAllSelection()
 {
 	SelectionNodes.clear();
 	RectSelectionNodes.clear();
@@ -130,12 +155,12 @@ void EditorsRoot::CancelAllSelection()
 	SendNodeSelectionChangeEvent();
 }
 
-void EditorsRoot::SendNodeSelectionChangeEvent()
+void EditorRoot::SendNodeSelectionChangeEvent()
 {
 	scene_->SendEvent(E_NODE_SELECTION_CHANGE);
 }
 
-void EditorsRoot::SendNodeUpdateShowEvent(const Node* pNode)
+void EditorRoot::SendNodeUpdateShowEvent(const Node* pNode)
 {
 	VariantMap eventData;
 	eventData[NodeUpdateShow::P_NODE] = pNode;
@@ -143,7 +168,7 @@ void EditorsRoot::SendNodeUpdateShowEvent(const Node* pNode)
 	scene_->SendEvent(E_NODE_UPDATE_SHOW,eventData);
 }
 
-void EditorsRoot::OnRectSelectionEnd()
+void EditorRoot::OnRectSelectionEnd()
 {
 	RectSelectionFrame_->Hide();
 
@@ -155,7 +180,7 @@ void EditorsRoot::OnRectSelectionEnd()
 	SendNodeSelectionChangeEvent();
 }
 
-vector<Node*> EditorsRoot::GetUnionSelections()
+vector<Node*> EditorRoot::GetUnionSelections()
 {
 	//交集(防止重复)
 	vector<Node*> intersect;
@@ -195,7 +220,7 @@ vector<Node*> EditorsRoot::GetUnionSelections()
 	return unionset;
 }
 
-RTTScene* EditorsRoot::GetRTTScene()
+RTTScene* EditorRoot::GetRTTScene()
 {
 	if(rttScene_ == NULL)
 	{
@@ -206,7 +231,7 @@ RTTScene* EditorsRoot::GetRTTScene()
 }
 
 // 显示编辑面板，记录当前编辑物件
-void EditorsRoot::OnNodeSelect(Node* pNode)
+void EditorRoot::OnNodeSelect(Node* pNode)
 {
 	GetMainWindow()->GetPropertiesView()->SetTarget(pNode);
 
@@ -233,7 +258,7 @@ void EditorsRoot::OnNodeSelect(Node* pNode)
 	}
 }
 
-void EditorsRoot::DeleteAllSelectionNodes()
+void EditorRoot::DeleteAllSelectionNodes()
 {
 	//防止节点的嵌套关系，Node*失效
 	vector<int> vIds;
@@ -262,7 +287,7 @@ void EditorsRoot::DeleteAllSelectionNodes()
 	SelectionNodes.clear();
 }
 
-void EditorsRoot::AttachSelectionsToTerrain()
+void EditorRoot::AttachSelectionsToTerrain()
 {
 	if(terrain_ == NULL)
 		return;
@@ -278,7 +303,7 @@ void EditorsRoot::AttachSelectionsToTerrain()
 	}
 }
 
-void EditorsRoot::AddEffetToSelectionNodes()
+void EditorRoot::AddEffetToSelectionNodes()
 {
 	// Create billboard sets (floating smoke)
 	const unsigned NUM_BILLBOARDNODES = 25;
@@ -314,7 +339,7 @@ void EditorsRoot::AddEffetToSelectionNodes()
 	}
 }
 
-bool EditorsRoot::IsCtrlPressed()
+bool EditorRoot::IsCtrlPressed()
 {
 	if(::GetKeyState(VK_CONTROL) < 0)
 	{
@@ -326,7 +351,7 @@ bool EditorsRoot::IsCtrlPressed()
 	}
 }
 
-IntVector2 EditorsRoot::GetScreenMousePos()
+IntVector2 EditorRoot::GetScreenMousePos()
 {
 	Input* input = context_->GetSubsystem<Input>();
 	UI* ui = context_->GetSubsystem<UI>();
@@ -335,7 +360,7 @@ IntVector2 EditorsRoot::GetScreenMousePos()
 	return pos;
 }
 
-void EditorsRoot::OnKeyDown(unsigned int key)
+void EditorRoot::OnKeyDown(unsigned int key)
 {
 	if(pCurrentEditor)
 	{
@@ -343,7 +368,7 @@ void EditorsRoot::OnKeyDown(unsigned int key)
 	}
 }
 
-void EditorsRoot::OnKeyUp(unsigned int key)
+void EditorRoot::OnKeyUp(unsigned int key)
 {
 	if(pCurrentEditor)
 	{
@@ -351,7 +376,7 @@ void EditorsRoot::OnKeyUp(unsigned int key)
 	}
 }
 
-void EditorsRoot::OnMouseMove(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseMove(float x,float y,unsigned int buttons)
 {
 	if(pCurrentEditor)
 	{
@@ -359,7 +384,7 @@ void EditorsRoot::OnMouseMove(float x,float y,unsigned int buttons)
 	}
 }
 
-void EditorsRoot::OnMouseLeftDown(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseLeftDown(float x,float y,unsigned int buttons)
 {
 	if(pCurrentEditor)
 	{
@@ -367,7 +392,7 @@ void EditorsRoot::OnMouseLeftDown(float x,float y,unsigned int buttons)
 	}
 }
 
-void EditorsRoot::OnMouseLeftUp(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseLeftUp(float x,float y,unsigned int buttons)
 {
 	if(pCurrentEditor)
 	{
@@ -375,7 +400,7 @@ void EditorsRoot::OnMouseLeftUp(float x,float y,unsigned int buttons)
 	}
 }
 
-void EditorsRoot::OnMouseRightDown(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseRightDown(float x,float y,unsigned int buttons)
 {
 	if(pCurrentEditor)
 	{
@@ -383,7 +408,7 @@ void EditorsRoot::OnMouseRightDown(float x,float y,unsigned int buttons)
 	}
 }
 
-void EditorsRoot::OnMouseRightUp(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseRightUp(float x,float y,unsigned int buttons)
 {
 	if(pCurrentEditor)
 	{
@@ -391,17 +416,17 @@ void EditorsRoot::OnMouseRightUp(float x,float y,unsigned int buttons)
 	}
 }
 
-void EditorsRoot::OnMouseMiddleDown(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseMiddleDown(float x,float y,unsigned int buttons)
 {
 
 }
 
-void EditorsRoot::OnMouseMiddleUp(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseMiddleUp(float x,float y,unsigned int buttons)
 {
 
 }
 
-void EditorsRoot::OnMouseWheel(float x,float y,unsigned int buttons)
+void EditorRoot::OnMouseWheel(float x,float y,unsigned int buttons)
 {
 	Camera* camera = cameraNode_->GetComponent<Camera>();
 

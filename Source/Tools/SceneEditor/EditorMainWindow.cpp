@@ -6,9 +6,10 @@
 #include "EditorInfo/EditorGlobalInfo.h"
 #include "EditorAPI/EditorEvents.h"
 #include "EditorAssist/RTTScene.h"
+#include "EditorWindow/AboutDlg.h"
 
 //主要通过Dock分隔窗口
-EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorsRoot::Instance()->context_)
+EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
 {
     showMaximized();
 
@@ -17,7 +18,7 @@ EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMa
 	mModelTool = NULL;
 
 	//
-	treeProject = new SceneView(this,EditorsRoot::Instance()->context_);
+	treeProject = new SceneView(this,EditorRoot::Instance()->context_);
 	treeProject->setHeaderLabel("Project");
 	treeProject->setMinimumWidth(200);
 	treeProject->setMaximumWidth(500);
@@ -76,7 +77,7 @@ EditorMainWindow::EditorMainWindow(QWidget *parent, Qt::WindowFlags flags) : QMa
 
 	statusBar()->showMessage(tr("Ready"));
 
-	EditorsRoot::Instance()->SetMainWindow(this);
+	EditorRoot::Instance()->SetMainWindow(this);
 
 	OnNewScene();
 
@@ -96,7 +97,7 @@ bool EditorMainWindow::eventFilter(QObject *obj,  QEvent *event)
 
 void EditorMainWindow::HandleSelectionChanged(StringHash eventType, VariantMap& eventData)
 {
-	int SelCount = EditorsRoot::Instance()->SelectionNodes.size();
+	int SelCount = EditorRoot::Instance()->SelectionNodes.size();
 	renameAction_->setEnabled(SelCount == 1);
 	copyAction_->setEnabled(SelCount > 0);
 	cutAction_->setEnabled(SelCount > 0);
@@ -154,6 +155,7 @@ void EditorMainWindow::CreateActions()
 
 	helpAction_ = new QAction(QIcon(":/Images/Actions/Help.png"), tr("Help"), this);
 	aboutAction_ = new QAction(QIcon(":/Images/Actions/Info.png"), tr("About"), this);
+	connect(aboutAction_, SIGNAL(triggered()), this, SLOT(HandleAbout()));
 
 	//Select
 	selectAction_ = new QAction(QIcon(":/Images/Actions/Select.png"), tr("Select"), this);
@@ -275,15 +277,15 @@ void EditorMainWindow::CreateToolBars()
 
 void EditorMainWindow::HandleAttachTerrainAction(bool)
 {
-	EditorsRoot::Instance()->AttachSelectionsToTerrain();
+	EditorRoot::Instance()->AttachSelectionsToTerrain();
 }
 
 void EditorMainWindow::HandleTestEffectAction(bool)
 {
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
-	//EditorsRoot::Instance()->AddEffetToSelectionNodes();
-	RTTScene* rttScene = EditorsRoot::Instance()->GetRTTScene();
+	//EditorRoot::Instance()->AddEffetToSelectionNodes();
+	RTTScene* rttScene = EditorRoot::Instance()->GetRTTScene();
 
 	Node* objNode = rttScene->CreateChildNode("testObj");
 	StaticModel* pModel = objNode->CreateComponent<StaticModel>();
@@ -312,7 +314,7 @@ void EditorMainWindow::HandleOpenAction()
 	if (fileName.isEmpty())
 		return;
 
-	EditorsRoot::Instance()->OpenScene(fileName.toLatin1().data());
+	EditorRoot::Instance()->OpenScene(fileName.toLatin1().data());
 }
 
 void EditorMainWindow::HandleSaveAction()
@@ -322,44 +324,44 @@ void EditorMainWindow::HandleSaveAction()
 
 void EditorMainWindow::HandleSelectTool(bool checked)
 {
-	EditorsRoot::Instance()->mSelectedTool = TOOL_SELECT;
+	EditorRoot::Instance()->mSelectedTool = TOOL_SELECT;
 
 	updateActions();
 
-	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
+	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
 void EditorMainWindow::HandleMoveTool(bool checked)
 {
-	EditorsRoot::Instance()->mSelectedTool = TOOL_MOVE;
+	EditorRoot::Instance()->mSelectedTool = TOOL_MOVE;
 
 	updateActions();
 
-	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
+	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Move);
 }
 
 void EditorMainWindow::HandleRotateTool(bool checked)
 {
-	EditorsRoot::Instance()->mSelectedTool = TOOL_ROTATE;
+	EditorRoot::Instance()->mSelectedTool = TOOL_ROTATE;
 
 	updateActions();
 
-	EditorsRoot::Instance()->GetGizmo()->SetMode(enEditMode_Rotate);
+	EditorRoot::Instance()->GetGizmo()->SetMode(enEditMode_Rotate);
 }
 
 void EditorMainWindow::HandleCutAction()
 {
-	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesCut();
+	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesCut();
 }
 
 void EditorMainWindow::HandleCopyAction()
 {
-	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesCopy();
+	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesCopy();
 }
 
 void EditorMainWindow::HandlePasteAction()
 {
-	EditorsRoot::Instance()->GetObjectPositionEditor()->OnNodesPaste();
+	EditorRoot::Instance()->GetObjectPositionEditor()->OnNodesPaste();
 }
 
 void EditorMainWindow::HandleDeleteAction()
@@ -368,7 +370,7 @@ void EditorMainWindow::HandleDeleteAction()
 	switch(result)
 	{
 	case QMessageBox::Ok:
-		EditorsRoot::Instance()->DeleteAllSelectionNodes();
+		EditorRoot::Instance()->DeleteAllSelectionNodes();
 		break;
 	default:
 		break;
@@ -398,11 +400,11 @@ void EditorMainWindow::updateUndoRedoActions()
 
 void EditorMainWindow::updateActions()
 {
-	selectAction_->setChecked(EditorsRoot::Instance()->mSelectedTool == TOOL_SELECT);
-	moveAction_->setChecked(EditorsRoot::Instance()->mSelectedTool == TOOL_MOVE);
-	rotateAction_->setChecked(EditorsRoot::Instance()->mSelectedTool == TOOL_ROTATE);
+	selectAction_->setChecked(EditorRoot::Instance()->mSelectedTool == TOOL_SELECT);
+	moveAction_->setChecked(EditorRoot::Instance()->mSelectedTool == TOOL_MOVE);
+	rotateAction_->setChecked(EditorRoot::Instance()->mSelectedTool == TOOL_ROTATE);
 
-	EditorsRoot::Instance()->ActiveTool = EditorsRoot::Instance()->mSelectedTool;
+	EditorRoot::Instance()->ActiveTool = EditorRoot::Instance()->mSelectedTool;
 }
 
 void EditorMainWindow::HandleScreenshotAction()
@@ -440,4 +442,10 @@ void EditorMainWindow::onModeChanged(int index)
 		gEditorGlobalInfo->SetFillMode((FillMode)index);
 		break;
 	}
+}
+
+void EditorMainWindow::HandleAbout()
+{
+	AboutDlg dlg;
+	dlg.exec();
 }

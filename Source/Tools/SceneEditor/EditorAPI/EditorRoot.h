@@ -36,10 +36,17 @@ enum enEditorTools
 
 //编辑器底层操作的接口，供各个插件使用
 //编辑器如果使用对应的事件，必须先注册
-class EditorsRoot : public Singleton<EditorsRoot>
+class EditorRoot : public Singleton<EditorRoot>
 {
 public:
-	EditorsRoot();
+	EditorRoot();
+	~EditorRoot();
+
+	void New();
+
+	void Open(const String& fileName);
+
+	void Save(const String& fileName);
 
 	//添加新的ToolBar
 	void RegisterToolBar(void* plugin,void * toolbar);
@@ -136,6 +143,11 @@ public:
 	vector<Node*> GetUnionSelections();
 
 	RTTScene* GetRTTScene();
+
+	const String& GetFileName() const
+	{
+		return fileName_;
+	}
 public:
 	// 事件接口
 	//1.拖动
@@ -176,4 +188,7 @@ private:
 	EditorMainWindow* mainWindow_;
 
 	RTTScene* rttScene_;
+
+	//当前编辑的场景文件名
+	String fileName_;
 };
