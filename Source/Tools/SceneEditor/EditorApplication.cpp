@@ -7,7 +7,7 @@
 #include "EditorSceneWidget.h"
 #include "Rotator.h"
 #include "DebugRenderer.h"
-#include "ObjectEditor/StaticModelWidget.h"
+#include "ComponentEditor/StaticModelWidget.h"
 
 EditorApplication::EditorApplication(int argc, char** argv,Context* context) : QApplication(argc, argv), Object(context)
 {

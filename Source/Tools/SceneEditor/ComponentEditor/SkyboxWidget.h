@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "StaticModelWidget.h"
 
-class SkyboxWidget : public BaseEditorPage
+class SkyboxWidget : public StaticModelWidget
 {
 	Q_OBJECT
 public:

@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseEditorPage.h"
-#include <qcheckbox.h>
+#include <QCheckBox>
 
 //SceneRoot节点信息显示
 class SceneWidget : public BaseEditorPage

@@ -106,4 +106,12 @@
     <file>Images/Brushes/sharp_circular.png</file>
     <file>Images/Brushes/Square.png</file>
   </qresource>
+
+  <qresource prefix="">
+    <file>Images/MaterialView/material.png</file>
+    <file>Images/MaterialView/project.png</file>
+    <file>Images/MaterialView/pass.png</file>
+    <file>Images/MaterialView/technique.png</file>
+  </qresource>
+  
 </RCC>

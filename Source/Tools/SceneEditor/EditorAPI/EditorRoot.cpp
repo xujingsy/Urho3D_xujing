@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "EditorRoot.h"
 #include "Skybox.h"
-#include "../ObjectEditor/LightWidget.h"
-#include "../ObjectEditor/SceneWidget.h"
-#include "../ObjectEditor/SkyboxWidget.h"
-#include "../ObjectEditor/StaticModelWidget.h"
+#include "../ComponentEditor/LightWidget.h"
+#include "../ComponentEditor/SceneWidget.h"
+#include "../ComponentEditor/SkyboxWidget.h"
+#include "../ComponentEditor/StaticModelWidget.h"
 #include "DebugRenderer.h"
 #include <math.h>
 #include <WinUser.h>
@@ -116,6 +116,18 @@ void EditorRoot::NewScene()
 	SharedPtr<Viewport> viewport(new Viewport(context_, scene_, cameraNode_->GetComponent<Camera>()));
 	Renderer* renderer = context_->GetSubsystem<Renderer>();
 	renderer->SetViewport(0, viewport);
+
+	const unsigned NUM_OBJECTS = 200;
+	for (unsigned i = 0; i < NUM_OBJECTS; ++i)
+	{
+		Node* mushroomNode = scene_->CreateChild("Mushroom");
+		mushroomNode->SetPosition(Vector3(Random(90.0f) - 45.0f, 0.0f, Random(90.0f) - 45.0f));
+		mushroomNode->SetRotation(Quaternion(0.0f, Random(360.0f), 0.0f));
+		mushroomNode->SetScale(0.5f + Random(2.0f));
+		StaticModel* mushroomObject = mushroomNode->CreateComponent<StaticModel>();
+		mushroomObject->SetModel(cache->GetResource<Model>("Models/Mushroom.mdl"));
+		mushroomObject->SetMaterial(cache->GetResource<Material>("Materials/Mushroom.xml"));
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	fileName_.Clear();

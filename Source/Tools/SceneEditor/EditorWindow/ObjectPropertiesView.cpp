@@ -32,6 +32,10 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 	positionWidget_->Show();	//Ä¬ÈÏ´ò¿ª
 	lstWidges.push_back(positionWidget_);
 
+	materialWidget_ = new ModelMaterialWidget();
+	materialWidget_->Show();
+	lstWidges.push_back(materialWidget_);
+
 	lightWidget_ = new LightWidget();
 	lstWidges.push_back(lightWidget_);
 
@@ -94,6 +98,10 @@ void ObjectPropertiesView::SetTarget(Node* pTarget)
 	{
 		staticModelWidget_->Init(pTarget);
 		vContentLayout->addWidget(staticModelWidget_);
+
+		materialWidget_->Init(pTarget);
+		materialWidget_->SetOwnerModel(pTarget->GetComponent<StaticModel>());
+		vContentLayout->addWidget(materialWidget_);
 	}
 
 	if(pTarget->GetComponent<TerrainPatch>() != NULL)

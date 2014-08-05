@@ -6,6 +6,7 @@
 #include <qcheckbox.h>
 #include <QColor>
 #include <QPalette>
+using namespace Urho3D;
 
 class BaseEditorPage : public ShowHidePanel
 {

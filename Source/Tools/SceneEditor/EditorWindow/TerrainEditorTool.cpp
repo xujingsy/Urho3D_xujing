@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "TerrainEditorTool.h"
-#include "../ObjectEditor/ObjectEditorWidgets/TerrainPanel.h"
-#include "../ObjectEditor/ObjectEditorWidgets/TerrainTexturePanel.h"
-#include "../ObjectEditor/ObjectEditorWidgets/TerrainGrassPanel.h"
+#include "../ComponentEditor/ObjectEditorWidgets/TerrainPanel.h"
+#include "../ComponentEditor/ObjectEditorWidgets/TerrainTexturePanel.h"
+#include "../ComponentEditor/ObjectEditorWidgets/TerrainGrassPanel.h"
 
 TerrainEditorTool::TerrainEditorTool(QWidget* parent)
 {

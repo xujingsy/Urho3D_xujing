@@ -8,6 +8,8 @@
 #include "EditorAssist/RTTScene.h"
 #include "EditorWindow/AboutDlg.h"
 
+#include "EditorWindow/MaterialView.h"
+
 //主要通过Dock分隔窗口
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
 {
@@ -282,6 +284,10 @@ void MainWindow::HandleAttachTerrainAction(bool)
 
 void MainWindow::HandleTestEffectAction(bool)
 {
+	MaterialView mat;
+	mat.exec();
+
+	return;
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
 	//EditorRoot::Instance()->AddEffetToSelectionNodes();

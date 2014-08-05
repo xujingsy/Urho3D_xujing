@@ -10,7 +10,7 @@ using namespace std;
 #include "../Terrain/TerrainEditor.h"
 #include "../EditorAssist/RTTScene.h"
 #include "../EditorAssist/EditorGizmo.h"
-#include "../ObjectEditor/ObjectPositionEditor.h"
+#include "../ComponentEditor/ObjectPositionEditor.h"
 #include "../EditorAssist/ObjectNameTip.h"
 #include "../EditorAssist/RectSelectionFrame.h"
 

@@ -4,13 +4,15 @@ using namespace std;
 #include <QWidget>
 #include <QPushButton>
 #include "../Controls/LabelTextbox.h"
-#include "../ObjectEditor/EditorComponent/PositonEditorComponent.h"
+
 #include "../Controls/ShowHidePanel.h"
-#include "../ObjectEditor/LightWidget.h"
-#include "../ObjectEditor/SceneWidget.h"
-#include "../ObjectEditor/SkyboxWidget.h"
-#include "../ObjectEditor/StaticModelWidget.h"
-#include "../ObjectEditor/TerrainWidget.h"
+#include "../ComponentEditor/LightWidget.h"
+#include "../ComponentEditor/SceneWidget.h"
+#include "../ComponentEditor/SkyboxWidget.h"
+#include "../ComponentEditor/StaticModelWidget.h"
+#include "../ComponentEditor/TerrainWidget.h"
+#include "../ComponentEditor/ModelMaterialWidget.h"
+#include "../ComponentEditor/EditorComponent/PositonEditorComponent.h"
 
 class ObjectPropertiesView : public QWidget
 {
@@ -28,6 +30,7 @@ private:
 	PositonEditorComponent* positionWidget_;
 	LightWidget* lightWidget_;
 	SceneWidget* sceneWidget_;
+	ModelMaterialWidget* materialWidget_;
 	SkyboxWidget* skyboxWidget_;
 	StaticModelWidget* staticModelWidget_;
 	TerrainWidget* terrainWidget_;
