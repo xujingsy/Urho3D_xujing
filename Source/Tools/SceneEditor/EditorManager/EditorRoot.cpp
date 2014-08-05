@@ -8,7 +8,7 @@
 #include "DebugRenderer.h"
 #include <math.h>
 #include <WinUser.h>
-#include "../EditorAPI/EditorEvents.h"
+#include "../EditorManager/EditorEvents.h"
 #include "BillboardSet.h"
 #include "ParticleEmitter.h"
 #include "SceneEvents.h"

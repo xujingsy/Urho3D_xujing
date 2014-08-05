@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "MainWindow.h"
 #include "EditorSceneWidget.h"
-#include "EditorAPI/UndoManager.h"
+#include "EditorManager/UndoManager.h"
+#include "EditorManager/EditorEvents.h"
 #include "Controls/ButtonsPanel.h"
+
 #include "EditorInfo/EditorGlobalInfo.h"
-#include "EditorAPI/EditorEvents.h"
 #include "EditorAssist/RTTScene.h"
 #include "EditorWindow/AboutDlg.h"
-
 #include "EditorWindow/MaterialView.h"
 
 //主要通过Dock分隔窗口

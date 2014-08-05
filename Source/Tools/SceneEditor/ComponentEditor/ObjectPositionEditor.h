@@ -1,12 +1,14 @@
 #pragma once
+#include <vector>
+using namespace std;
+
 #include "Object.h"
 #include "Node.h"
 using namespace Urho3D;
+
 #include "../EditorInfo/BaseEditor.h"
-#include <vector>
-using namespace std;
-#include "../EditorAPI/SceneHelper.h"
-#include "../EditorAPI/OperationData.h"
+#include "../EditorManager/SceneHelper.h"
+#include "../EditorManager/OperationData.h"
 
 /*
 点击坐标轴实现拖动物体的算法：

@@ -3,7 +3,7 @@
 #include "Skybox.h"
 #include "SceneEvents.h"
 using namespace Urho3D;
-#include "../EditorAPI/EditorEvents.h"
+#include "../EditorManager/EditorEvents.h"
 #include "../EditorSceneWidget.h"
 
 SceneView::SceneView(QWidget* parent,Context* context) : QTreeWidget(parent) , Object(context)
