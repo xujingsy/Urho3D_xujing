@@ -1,8 +1,8 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "BaseComponentEditor.h"
 
 //Terrain±à¼­Ãæ°å
-class TerrainWidget : public BaseEditorPage
+class TerrainWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:

@@ -1,9 +1,9 @@
 #pragma once
 #include <qwidget.h>
-#include "../BaseEditorPage.h"
+#include "../BaseComponentEditor.h"
 #include "../../Controls/LabelTextbox.h"
 
-class PositonEditorComponent : public BaseEditorPage
+class PositonEditorComponent : public BaseComponentEditor
 {
 	Q_OBJECT
 public:

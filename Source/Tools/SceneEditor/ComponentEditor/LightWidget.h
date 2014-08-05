@@ -1,9 +1,9 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "BaseComponentEditor.h"
 #include "../Controls/ColorPickerWidget.h"
 #include "../Controls/LabelTextbox.h"
 
-class LightWidget : public BaseEditorPage
+class LightWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:

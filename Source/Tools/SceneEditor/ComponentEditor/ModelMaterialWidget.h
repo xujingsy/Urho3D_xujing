@@ -1,10 +1,10 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "BaseComponentEditor.h"
 #include "StaticModel.h"
 using namespace Urho3D;
 
 //给模型(StaticModel,AnimationModel等)指定材质的窗口
-class ModelMaterialWidget : public BaseEditorPage
+class ModelMaterialWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:

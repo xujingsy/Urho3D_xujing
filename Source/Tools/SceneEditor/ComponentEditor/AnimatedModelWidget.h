@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "BaseComponentEditor.h"
 
-class AnimatedModelWidget : public BaseEditorPage
+class AnimatedModelWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:

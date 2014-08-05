@@ -8,7 +8,7 @@
 #include <QPalette>
 using namespace Urho3D;
 
-class BaseEditorPage : public ShowHidePanel
+class BaseComponentEditor : public ShowHidePanel
 {
 public:
 	virtual void Init(Node* pNode)

@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseEditorPage.h"
+#include "BaseComponentEditor.h"
 
-class ScriptInstanceWidget : public BaseEditorPage
+class ScriptInstanceWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:
@@ -10,6 +10,4 @@ public:
 	}
 
 	void Init(Node* pNode);
-
-
 };
