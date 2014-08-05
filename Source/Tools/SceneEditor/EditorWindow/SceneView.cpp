@@ -109,13 +109,9 @@ void SceneView::HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData
 
 void SceneView::HandleSceneReset(StringHash eventType, VariantMap& eventData)
 {
-<<<<<<< HEAD
 	this->clear();
 
 	Init(EditorRoot::Instance()->scene_);
-=======
-
->>>>>>> e3e002125b03a9ee8e9c0d48c561b24343f839f0
 }
 
 void SceneView::Init(Node* pSceneNode)

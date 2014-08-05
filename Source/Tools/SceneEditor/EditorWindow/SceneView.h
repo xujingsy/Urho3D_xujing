@@ -43,7 +43,6 @@ private:
 	void HandleNodeRemoved(StringHash eventType, VariantMap& eventData);
 	void HandleNodeSelectionChange(StringHash eventType, VariantMap& eventData);
 	void HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData);
-	void HandleSceneReset(StringHash eventType, VariantMap& eventData);
 
 	//场景被重置(如新建，打开新场景)
 	void HandleSceneReset(StringHash eventType, VariantMap& eventData);
