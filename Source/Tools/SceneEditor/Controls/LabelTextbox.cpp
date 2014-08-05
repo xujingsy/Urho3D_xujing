@@ -87,6 +87,9 @@ bool LabelTextBox::eventFilter(QObject* target,QEvent* event)
 					GetCursorPos(&ptDown);
 					initValue = txtValue->text().toFloat();
 					SetCapture(lblName->winId());
+
+					//通知开始编辑
+					emit onStartChange(initValue);
 				}
 			}
 			else if(eType == QEvent::MouseButtonRelease)
@@ -94,6 +97,8 @@ bool LabelTextBox::eventFilter(QObject* target,QEvent* event)
 				if(m_Captured == true)
 				{
 					ReleaseCapture();
+
+					emit onEndChange(txtValue->text().toFloat());
 				}
 			}
 		}

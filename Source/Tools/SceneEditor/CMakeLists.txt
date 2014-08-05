@@ -80,7 +80,7 @@ endif ()
 #file(WRITE SceneGenLog.txt "message to write")
 
 # group
-set (SubDirs Controls EditorAPI EditorAssist EditorInfo EditorWindow Manager ComponentEditor OtherTools Terrain)
+set (SubDirs Controls EditorAPI EditorAssist EditorInfo EditorWindow Manager ComponentEditor ComponentTool OtherTools Terrain)
 add_project_dirs (${SubDirs})
 
 set (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${UI_HEADERS} ${RCC_FILES})

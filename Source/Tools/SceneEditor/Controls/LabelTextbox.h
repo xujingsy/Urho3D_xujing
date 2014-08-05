@@ -27,6 +27,9 @@ public:
 	void SetValueRange(float from,float to);
 signals:
 	void valueChanged(float);
+	//开始变化
+	void onStartChange(float);
+	void onEndChange(float);
 private slots:
 	void textChanged(const QString & text);
 private:

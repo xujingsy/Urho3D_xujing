@@ -5,9 +5,7 @@ class SkyboxWidget : public StaticModelWidget
 {
 	Q_OBJECT
 public:
-	SkyboxWidget()
-	{
-	}
+	SkyboxWidget();
 
 	void Init(Node* pNode);
 };
