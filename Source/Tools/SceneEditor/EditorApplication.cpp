@@ -5,15 +5,15 @@
 #include "DebugHud.h"
 #include "Skybox.h"
 #include "EditorSceneWidget.h"
-#include "Rotator.h"
+#include "ComponentEditor/Rotator.h"
 #include "DebugRenderer.h"
-#include "ObjectEditor/StaticModelWidget.h"
+#include "ComponentEditor/StaticModelWidget.h"
 
 EditorApplication::EditorApplication(int argc, char** argv,Context* context) : QApplication(argc, argv), Object(context)
 {
 	EditorRoot::Instance()->context_ = context;
 
-	SetStyleSheet("makehuman.qss");
+	SetStyleSheet(":/Images/themes/makehuman.qss");
 
     mainWindow_ = new MainWindow();
 }

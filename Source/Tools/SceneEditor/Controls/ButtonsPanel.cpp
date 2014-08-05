@@ -57,7 +57,7 @@ void ButtonsPanel::OnInitDialog()
 		//¼Óµ½ButtonPanel
 		m_ButtonPanel->layout()->addWidget(btn.pButton);
 
-		connect(btn.pButton,SIGNAL(clicked(bool)),this,SLOT(buttonClicked(bool)));
+		connect(btn.pButton, SIGNAL(clicked(bool)), this, SLOT(buttonClicked(bool)));
 	}
 
 	RecalcButtonsLayout();

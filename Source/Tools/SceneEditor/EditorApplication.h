@@ -5,7 +5,7 @@
 
 #include "EditorInfo/EditorGlobalInfo.h"
 #include "EditorAssist/TerrainBrush.h"
-#include "EditorAPI/EditorRoot.h"
+#include "EditorManager/EditorRoot.h"
 
 namespace Urho3D
 {

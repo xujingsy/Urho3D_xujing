@@ -3,7 +3,7 @@
 #include "Skybox.h"
 #include "SceneEvents.h"
 using namespace Urho3D;
-#include "../EditorAPI/EditorEvents.h"
+#include "../EditorManager/EditorEvents.h"
 #include "../EditorSceneWidget.h"
 
 SceneView::SceneView(QWidget* parent,Context* context) : QTreeWidget(parent) , Object(context)
@@ -109,9 +109,13 @@ void SceneView::HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData
 
 void SceneView::HandleSceneReset(StringHash eventType, VariantMap& eventData)
 {
+<<<<<<< HEAD
 	this->clear();
 
 	Init(EditorRoot::Instance()->scene_);
+=======
+
+>>>>>>> e3e002125b03a9ee8e9c0d48c561b24343f839f0
 }
 
 void SceneView::Init(Node* pSceneNode)

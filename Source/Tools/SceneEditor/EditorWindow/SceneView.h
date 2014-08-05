@@ -45,6 +45,9 @@ private:
 	void HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData);
 	void HandleSceneReset(StringHash eventType, VariantMap& eventData);
 
+	//场景被重置(如新建，打开新场景)
+	void HandleSceneReset(StringHash eventType, VariantMap& eventData);
+
 	bool bSelectTrigger;	//标记设置选择状态是否触发方法
 protected:
 	void mouseReleaseEvent(QMouseEvent *evt);

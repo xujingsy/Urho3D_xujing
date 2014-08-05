@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "MainWindow.h"
 #include "EditorSceneWidget.h"
-#include "Manager/UndoManager.h"
+#include "EditorManager/UndoManager.h"
+#include "EditorManager/EditorEvents.h"
 #include "Controls/ButtonsPanel.h"
+
 #include "EditorInfo/EditorGlobalInfo.h"
-#include "EditorAPI/EditorEvents.h"
 #include "EditorAssist/RTTScene.h"
 #include "EditorWindow/AboutDlg.h"
+#include "EditorWindow/MaterialView.h"
 
 //主要通过Dock分隔窗口
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow(parent, flags),Object(EditorRoot::Instance()->context_)
@@ -282,6 +284,10 @@ void MainWindow::HandleAttachTerrainAction(bool)
 
 void MainWindow::HandleTestEffectAction(bool)
 {
+	MaterialView mat;
+	mat.exec();
+
+	return;
 	ResourceCache* cache = GetSubsystem<ResourceCache>();
 
 	//EditorRoot::Instance()->AddEffetToSelectionNodes();
