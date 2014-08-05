@@ -81,7 +81,7 @@ namespace Urho3D_Android_Generator
             }
             if (chkAngleScript.Checked == true)
             {
-                strOption += " -DURHO3D_ANGLESCRIPT=1";
+				strOption += " -DURHO3D_ANGELSCRIPT=1";
             }
 
             string strLibType = ""; //默认
