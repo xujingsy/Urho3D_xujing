@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ObjectPositionEditor.h"
-#include "../Manager/SceneHelper.h"
+#include "../EditorAPI/SceneHelper.h"
 #include "DebugRenderer.h"
 #include "../EditorSceneWidget.h"
 #include "Skybox.h"

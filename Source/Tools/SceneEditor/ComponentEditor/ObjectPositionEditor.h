@@ -5,8 +5,8 @@ using namespace Urho3D;
 #include "../EditorInfo/BaseEditor.h"
 #include <vector>
 using namespace std;
-#include "../Manager/SceneHelper.h"
-#include "../Manager/OperationData.h"
+#include "../EditorAPI/SceneHelper.h"
+#include "../EditorAPI/OperationData.h"
 
 /*
 点击坐标轴实现拖动物体的算法：

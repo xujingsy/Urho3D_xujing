@@ -9,7 +9,7 @@
 #include "AnimatedModel.h"
 #include "AnimationState.h"
 #include "Mover.h"
-#include "../Manager/SceneHelper.h"
+#include "../EditorAPI/SceneHelper.h"
 #include "ValueAnimation.h"
 
 TerrainEditor::TerrainEditor(Context* context) : Object(context)
