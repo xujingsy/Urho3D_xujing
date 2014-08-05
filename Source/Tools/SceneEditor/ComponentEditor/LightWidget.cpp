@@ -34,12 +34,12 @@ void LightWidget::onLightTypeChanged(int index)
 	if(bEditNotify == false)
 		return;
 
-	Light* light = pOwnerNode->GetComponent<Light>();
-	if(light)
+	Light* pLight = (Light*)component_;
+	if(pLight)
 	{
 		if(index >= 0)
 		{
-			light->SetLightType(LightType(index));
+			pLight->SetLightType(LightType(index));
 		}
 	}
 }
@@ -49,7 +49,7 @@ void LightWidget::onLightColorChanged(Urho3D::Color color)
 	if(bEditNotify == false)
 		return;
 
-	Light* pLight = pOwnerNode->GetComponent<Light>();
+	Light* pLight = (Light*)component_;
 	if(pLight != NULL)
 	{
 		pLight->SetColor(color);
@@ -61,7 +61,7 @@ void LightWidget::onLightSpeckIntenChanged(float intensity)
 	if(bEditNotify == false)
 		return;
 
-	Light* pLight = pOwnerNode->GetComponent<Light>();
+	Light* pLight = (Light*)component_;
 	if(pLight != NULL)
 	{
 		pLight->SetSpecularIntensity(intensity);
@@ -70,6 +70,8 @@ void LightWidget::onLightSpeckIntenChanged(float intensity)
 
 void LightWidget::InitComponent(Component* pComponent)
 {
+	BaseComponentEditor::InitComponent(pComponent);
+
 	BeginInit();
 
 	Light* pLight = (Light*)pComponent;

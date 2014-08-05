@@ -14,6 +14,7 @@ public:
 	virtual void InitComponent(Component* pComponent)
 	{
 		bEditNotify = true;
+		component_ = pComponent;
 	}
 protected:
 	Node* pOwnerNode;
@@ -37,4 +38,6 @@ protected:
 	{
 		bEditNotify = true;
 	}
+
+	Component* component_;
 };

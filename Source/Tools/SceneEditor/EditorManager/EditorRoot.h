@@ -88,6 +88,9 @@ public:
 
 	bool OpenScene(const char* sceneFile);
 
+	//场景被重置时，重新创建编辑器相关节点
+	void OnSceneReset();
+
 	//当前活跃的编辑方式
 	enEditorTools ActiveTool;
 
@@ -103,12 +106,6 @@ public:
 
 	Editor3dGizmo* GetGizmo()
 	{
-		if(gizmo_ == NULL)
-		{
-			gizmo_ = new Editor3dGizmo(context_);
-			gizmo_->CreateGizmo();
-		}
-
 		return gizmo_;
 	}
 

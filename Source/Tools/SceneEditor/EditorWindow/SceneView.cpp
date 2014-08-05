@@ -97,6 +97,11 @@ void SceneView::HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData
 	}
 }
 
+void SceneView::HandleSceneReset(StringHash eventType, VariantMap& eventData)
+{
+
+}
+
 void SceneView::Init(Node* pSceneNode)
 {
 	context_ = pSceneNode->GetContext();

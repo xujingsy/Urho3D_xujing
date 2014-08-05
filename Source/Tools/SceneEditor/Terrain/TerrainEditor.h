@@ -52,7 +52,7 @@ public:
 		return brush_;
 	}
 
-	Node* add_mesh_test(const char* name,float x,float y,float z,const char* modelUrl);
+	void OnSceneReset();
 private:
 	EditMode mEditMode;		//当前编辑模式
 	float mBrushIntensity;	//画刷强度
@@ -62,11 +62,6 @@ private:
 
 	//当
 	void on_viewport_click(float x,float y);
-
 	void on_terrain_click(Vector3& worldPos);
-
-	void test_2d_scene();
-	Node* tiledNode;
-
-	int modIndex;
+	void create_brush_node();
 };

@@ -20,6 +20,7 @@ public:
 
 private Q_SLOTS:
 	void onButtonSelectClicked(bool checked);
+	void onColorFramesClicked(bool checked);
 private:
 	//移除所有的条目，根据模型的材质数量动态设置
 	void ClearItems();

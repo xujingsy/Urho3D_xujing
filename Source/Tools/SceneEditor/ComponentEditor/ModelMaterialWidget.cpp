@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "ModelMaterialWidget.h"
 #include <QHBoxLayout>
+#include "../EditorWindow/MaterialView.h"
+#include "MaterialColorFrameEditorDialog.h"
 
 ModelMaterialWidget::ModelMaterialWidget(QWidget* parent) : QFrame(parent)
 {
@@ -49,6 +51,11 @@ void ModelMaterialWidget::SetOwnerModel(StaticModel* pModel)
 		btnSelect->setWhatsThis(QString::number(i));
 		connect(btnSelect, SIGNAL(clicked(bool)), this, SLOT(onButtonSelectClicked(bool)));
 
+		QPushButton* btnColorFrame = new QPushButton("ColorFrames");
+		hRow->addWidget(btnColorFrame);
+		btnColorFrame->setWhatsThis(QString::number(i));
+		connect(btnColorFrame, SIGNAL(clicked(bool)), this, SLOT(onColorFramesClicked(bool)));
+
 		//如果材质为空，
 		Material* pMaterial = pModel->GetMaterial(i);
 		if(pModel != NULL)
@@ -64,5 +71,13 @@ void ModelMaterialWidget::onButtonSelectClicked(bool checked)
 {
 	QPushButton* btn = (QPushButton*)sender();
 	//QString tag = btn->getWhatsThis();
+	MaterialView dlg;
+	dlg.exec();
+}
 
+void ModelMaterialWidget::onColorFramesClicked(bool checked)
+{
+	MaterialColorFrameEditorDialog dlg;
+	dlg.exec();
+	dlg.GetColorFrames();
 }

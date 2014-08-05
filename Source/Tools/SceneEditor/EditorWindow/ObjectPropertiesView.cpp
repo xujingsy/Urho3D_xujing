@@ -4,6 +4,8 @@
 
 ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 {
+	addComponentWidget_ = NULL;	//延后创建
+
 	QVBoxLayout* layout = new QVBoxLayout();
 	layout->setAlignment(Qt::AlignTop);
 	layout->setSpacing(0);
@@ -29,7 +31,6 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 
 	//坐标调整
 	positionWidget_ = new NodeWidget();
-	positionWidget_->Show();	//默认打开
 	lstWidges.push_back(positionWidget_);
 
 	lightWidget_ = new LightWidget();
@@ -116,6 +117,12 @@ void ObjectPropertiesView::SetEditNode(Node* pNode)
 		skyboxWidget_->InitComponent(pNode->GetComponent<Skybox>());
 		vContentLayout->addWidget(skyboxWidget_);
 	}
+
+	if(addComponentWidget_ == NULL)
+	{
+		addComponentWidget_ = new AddComponentWidget();
+	}
+	vContentLayout->addWidget(addComponentWidget_);
 
 	vContentLayout->addWidget(btnAddComponent);
 

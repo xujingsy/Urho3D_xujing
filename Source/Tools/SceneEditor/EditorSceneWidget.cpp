@@ -52,7 +52,7 @@ void EditorSceneWidget::dropEvent(QDropEvent *event)
 			const SceneHitResult& obj = results[i];
 			if(obj.object->GetTypeName() == "TerrainPatch")
 			{
-				EditorRoot::Instance()->GetTerrainEditor()->add_mesh_test(fileName.toStdString().c_str(),obj.hitPos.x_,obj.hitPos.y_,obj.hitPos.z_,fileName.toStdString().c_str());
+				SceneHelper::AddMesh(fileName.toStdString().c_str(),obj.hitPos.x_,obj.hitPos.y_,obj.hitPos.z_,fileName.toStdString().c_str());
 				break;
 			}
 		}

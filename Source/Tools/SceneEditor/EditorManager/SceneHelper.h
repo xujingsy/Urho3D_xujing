@@ -34,6 +34,9 @@ public:
 
 	Vector2 GetScreenPos(const Vector2& viewPos);
 	Vector2 GetViewPos(const Vector2& screenPos);
+
+	//简化创建模型(todo:参数)
+	static Node* AddMesh(const char* name,float x,float y,float z,const char* modelUrl);
 private:
 	//递归函数，判断节点是否落在区域内
 	void query_node_in_rect(Node* node,vector<Node*>& outNodes,const Vector2& vecStart,const Vector2& vecEnd);

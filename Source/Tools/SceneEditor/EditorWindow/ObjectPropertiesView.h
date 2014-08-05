@@ -13,6 +13,7 @@ using namespace std;
 #include "../ComponentEditor/AnimatedModelWidget.h"
 #include "../ComponentEditor/TerrainWidget.h"
 #include "../ComponentEditor/NodeWidget.h"
+#include "../EditorManager/AddComponentWidget.h"
 
 class ObjectPropertiesView : public QWidget
 {
@@ -37,6 +38,8 @@ private:
 
 	TerrainWidget* terrainWidget_;
 	QPushButton* btnAddComponent;
+
+	AddComponentWidget* addComponentWidget_;
 
 	list<ShowHidePanel*> lstWidges;
 

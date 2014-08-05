@@ -171,6 +171,7 @@ void EditorRoot::NewScene()
 	}
 
 	//////////////////////////////////////////////////////////////////////////
+	OnSceneReset();
 	fileName_.Clear();
 }
 
@@ -214,6 +215,15 @@ void EditorRoot::SaveScene(const char* sceneFile)
 	scene_->SaveXML(file);
 }
 
+void EditorRoot::OnSceneReset()
+{
+	//选择物件时显示的坐标轴
+	gizmo_ = new Editor3dGizmo(context_);
+	gizmo_->CreateGizmo();
+
+	terrainEditor_->OnSceneReset();
+}
+
 void EditorRoot::InitEditors(Context* context)
 {
 	context_ = context;
@@ -241,7 +251,7 @@ void EditorRoot::InitEditorUI(Context* context)
 	UIRoot_->SetDefaultStyle(style);
 
 	//地形UI
-	window_->AddChild(context->GetSubsystem<UI>()->LoadLayout(cache->GetResource<XMLFile>("UI/TerrainEditorToolBox.xml")));
+	//window_->AddChild(context->GetSubsystem<UI>()->LoadLayout(cache->GetResource<XMLFile>("UI/TerrainEditorToolBox.xml")));
 
 	ObjectNameTip_ = new ObjectNameTip();
 	RectSelectionFrame_ = new RectSelectionFrame();

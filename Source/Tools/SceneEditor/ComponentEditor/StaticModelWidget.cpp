@@ -15,5 +15,6 @@ StaticModelWidget::StaticModelWidget()
 
 void StaticModelWidget::InitComponent(Component* pComponent)
 {
-
+	StaticModel* pModel = (StaticModel*)pComponent;
+	materialEditor_->SetOwnerModel(pModel);
 }
