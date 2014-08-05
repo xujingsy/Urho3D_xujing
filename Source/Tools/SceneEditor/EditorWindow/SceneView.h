@@ -43,6 +43,7 @@ private:
 	void HandleNodeRemoved(StringHash eventType, VariantMap& eventData);
 	void HandleNodeSelectionChange(StringHash eventType, VariantMap& eventData);
 	void HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData);
+	void HandleSceneReset(StringHash eventType, VariantMap& eventData);
 
 	bool bSelectTrigger;	//标记设置选择状态是否触发方法
 protected:
