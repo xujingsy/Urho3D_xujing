@@ -5,7 +5,7 @@
 #include "DebugHud.h"
 #include "Skybox.h"
 #include "EditorSceneWidget.h"
-#include "Rotator.h"
+#include "ComponentEditor/Rotator.h"
 #include "DebugRenderer.h"
 #include "ComponentEditor/StaticModelWidget.h"
 
