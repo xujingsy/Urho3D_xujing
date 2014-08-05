@@ -2,11 +2,11 @@
 #include "ModelMaterialWidget.h"
 #include <QHBoxLayout>
 
-ModelMaterialWidget::ModelMaterialWidget()
+ModelMaterialWidget::ModelMaterialWidget(QWidget* parent) : QFrame(parent)
 {
-	SetIcon(":/Images/MaterialView/material.png");
-	SetName("Materials");
+	vLayout = new QVBoxLayout();
 
+	setLayout(vLayout);
 }
 
 ModelMaterialWidget::~ModelMaterialWidget()
@@ -14,21 +14,19 @@ ModelMaterialWidget::~ModelMaterialWidget()
 
 }
 
-void ModelMaterialWidget::Init(Node* pNode)
+void ModelMaterialWidget::InitComponent(Component* pComponent)
 {
 
 }
 
 void ModelMaterialWidget::ClearItems()
 {
-	QList<QWidget*> lstWidgets = frameLayout_->findChildren<QWidget*>();
+	QList<QWidget*> lstWidgets = vLayout->findChildren<QWidget*>();
 	
 	for(int i = 0;i < lstWidgets.size();i ++)
 	{
-		frameLayout_->removeWidget(lstWidgets[i]);
+		vLayout->removeWidget(lstWidgets[i]);
 	}
-
-	//removeWidget();
 }
 
 void ModelMaterialWidget::SetOwnerModel(StaticModel* pModel)
@@ -40,7 +38,7 @@ void ModelMaterialWidget::SetOwnerModel(StaticModel* pModel)
 	for(int i = 0;i < materials.Size();i ++)
 	{
 		//添加一条记录
-		QHBoxLayout* hRow = getNewRow();
+		QHBoxLayout* hRow = new QHBoxLayout();
 
 		QLabel* lblMatPath = new QLabel("");
 		lblMatPath->setFixedWidth(160);
@@ -57,6 +55,8 @@ void ModelMaterialWidget::SetOwnerModel(StaticModel* pModel)
 		{
 			lblMatPath->setText(pMaterial->GetName().CString());
 		}
+
+		vLayout->addLayout(hRow);
 	}
 }
 

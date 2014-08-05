@@ -11,7 +11,7 @@ using namespace Urho3D;
 class BaseComponentEditor : public ShowHidePanel
 {
 public:
-	virtual void Init(Node* pNode)
+	virtual void InitComponent(Component* pComponent)
 	{
 		bEditNotify = true;
 	}

@@ -57,37 +57,6 @@
     <file>Images/Components/Zone.png</file>
     <file>Images/Components/Root.png</file>
 	</qresource>
- 
-  <qresource prefix="qss_icons">
-    <file>rc/up_arrow_disabled.png</file>
-    <file>rc/Hmovetoolbar.png</file>
-    <file>rc/stylesheet-branch-end.png</file>
-    <file>rc/branch_closed-on.png</file>
-    <file>rc/stylesheet-vline.png</file>
-    <file>rc/branch_closed.png</file>
-    <file>rc/branch_open-on.png</file>
-    <file>rc/transparent.png</file>
-    <file>rc/right_arrow_disabled.png</file>
-    <file>rc/sizegrip.png</file>
-    <file>rc/close.png</file>
-    <file>rc/down_arrow.png</file>
-    <file>rc/Vmovetoolbar.png</file>
-    <file>rc/left_arrow.png</file>
-    <file>rc/stylesheet-branch-more.png</file>
-    <file>rc/up_arrow.png</file>
-    <file>rc/right_arrow.png</file>
-    <file>rc/left_arrow_disabled.png</file>
-    <file>rc/Hsepartoolbar.png</file>
-    <file>rc/checkbox.png</file>
-    <file>rc/branch_open.png</file>
-    <file>rc/Vsepartoolbar.png</file>
-    <file>rc/down_arrow_disabled.png</file>
-    <file>rc/undock.png</file>
-  </qresource>
-  
-  <qresource prefix="qdarkstyle">
-    <file>style.qss</file>
-  </qresource>
 
   <qresource prefix="">
     <file>Images/Show.png</file>
@@ -113,5 +82,14 @@
     <file>Images/MaterialView/pass.png</file>
     <file>Images/MaterialView/technique.png</file>
   </qresource>
-  
+
+  <qresource prefix="">
+    <file>Images/themes/makehuman.qss</file>
+    <file>Images/themes/makehuman/images/branch-closed.png</file>
+    <file>Images/themes/makehuman/images/branch-open.png</file>
+    <file>Images/themes/makehuman/images/checkbox.png</file>
+    <file>Images/themes/makehuman/images/checkbox-orange.png</file>
+    <file>Images/themes/makehuman/images/down_arrow.png</file>
+    <file>Images/themes/makehuman/images/handle.png</file>
+  </qresource>
 </RCC>

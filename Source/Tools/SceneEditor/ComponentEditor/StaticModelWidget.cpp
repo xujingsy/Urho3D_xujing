@@ -9,9 +9,11 @@ StaticModelWidget::StaticModelWidget()
 	SetIcon(":/Images/Components/StaticModel.png");
 	SetName("StaticModel");
 
+	materialEditor_ = new ModelMaterialWidget();
+	frameLayout_->addWidget(materialEditor_);
 }
 
-void StaticModelWidget::Init(Node* pNode)
+void StaticModelWidget::InitComponent(Component* pComponent)
 {
 
 }

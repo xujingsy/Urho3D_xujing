@@ -31,6 +31,9 @@ LightWidget::LightWidget(QWidget* parent)
 
 void LightWidget::onLightTypeChanged(int index)
 {
+	if(bEditNotify == false)
+		return;
+
 	Light* light = pOwnerNode->GetComponent<Light>();
 	if(light)
 	{
@@ -43,6 +46,9 @@ void LightWidget::onLightTypeChanged(int index)
 
 void LightWidget::onLightColorChanged(Urho3D::Color color)
 {
+	if(bEditNotify == false)
+		return;
+
 	Light* pLight = pOwnerNode->GetComponent<Light>();
 	if(pLight != NULL)
 	{
@@ -52,6 +58,9 @@ void LightWidget::onLightColorChanged(Urho3D::Color color)
 
 void LightWidget::onLightSpeckIntenChanged(float intensity)
 {
+	if(bEditNotify == false)
+		return;
+
 	Light* pLight = pOwnerNode->GetComponent<Light>();
 	if(pLight != NULL)
 	{
@@ -59,13 +68,11 @@ void LightWidget::onLightSpeckIntenChanged(float intensity)
 	}
 }
 
-void LightWidget::Init(Node* pNode)
+void LightWidget::InitComponent(Component* pComponent)
 {
-	pOwnerNode = pNode;
-
 	BeginInit();
 
-	Light* pLight = pOwnerNode->GetComponent<Light>();
+	Light* pLight = (Light*)pComponent;
 	if(pLight != NULL)
 	{
 		selColor->setColor(pLight->GetColor());

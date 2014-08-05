@@ -10,16 +10,16 @@ using namespace std;
 #include "../ComponentEditor/SceneWidget.h"
 #include "../ComponentEditor/SkyboxWidget.h"
 #include "../ComponentEditor/StaticModelWidget.h"
+#include "../ComponentEditor/AnimatedModelWidget.h"
 #include "../ComponentEditor/TerrainWidget.h"
-#include "../ComponentEditor/ModelMaterialWidget.h"
-#include "../ComponentEditor/EditorComponent/PositonEditorComponent.h"
+#include "../ComponentEditor/NodeWidget.h"
 
 class ObjectPropertiesView : public QWidget
 {
 public:
 	ObjectPropertiesView(QWidget* parent = NULL);
 
-	void SetTarget(Node* pTarget);
+	void SetEditNode(Node* pNode);
 private:
 	QWidget* wContent;
 	QVBoxLayout* vContentLayout;
@@ -27,12 +27,14 @@ private:
 	QVBoxLayout* layoutContent;
 
 	//一些对象编辑面板
-	PositonEditorComponent* positionWidget_;
+	NodeWidget* positionWidget_;
+
 	LightWidget* lightWidget_;
 	SceneWidget* sceneWidget_;
-	ModelMaterialWidget* materialWidget_;
 	SkyboxWidget* skyboxWidget_;
 	StaticModelWidget* staticModelWidget_;
+	AnimatedModelWidget* animatedModelWidget_;
+
 	TerrainWidget* terrainWidget_;
 	QPushButton* btnAddComponent;
 

@@ -1,12 +1,20 @@
 #pragma once
 #include "BaseComponentEditor.h"
+#include "ModelMaterialWidget.h"
 
 class StaticModelWidget : public BaseComponentEditor
 {
 	Q_OBJECT
 public:
 	StaticModelWidget();
-	void Init(Node* pNode);
+
+	~StaticModelWidget()
+	{
+	}
+
+	void InitComponent(Component* pComponent);
 public:
 	bool CastShadow;
+private:
+	ModelMaterialWidget* materialEditor_;
 };

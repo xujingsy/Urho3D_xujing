@@ -13,7 +13,7 @@ EditorApplication::EditorApplication(int argc, char** argv,Context* context) : Q
 {
 	EditorRoot::Instance()->context_ = context;
 
-	SetStyleSheet("makehuman.qss");
+	SetStyleSheet(":/Images/themes/makehuman.qss");
 
     mainWindow_ = new MainWindow();
 }

@@ -9,5 +9,5 @@ public:
 	{
 	}
 
-	void Init(Node* pNode);
+	void InitComponent(Component* pComponent);
 };

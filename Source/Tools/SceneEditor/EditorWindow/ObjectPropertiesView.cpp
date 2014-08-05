@@ -28,13 +28,9 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 	scroll->setWidget(wContent);
 
 	//坐标调整
-	positionWidget_ = new PositonEditorComponent();
+	positionWidget_ = new NodeWidget();
 	positionWidget_->Show();	//默认打开
 	lstWidges.push_back(positionWidget_);
-
-	materialWidget_ = new ModelMaterialWidget();
-	materialWidget_->Show();
-	lstWidges.push_back(materialWidget_);
 
 	lightWidget_ = new LightWidget();
 	lstWidges.push_back(lightWidget_);
@@ -47,6 +43,9 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 
 	staticModelWidget_ = new StaticModelWidget();
 	lstWidges.push_back(staticModelWidget_);
+
+	animatedModelWidget_ = new AnimatedModelWidget();
+	lstWidges.push_back(animatedModelWidget_);
 
 	terrainWidget_ = new TerrainWidget();
 	lstWidges.push_back(terrainWidget_);
@@ -64,11 +63,11 @@ ObjectPropertiesView::ObjectPropertiesView(QWidget* parent)
 	showMinimized();
 }
 
-void ObjectPropertiesView::SetTarget(Node* pTarget)
+void ObjectPropertiesView::SetEditNode(Node* pNode)
 {
 	fixWidget->setParent(NULL);
 
-	descWidget_->SetText(pTarget->GetName().CString());
+	descWidget_->SetText(pNode->GetName().CString());
 	list<ShowHidePanel*>::iterator it = lstWidges.begin();
 	while(it != lstWidges.end())
 	{
@@ -76,43 +75,45 @@ void ObjectPropertiesView::SetTarget(Node* pTarget)
 		++ it;
 	}
 
-	if(pTarget == EditorRoot::Instance()->scene_)
+	if(pNode == EditorRoot::Instance()->scene_)
 	{
-		sceneWidget_->Init(pTarget);
+		sceneWidget_->Init(pNode);
 		vContentLayout->addWidget(sceneWidget_);
 		vContentLayout->addWidget(fixWidget);
 		return;
 	}
 	
 	//Position 每个Node必有
-	positionWidget_->Init(pTarget);
+	positionWidget_->Init(pNode);
 	vContentLayout->addWidget(positionWidget_);
 
-	if(pTarget->GetComponent<Light>() != NULL)
+	if(pNode->GetComponent<Light>() != NULL)
 	{
-		lightWidget_->Init(pTarget);
+		lightWidget_->InitComponent(pNode->GetComponent<Light>());
 		vContentLayout->addWidget(lightWidget_);
 	}
 
-	if(pTarget->GetComponent<StaticModel>() != NULL)
+	if(pNode->GetComponent<StaticModel>() != NULL)
 	{
-		staticModelWidget_->Init(pTarget);
+		staticModelWidget_->InitComponent(pNode->GetComponent<StaticModel>());
 		vContentLayout->addWidget(staticModelWidget_);
-
-		materialWidget_->Init(pTarget);
-		materialWidget_->SetOwnerModel(pTarget->GetComponent<StaticModel>());
-		vContentLayout->addWidget(materialWidget_);
 	}
 
-	if(pTarget->GetComponent<TerrainPatch>() != NULL)
+	if(pNode->GetComponent<AnimatedModel>() != NULL)
 	{
-		terrainWidget_->Init(pTarget);
+		animatedModelWidget_->InitComponent(pNode->GetComponent<AnimatedModel>());
+		vContentLayout->addWidget(animatedModelWidget_);
+	}
+
+	if(pNode->GetComponent<TerrainPatch>() != NULL)
+	{
+		terrainWidget_->InitComponent(pNode->GetComponent<TerrainPatch>());
 		vContentLayout->addWidget(terrainWidget_);
 	}
 
-	if(pTarget->GetComponent<Skybox>() != NULL)
+	if(pNode->GetComponent<Skybox>() != NULL)
 	{
-		skyboxWidget_->Init(pTarget);
+		skyboxWidget_->InitComponent(pNode->GetComponent<Skybox>());
 		vContentLayout->addWidget(skyboxWidget_);
 	}
 

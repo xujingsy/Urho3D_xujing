@@ -7,5 +7,5 @@ class SkyboxWidget : public StaticModelWidget
 public:
 	SkyboxWidget();
 
-	void Init(Node* pNode);
+	void InitComponent(Component* pComponent);
 };

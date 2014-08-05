@@ -13,7 +13,7 @@ TerrainWidget::~TerrainWidget()
 
 }
 
-void TerrainWidget::Init(Node* pNode)
+void TerrainWidget::InitComponent(Component* pComponent)
 {
 
 }

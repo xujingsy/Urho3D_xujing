@@ -10,7 +10,7 @@ public:
 	TerrainWidget();
 	~TerrainWidget();
 
-	void Init(Node* pNode);
+	void InitComponent(Component* pComponent);
 
 private:
 	TerrainEditorTool* terrainTool;

@@ -7,7 +7,7 @@ SkyboxWidget::SkyboxWidget()
 	SetName("Skybox");
 }
 
-void SkyboxWidget::Init(Node* pNode)
+void SkyboxWidget::InitComponent(Component* pComponent)
 {
 
 }

@@ -9,7 +9,7 @@ class LightWidget : public BaseComponentEditor
 public:
 	LightWidget(QWidget* parent = 0);
 
-	void Init(Node* pNode);
+	void InitComponent(Component* pComponent);
 private slots:
 	void onLightTypeChanged(int index);
 	void onLightColorChanged(Urho3D::Color color);

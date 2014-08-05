@@ -1,18 +1,25 @@
 #include "stdafx.h"
+#include <math.h>
+
 #include "EditorRoot.h"
 #include "Skybox.h"
-#include "../ComponentEditor/LightWidget.h"
-#include "../ComponentEditor/SceneWidget.h"
-#include "../ComponentEditor/SkyboxWidget.h"
-#include "../ComponentEditor/StaticModelWidget.h"
+#include "AnimationState.h"
+#include "Animation.h"
 #include "DebugRenderer.h"
-#include <math.h>
-#include <WinUser.h>
-#include "../EditorManager/EditorEvents.h"
 #include "BillboardSet.h"
 #include "ParticleEmitter.h"
 #include "SceneEvents.h"
 #include "Window.h"
+#include "../Terrain/Mover.h"
+
+#include "../ComponentEditor/LightWidget.h"
+#include "../ComponentEditor/SceneWidget.h"
+#include "../ComponentEditor/SkyboxWidget.h"
+#include "../ComponentEditor/StaticModelWidget.h"
+#include "../EditorManager/EditorEvents.h"
+
+//todo:
+#include <WinUser.h>
 
 EditorRoot::EditorRoot()
 {
@@ -127,6 +134,40 @@ void EditorRoot::NewScene()
 		StaticModel* mushroomObject = mushroomNode->CreateComponent<StaticModel>();
 		mushroomObject->SetModel(cache->GetResource<Model>("Models/Mushroom.mdl"));
 		mushroomObject->SetMaterial(cache->GetResource<Material>("Materials/Mushroom.xml"));
+	}
+
+	// Create animated models
+	const unsigned NUM_MODELS = 100;
+	const float MODEL_MOVE_SPEED = 2.0f;
+	const float MODEL_ROTATE_SPEED = 100.0f;
+	const BoundingBox bounds(Vector3(-47.0f, 0.0f, -47.0f), Vector3(47.0f, 0.0f, 47.0f));
+
+	for (unsigned i = 0; i < NUM_MODELS; ++i)
+	{
+		Node* modelNode = scene_->CreateChild("Jack");
+		modelNode->SetPosition(Vector3(Random(90.0f) - 45.0f, 0.0f, Random(90.0f) - 45.0f));
+		modelNode->SetRotation(Quaternion(0.0f, Random(360.0f), 0.0f));
+		AnimatedModel* modelObject = modelNode->CreateComponent<AnimatedModel>();
+		modelObject->SetModel(cache->GetResource<Model>("Models/Jack.mdl"));
+		modelObject->SetMaterial(cache->GetResource<Material>("Materials/Jack.xml"));
+		modelObject->SetCastShadows(true);
+
+		// Create an AnimationState for a walk animation. Its time position will need to be manually updated to advance the
+		// animation, The alternative would be to use an AnimationController component which updates the animation automatically,
+		// but we need to update the model's position manually in any case
+		Animation* walkAnimation = cache->GetResource<Animation>("Models/Jack_Walk.ani");
+		AnimationState* state = modelObject->AddAnimationState(walkAnimation);
+		// The state would fail to create (return null) if the animation was not found
+		if (state)
+		{
+			// Enable full blending weight and looping
+			state->SetWeight(1.0f);
+			state->SetLooped(true);
+		}
+
+		// Create our custom Mover component that will move & animate the model during each frame's update
+		Mover* mover = modelNode->CreateComponent<Mover>();
+		mover->SetParameters(MODEL_MOVE_SPEED, MODEL_ROTATE_SPEED, bounds);
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -336,7 +377,7 @@ RTTScene* EditorRoot::GetRTTScene()
 // 显示编辑面板，记录当前编辑物件
 void EditorRoot::OnNodeSelect(Node* pNode)
 {
-	GetMainWindow()->GetPropertiesView()->SetTarget(pNode);
+	GetMainWindow()->GetPropertiesView()->SetEditNode(pNode);
 
 	//显示Gizmo
 	GetGizmo()->ShowGizmo();

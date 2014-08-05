@@ -38,7 +38,8 @@ ShowHidePanel::ShowHidePanel(QWidget* parent)
 	frame_->setLayout(frameLayout_);
 	//frame_->setContentsMargins(0,0,0,0);
 	vLayout->addWidget(frame_);
-	Hide();
+
+	Show();
 
 	connect(lblButton_,SIGNAL(clicked(bool)),this,SLOT(buttonClicked(bool)));
 }
