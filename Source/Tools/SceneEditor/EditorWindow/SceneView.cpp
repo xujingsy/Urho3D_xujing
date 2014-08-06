@@ -21,6 +21,16 @@ SceneView::SceneView(QWidget* parent,Context* context) : QTreeWidget(parent) , O
 
 	connect(this,SIGNAL(itemSelectionChanged()),this,SLOT(selectionChanged()));
 	connect(this,SIGNAL(itemDoubleClicked(QTreeWidgetItem *,int)),this,SLOT(itemDoubleClicked(QTreeWidgetItem *,int)));
+
+	//节点增删
+	SubscribeToEvent(E_NODEADDED, HANDLER(SceneView, HandleNodeAdded));
+	SubscribeToEvent(E_NODEREMOVED, HANDLER(SceneView, HandleNodeRemoved));
+
+	//节点选择的变化
+	SubscribeToEvent(E_NODE_SELECTION_CHANGE, HANDLER(SceneView, HandleNodeSelectionChange));
+	SubscribeToEvent(E_NODE_UPDATE_SHOW, HANDLER(SceneView, HandleNodeUpdateShow));
+
+	SubscribeToEvent(E_SCENE_RESET, HANDLER(SceneView, HandleSceneReset));
 }
 
 void SceneView::mouseReleaseEvent(QMouseEvent *evt)
@@ -99,7 +109,9 @@ void SceneView::HandleNodeUpdateShow(StringHash eventType, VariantMap& eventData
 
 void SceneView::HandleSceneReset(StringHash eventType, VariantMap& eventData)
 {
+	this->clear();
 
+	Init(EditorRoot::Instance()->scene_);
 }
 
 void SceneView::Init(Node* pSceneNode)
@@ -112,14 +124,6 @@ void SceneView::Init(Node* pSceneNode)
 	{
 		sceneRootNode_->setExpanded(true);
 	}
-
-	//节点增删
-	SubscribeToEvent(E_NODEADDED,HANDLER(SceneView,HandleNodeAdded));
-	SubscribeToEvent(E_NODEREMOVED,HANDLER(SceneView,HandleNodeRemoved));
-
-	//节点选择的变化
-	SubscribeToEvent(E_NODE_SELECTION_CHANGE,HANDLER(SceneView,HandleNodeSelectionChange));
-	SubscribeToEvent(E_NODE_UPDATE_SHOW,HANDLER(SceneView,HandleNodeUpdateShow));
 }
 
 void SceneView::add_node_to_tree(QTreeWidgetItem* parent,Node* pNode)

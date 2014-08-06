@@ -92,7 +92,7 @@ namespace Urho3DGenerator
 			}
 			if (chkAngleScript.Checked == true)
 			{
-				strOption += " -DURHO3D_ANGLESCRIPT=1";
+				strOption += " -DURHO3D_ANGELSCRIPT=1";
 			}
 
 			//4.Lib Type

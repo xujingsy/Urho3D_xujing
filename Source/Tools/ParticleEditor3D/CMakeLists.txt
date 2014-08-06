@@ -19,6 +19,9 @@ FILE (GLOB_RECURSE CPP_FILES *.cpp)
 
 SET (SOURCE_FILES ${H_FILES} ${CPP_FILES} app.rc)
 
+file (GLOB ROOT_FILES *.*)
+source_group (Main FILES ${ROOT_FILES})
+
 # Moccing h Files
 qt4_wrap_cpp (MOC_FILES ${H_FILES})
 
