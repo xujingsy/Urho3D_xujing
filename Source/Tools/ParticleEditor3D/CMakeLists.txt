@@ -48,6 +48,9 @@ add_project_dirs (${SubDirs})
 
 SET (SOURCE_FILES ${SOURCE_FILES} ${MOC_FILES} ${RCC_FILES})
 
+file (GLOB ROOT_FILES *.*)
+source_group (Main FILES ${ROOT_FILES})
+
 # Windows SubSystem
 setup_executable (WIN32)
 target_link_libraries(${TARGET_NAME} ${QT_LIBRARIES})

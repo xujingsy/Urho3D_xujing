@@ -64,3 +64,4 @@ configure*
 Thumbs.db
 *.pdb
 *.obj
+*.svg
