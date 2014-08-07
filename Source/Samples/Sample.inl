@@ -69,6 +69,8 @@ void Sample::Start()
         // On desktop platform, do not detect touch when we already got a joystick
         SubscribeToEvent(E_TOUCHBEGIN, HANDLER(Sample, HandleTouchBegin));
 
+	GetSubsystem<Input>()->SetMouseVisible(true);
+
     // Create logo
     CreateLogo();
 
