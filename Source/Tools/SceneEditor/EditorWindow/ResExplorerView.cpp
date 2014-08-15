@@ -42,5 +42,6 @@ ResExplorerView::~ResExplorerView()
 
 void ResExplorerView::onDirChanged()
 {
+	mFilesWidget->clear();
 
 }

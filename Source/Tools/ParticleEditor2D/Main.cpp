@@ -31,7 +31,7 @@ int Main()
     Urho3D::SharedPtr<Urho3D::Context> context(new Urho3D::Context());
     Urho3D::ParticleEditor editor(argc, argv, context);
 
-    QFile file(":/qdarkstyle/style.qss");
+    QFile file("makehuman.qss");
     if (file.open(QFile::ReadOnly | QFile::Text))
         editor.setStyleSheet(QLatin1String(file.readAll()));
 
