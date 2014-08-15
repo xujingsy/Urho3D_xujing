@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Urho3DGenerator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("游蛙科技")]
+[assembly: AssemblyCompany("Home")]
 [assembly: AssemblyProduct("Urho3DGenerator")]
-[assembly: AssemblyCopyright("Copyright © 游蛙科技 2014")]
+[assembly: AssemblyCopyright("Copyright © Home 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
