@@ -20,6 +20,8 @@ namespace Urho3D
 
 		static void SetDefaultSkin(SpriteSheet2D* texSheet, const String& normal, const String& hover, const String& down, const String& disable);
 
+		void SetSkin(SpriteSheet2D* texSheet, const String& buttonName);
+
 		void SetText(const String& text);
 		void SetToolTip(const String& tip);
 
@@ -28,5 +30,10 @@ namespace Urho3D
 		LineEdit* buttonText;
 		ToolTip* tooltip;
 		Text* toolTipText;
+
+		SpriteSheet2D* skinSheet;
+		Sprite2D* tNormal;
+		Sprite2D* tHover;
+		Sprite2D* tDown;
 	};
 }

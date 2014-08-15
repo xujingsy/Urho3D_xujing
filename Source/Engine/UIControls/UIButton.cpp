@@ -8,10 +8,10 @@
 namespace Urho3D
 {
 	// default Skin
-	static SpriteSheet2D* skinSheet = NULL;
-	static Sprite2D* tNormal = NULL;
-	static Sprite2D* tHover = NULL;
-	static Sprite2D* tDown = NULL;
+	static SpriteSheet2D* skinSheetDefault = NULL;
+	static Sprite2D* tNormalDefault = NULL;
+	static Sprite2D* tHoverDefault = NULL;
+	static Sprite2D* tDownDefault = NULL;
 	static Sprite2D* tDisable = NULL;
 
 	UIButton::UIButton(Context* context, const String& text) :
@@ -23,19 +23,22 @@ namespace Urho3D
 
 		SetBlendMode(BLEND_ADD);
 
-		SetTexture(skinSheet->GetTexture());
+		if(skinSheetDefault)
+		{
+			SetTexture(skinSheetDefault->GetTexture());
 
-		//1.Normal
-		SetImageRect(tNormal->GetRectangle());
+			//1.Normal
+			SetImageRect(tNormalDefault->GetRectangle());
 
-		//2.Hover
-		SetHoverOffset(tHover->GetRectangle().left_ - tNormal->GetRectangle().left_, tHover->GetRectangle().top_ - tNormal->GetRectangle().top_);
+			//2.Hover
+			SetHoverOffset(tHoverDefault->GetRectangle().left_ - tNormalDefault->GetRectangle().left_, tHoverDefault->GetRectangle().top_ - tNormalDefault->GetRectangle().top_);
 
-		//3.Pressed
-		SetPressedOffset(tDown->GetRectangle().left_  - tNormal->GetRectangle().left_, tDown->GetRectangle().top_  - tNormal->GetRectangle().top_);
+			//3.Pressed
+			SetPressedOffset(tDownDefault->GetRectangle().left_  - tNormalDefault->GetRectangle().left_, tDownDefault->GetRectangle().top_  - tNormalDefault->GetRectangle().top_);
+		}
 
 		//Default Size
-		const IntRect& rect = tNormal->GetRectangle();
+		const IntRect& rect = tNormalDefault->GetRectangle();
 		SetSize(rect.Width(), rect.Height());
 
 		if(text != "")
@@ -59,8 +62,9 @@ namespace Urho3D
 	{
 		if(buttonText == NULL)
 		{
-			buttonText = new LineEdit(context_);
-			this->AddChild(buttonText);
+			buttonText = CreateChild<LineEdit>();
+			buttonText->SetColor(Color::RED);
+			buttonText->SetStyleAuto();
 		}
 
 		buttonText->SetText(text);
@@ -88,11 +92,19 @@ namespace Urho3D
 
 	void UIButton::SetDefaultSkin(SpriteSheet2D* texSheet, const String& normal, const String& hover, const String& down, const String& disable)
 	{
-		skinSheet = texSheet;
+		skinSheetDefault = texSheet;
 
-		tNormal = texSheet->GetSprite(normal);
-		tHover = texSheet->GetSprite(hover);
-		tDown = texSheet->GetSprite(down);
+		tNormalDefault = texSheet->GetSprite(normal);
+		tHoverDefault = texSheet->GetSprite(hover);
+		tDownDefault = texSheet->GetSprite(down);
 	}
 
+	/// buttonName0,buttonName1,buttonName2,buttonNam3
+	void UIButton::SetSkin(SpriteSheet2D* texSheet, const String& buttonName)
+	{
+		skinSheet = texSheet;
+		tNormal = skinSheet->GetSprite(buttonName + "0");
+		tHover = skinSheet->GetSprite(buttonName + "1");
+		tDown = skinSheet->GetSprite(buttonName + "2");
+	}
 }
