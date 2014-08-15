@@ -23,6 +23,7 @@
 #pragma once
 
 #include "Resource.h"
+#include "PlistFile.h"
 
 namespace Urho3D
 {
@@ -30,6 +31,12 @@ namespace Urho3D
 class Sprite2D;
 class Texture2D;
 class XMLFile;
+
+enum enTexPackFormat
+{
+	enTexPackFormat_StarlingSparrow,
+	enTexPackFormat_Plist,
+};
 
 /// Sprite sheet.
 class URHO3D_API SpriteSheet2D : public Resource
@@ -68,6 +75,10 @@ private:
     SharedPtr<XMLFile> loadXMLFile_;
     /// Texture name used while loading.
     String loadTextureName_;
+
+	PlistFile* plistFile_;
+
+	enTexPackFormat texFormat_;
 };
 
 }

@@ -41,12 +41,13 @@ namespace Urho3D
 SpriteSheet2D::SpriteSheet2D(Context* context) :
     Resource(context)
 {
-
+	plistFile_ = NULL;
 }
 
 SpriteSheet2D::~SpriteSheet2D()
 {
-
+	if(plistFile_)
+		delete plistFile_;
 }
 
 void SpriteSheet2D::RegisterObject(Context* context)
@@ -69,20 +70,61 @@ bool SpriteSheet2D::BeginLoad(Deserializer& source)
 
     SetMemoryUse(source.GetSize());
 
+	//Starling Sparrow Format
     XMLElement rootElem = loadXMLFile_->GetRoot("TextureAtlas");
-    if (!rootElem)
+    if (rootElem)
     {
-        LOGERROR("Invalid sprite sheet");
-        loadXMLFile_.Reset();
-        return false;
+		texFormat_ = enTexPackFormat_StarlingSparrow;
+
+		// If we're async loading, request the texture now. Finish during EndLoad().
+		loadTextureName_ = GetParentPath(GetName()) + rootElem.GetAttribute("imagePath");
+		if (GetAsyncLoadState() == ASYNC_LOADING)
+			GetSubsystem<ResourceCache>()->BackgroundLoadResource<Texture2D>(loadTextureName_, true, this);
+
+		return true;
+	}
+	
+	//plist Format
+	rootElem = loadXMLFile_->GetRoot("plist");
+	if(rootElem)
+	{
+		texFormat_ = enTexPackFormat_Plist;
+
+		unsigned dataSize = source.GetSize();
+		SharedArrayPtr<char> buffer(new char[dataSize + 1]);	//string end with \0
+		source.Seek(0);
+		if (source.Read(buffer.Get(), dataSize) != dataSize)
+			return false;
+
+		buffer[dataSize] = 0;
+
+		plistFile_ = new PlistFile();
+		if(!plistFile_->Init((const unsigned char*)buffer.Get(), dataSize + 1))
+		{
+			LOGERROR("Could not load plist");
+			loadXMLFile_.Reset();
+			return false;
+		}
+
+		//1.metadata
+		PlistElement* metadata = plistFile_->data.GetChild("metadata");
+		if(metadata == NULL)
+		{
+			return false;
+		}
+
+		loadTextureName_ = GetParentPath(GetName()) + metadata->GetChild("textureFileName")->strValue.c_str();
+		if (GetAsyncLoadState() == ASYNC_LOADING)
+			GetSubsystem<ResourceCache>()->BackgroundLoadResource<Texture2D>(loadTextureName_, true, this);
+
+		return true;
     }
 
-    // If we're async loading, request the texture now. Finish during EndLoad().
-    loadTextureName_ = GetParentPath(GetName()) + rootElem.GetAttribute("imagePath");
-    if (GetAsyncLoadState() == ASYNC_LOADING)
-        GetSubsystem<ResourceCache>()->BackgroundLoadResource<Texture2D>(loadTextureName_, true, this);
+	// Only support sparrow or plist
+	LOGERROR("Invalid sprite sheet");
+	loadXMLFile_.Reset();
 
-    return true;
+	return false;
 }
 
 bool SpriteSheet2D::EndLoad()
@@ -100,37 +142,81 @@ bool SpriteSheet2D::EndLoad()
         return false;
     }
 
-    XMLElement rootElem = loadXMLFile_->GetRoot("TextureAtlas");
-    XMLElement subTextureElem = rootElem.GetChild("SubTexture");
-    while (subTextureElem)
-    {
-        String name = subTextureElem.GetAttribute("name");
+	if (texFormat_ == enTexPackFormat_StarlingSparrow)
+	{
+		XMLElement rootElem = loadXMLFile_->GetRoot("TextureAtlas");
+		XMLElement subTextureElem = rootElem.GetChild("SubTexture");
+		while (subTextureElem)
+		{
+			String name = subTextureElem.GetAttribute("name");
 
-        int x = subTextureElem.GetInt("x");
-        int y = subTextureElem.GetInt("y");
-        int width = subTextureElem.GetInt("width");
-        int height = subTextureElem.GetInt("height");
-        IntRect rectangle(x, y, x + width, y + height);
+			int x = subTextureElem.GetInt("x");
+			int y = subTextureElem.GetInt("y");
+			int width = subTextureElem.GetInt("width");
+			int height = subTextureElem.GetInt("height");
+			IntRect rectangle(x, y, x + width, y + height);
 
-        Vector2 hotSpot(0.5f, 0.5f);
-        IntVector2 offset(0, 0);
-        if (subTextureElem.HasAttribute("frameWidth") && subTextureElem.HasAttribute("frameHeight"))
-        {
-            offset.x_ = subTextureElem.GetInt("frameX");
-            offset.y_ = subTextureElem.GetInt("frameY");
-            int frameWidth = subTextureElem.GetInt("frameWidth");
-            int frameHeight = subTextureElem.GetInt("frameHeight");
-            hotSpot.x_ = ((float)offset.x_ + frameWidth / 2) / width;
-            hotSpot.y_ = 1.0f - ((float)offset.y_ + frameHeight / 2) / height;
-        }
+			Vector2 hotSpot(0.5f, 0.5f);
+			IntVector2 offset(0, 0);
+			if (subTextureElem.HasAttribute("frameWidth") && subTextureElem.HasAttribute("frameHeight"))
+			{
+				offset.x_ = subTextureElem.GetInt("frameX");
+				offset.y_ = subTextureElem.GetInt("frameY");
+				int frameWidth = subTextureElem.GetInt("frameWidth");
+				int frameHeight = subTextureElem.GetInt("frameHeight");
+				hotSpot.x_ = ((float)offset.x_ + frameWidth / 2) / width;
+				hotSpot.y_ = 1.0f - ((float)offset.y_ + frameHeight / 2) / height;
+			}
 
-        DefineSprite(name, rectangle, hotSpot, offset);
+			DefineSprite(name, rectangle, hotSpot, offset);
 
-        subTextureElem = subTextureElem.GetNext("SubTexture");
-    }
+			subTextureElem = subTextureElem.GetNext("SubTexture");
+		}
+	}
+	else if(texFormat_ == enTexPackFormat_Plist)
+	{
+		PlistElement* frames = plistFile_->data.GetChild("frames");
+
+		int index = 1;
+		for each(PlistElement* pic in frames->dict)
+		{
+			String name = pic->key.c_str();
+
+			vector<SizeElement> frame = pic->GetChild("frame")->ValueToSizeArray();
+			int x = frame[0].X;
+			int y = frame[0].Y;
+			int width = frame[1].X;
+			int height = frame[1].Y;
+			IntRect rectangle(x, y, x + width, y + height);
+
+			vector<SizeElement> hotOffset = pic->GetChild("offset")->ValueToSizeArray();
+			Vector2 hotSpot(0.5f, 0.5f);
+			IntVector2 offset(0, 0);
+			{
+				offset.x_ = hotOffset[0].X;
+				offset.y_ = hotOffset[0].Y;
+
+				vector<SizeElement> sourceSize = pic->GetChild("sourceSize")->ValueToSizeArray();
+				int frameWidth = sourceSize[0].X;
+				int frameHeight = sourceSize[0].Y;
+				hotSpot.x_ = ((float)offset.x_ + frameWidth / 2) / width;
+				hotSpot.y_ = 1.0f - ((float)offset.y_ + frameHeight / 2) / height;
+			}
+			
+			string rotated = pic->GetChild("rotated")->strValue;
+			if(rotated == "true")	// rotate CW 90,todo:now not support
+			{
+			
+			}
+			//vector<SizeElement> sourceColorRect = pic->GetChild("sourceColorRect")->ValueToSizeArray(); not support now
+
+			DefineSprite(name, rectangle, hotSpot, offset);
+		}
+	}
 
     loadXMLFile_.Reset();
     loadTextureName_.Clear();
+
     return true;
 }
 
