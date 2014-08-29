@@ -165,14 +165,26 @@ endif ()
 foreach (TARGET Box2D Bullet Civetweb Detour FreeType kNet LZ4 PugiXml Recast SDL StanHull STB)
     add_subdirectory (ThirdParty/${TARGET})
 endforeach ()
+
 if (URHO3D_ANGELSCRIPT)
     add_subdirectory (ThirdParty/AngelScript)
 endif ()
+
 if (URHO3D_LUA)
     add_subdirectory (Engine/LuaScript)
     add_subdirectory (ThirdParty/Lua${JIT})
     add_subdirectory (ThirdParty/toluapp/src/lib)
 endif ()
+
+if (URHO3D_NAVIGATION)
+    add_subdirectory (ThirdParty/Detour)
+    add_subdirectory (ThirdParty/Recast)
+endif ()
+
+if (URHO3D_PHYSICS)
+    add_subdirectory (ThirdParty/Bullet)
+endif ()
+
 if (NOT IOS AND NOT ANDROID AND NOT RASPI)
     if (URHO3D_OPENGL)
         add_subdirectory (ThirdParty/GLEW)

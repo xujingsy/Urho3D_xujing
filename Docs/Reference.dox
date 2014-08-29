@@ -1779,7 +1779,7 @@ Both are rendered using StaticSprite2D class (Drawable component):
 - StaticSprite2D: used to display a Sprite2D. Equivalent to a 3D StaticModel.
 - Sprite2D: an image defined with texture, texture rectangle and hot spot.
 - SpriteSheet2D: a texture atlas image (that packs multiple Sprite2D images).
-Spritesheets can be created using tools like ShoeBox (http://renderhjs.net/shoebox/), darkFunction Editor (http://darkfunction.com/editor/), SpriteHelper (http://www.gamedevhelper.com/spritehelper/), TexturePacker (http://www.codeandweb.com/texturepacker), ...
+Spritesheets can be created using tools like ShoeBox (http://renderhjs.net/shoebox/), darkFunction Editor (http://darkfunction.com/editor/), SpriteHelper (http://www.gamedevhelper.com/spriteHelper2Info.php), TexturePacker (http://www.codeandweb.com/texturepacker), ...
 These tools will generate an image file and a xml file mapping coordinates and size for each individual image. Note that Urho2D uses same xml file format as Sparrow/Starling engines.
 
 You can assign a material to an image by creating a xml parameter file named as the image and located in the same folder.
@@ -1892,6 +1892,8 @@ The server can be made to transmit needed resource \ref PackageFile "packages" t
 
 There are some things to watch out for:
 
+- When a client is assigned to a scene, the client will first remove all existing replicated scene nodes from the scene, to prepare for receiving objects from the server. This means that for example a client's camera should be created into a local node, otherwise it will be removed when connecting.
+
 - After connecting to a server, the client should not create, update or remove non-local nodes or components on its own. However, to create client-side special effects and such, the client can freely manipulate local nodes.
 
 - A node's \ref Node::GetVars "user variables" VariantMap will be automatically replicated on a per-variable basis. This can be useful in transmitting data shared by several components, for example the player's score or health.
@@ -1924,7 +1926,8 @@ A current priority value is calculated on each server update as "base priority -
 
 The default values are base priority 100.0, distance factor 0.0, and minimum priority 0.0. This means that by default an update is always sent (which is also the case if the node has no NetworkPriority component.) Additionally, there is a rule that the node's owner connection always receives updates at full frequency. This rule can be controlled by calling \ref NetworkPriority::SetAlwaysUpdateOwner "SetAlwaysUpdateOwner()".
 
-Calculating the distance requires the client to tell its current observer position (typically, either the camera's or the player character's world position.) This is accomplished by the client code calling \ref Connection::SetPosition "SetPosition()" on the server connection.
+Calculating the distance requires the client to tell its current observer position (typically, either the camera's or the player character's world position.) This is accomplished by the client code calling \ref Connection::SetPosition "SetPosition()" on the server connection. The client can also tell its current observer rotation by
+calling \ref Connection::SetRotation "SetRotation()" but that will only be useful for custom logic, as it is not used by the NetworkPriority component.
 
 For now, creation and removal of nodes is always sent immediately, without consulting interest management. This is based on the assumption that nodes' motion updates consume the most bandwidth.
 

@@ -32,10 +32,14 @@
 #include "Input.h"
 #include "InputEvents.h"
 #include "Log.h"
+#ifdef URHO3D_NAVIGATION
 #include "NavigationMesh.h"
+#endif
 #include "Network.h"
 #include "PackageFile.h"
+#ifdef URHO3D_PHYSICS
 #include "PhysicsWorld.h"
+#endif
 #include "ProcessUtils.h"
 #include "Profiler.h"
 #include "Renderer.h"
@@ -115,8 +119,14 @@ Engine::Engine(Context* context) :
 
     // Register object factories for libraries which are not automatically registered along with subsystem creation
     RegisterSceneLibrary(context_);
+
+#ifdef URHO3D_PHYSICS
     RegisterPhysicsLibrary(context_);
+#endif
+    
+#ifdef URHO3D_NAVIGATION
     RegisterNavigationLibrary(context_);
+#endif
 
     SubscribeToEvent(E_EXITREQUESTED, HANDLER(Engine, HandleExitRequested));
 }
@@ -509,27 +519,48 @@ void Engine::DumpProfiler()
         LOGRAW(profiler->GetData(true, true) + "\n");
 }
 
-void Engine::DumpResources()
+void Engine::DumpResources(bool dumpFileName)
 {
     #ifdef URHO3D_LOGGING
     ResourceCache* cache = GetSubsystem<ResourceCache>();
     const HashMap<StringHash, ResourceGroup>& resourceGroups = cache->GetAllResources();
     LOGRAW("\n");
-
+    
+    if (dumpFileName)
+    {
+        LOGRAW("Used resources:\n");
+    }
+    
     for (HashMap<StringHash, ResourceGroup>::ConstIterator i = resourceGroups.Begin();
         i != resourceGroups.End(); ++i)
     {
-        unsigned num = i->second_.resources_.Size();
-        unsigned memoryUse = i->second_.memoryUse_;
-
-        if (num)
+        const HashMap<StringHash, SharedPtr<Resource> >& resources = i->second_.resources_;
+        if (dumpFileName)
         {
-            LOGRAW("Resource type " + i->second_.resources_.Begin()->second_->GetTypeName() +
-                ": count " + String(num) + " memory use " + String(memoryUse) + "\n");
+            for (HashMap<StringHash, SharedPtr<Resource> >::ConstIterator j = resources.Begin();
+                j != resources.End(); ++j)
+            {
+                LOGRAW(j->second_->GetName() + "\n");
+            }
+
+        }
+        else
+        {
+            unsigned num = resources.Size();
+            unsigned memoryUse = i->second_.memoryUse_;
+
+            if (num)
+            {
+                LOGRAW("Resource type " + resources.Begin()->second_->GetTypeName() +
+                    ": count " + String(num) + " memory use " + String(memoryUse) + "\n");
+            }
         }
     }
 
-    LOGRAW("Total memory use of all resources " + String(cache->GetTotalMemoryUse()) + "\n\n");
+    if (!dumpFileName)
+    {
+        LOGRAW("Total memory use of all resources " + String(cache->GetTotalMemoryUse()) + "\n\n");
+    }
     #endif
 }
 

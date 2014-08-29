@@ -38,6 +38,7 @@
 #include "Window.h"
 
 #include "HelloGUI.h"
+#include "../UIControls/UIButton.h"
 
 #include "DebugNew.h"
 
@@ -163,16 +164,32 @@ void HelloGUI::CreateDraggableFish()
     uiRoot_->AddChild(draggableFish);
 
     // Add a tooltip to Fish button
-    ToolTip* toolTip = new ToolTip(context_);
-    draggableFish->AddChild(toolTip);
-    toolTip->SetPosition(IntVector2(draggableFish->GetWidth() + 5, draggableFish->GetWidth() / 2)); // slightly offset from close button
-    BorderImage* textHolder = new BorderImage(context_);
-    toolTip->AddChild(textHolder);
-    textHolder->SetStyle("ToolTipBorderImage");
-    Text* toolTipText = new Text(context_);
-    textHolder->AddChild(toolTipText);
-    toolTipText->SetStyle("ToolTipText");
-    toolTipText->SetText("Please drag me!");
+ //   ToolTip* toolTip = new ToolTip(context_);
+ //   draggableFish->AddChild(toolTip);
+ //   toolTip->SetPosition(IntVector2(draggableFish->GetWidth() + 5, draggableFish->GetWidth() / 2)); // slightly offset from close button
+
+ //   BorderImage* textHolder = new BorderImage(context_);
+ //   toolTip->AddChild(textHolder);
+ //   textHolder->SetStyle("ToolTipBorderImage");
+ //   
+	//Text* toolTipText = new Text(context_);
+ //   textHolder->AddChild(toolTipText);
+ //   toolTipText->SetStyle("ToolTipText");
+ //   toolTipText->SetText("Please drag me!");
+
+	//////////////////////////////////////////////////////////////////////////
+	SpriteSheet2D* playerSheet = cache->GetResource<SpriteSheet2D>("Urho2D/height_864/Razor.plist", false);
+
+	UIButton::SetDefaultSkin(playerSheet, "a26.png", "a20.png", "a15.png", "a12.png");
+	UIButton::RegisterObject(context_);
+
+	//
+	UIButton* testButton = new UIButton(context_);
+	testButton->SetPosition(100, 100);
+	
+	uiRoot_->AddChild(testButton);
+	testButton->SetText("test");
+	testButton->SetToolTip("Click me.......................");
 
     // Subscribe draggableFish to Drag Events (in order to make it draggable)
     // See "Event list" in documentation's Main Page for reference on available Events and their eventData

@@ -21,8 +21,8 @@
 #
 
 # Certain MinGW versions fail to compile SSE code. This is the initial guess for known "bad" version range, and can be tightened later
-if (MINGW)
-    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+if (MINGW AND NOT DEFINED URHO3D_SSE)
+    execute_process (COMMAND ${CMAKE_C_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
     if (GCC_VERSION VERSION_LESS 4.9.1)
         message (WARNING "Disabling SSE by default due to MinGW version. It is recommended to upgrade to MinGW with GCC >= 4.9.1. You can also try to re-enable SSE with CMake option -DURHO3D_SSE=1, but this may result in compile errors.")
         set (URHO3D_DEFAULT_SSE FALSE)
@@ -42,6 +42,8 @@ option (URHO3D_64BIT "Enable 64-bit build")
 option (URHO3D_ANGELSCRIPT "Enable AngelScript scripting support" TRUE)
 option (URHO3D_LUA "Enable additional Lua scripting support")
 option (URHO3D_LUAJIT "Enable Lua scripting support using LuaJIT (check LuaJIT's CMakeLists.txt for more options)")
+option (URHO3D_NAVIGATION "Enable navigation support" TRUE)
+option (URHO3D_PHYSICS "Enable physics support" TRUE)
 option (URHO3D_SSE "Enable SSE instruction set" ${URHO3D_DEFAULT_SSE})
 if (CMAKE_PROJECT_NAME STREQUAL Urho3D)
     cmake_dependent_option (URHO3D_LUAJIT_AMALG "Enable LuaJIT amalgamated build (LuaJIT only)" FALSE "URHO3D_LUAJIT" FALSE)
@@ -176,6 +178,16 @@ if (URHO3D_LUAJIT)
 endif ()
 if (URHO3D_LUA)
     add_definitions (-DURHO3D_LUA)
+endif ()
+
+# Add definition for Navigation
+if (URHO3D_NAVIGATION)
+    add_definitions (-DURHO3D_NAVIGATION)
+endif ()
+
+# Add definition for Physics
+if (URHO3D_PHYSICS)
+    add_definitions (-DURHO3D_PHYSICS)
 endif ()
 
 # Default library type is STATIC

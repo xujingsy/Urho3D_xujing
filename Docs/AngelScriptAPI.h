@@ -2021,6 +2021,7 @@ uint16 port;
 Vector3 position;
 /* readonly */
 int refs;
+Quaternion rotation;
 Scene scene;
 /* readonly */
 bool sceneLoaded;
@@ -3881,7 +3882,7 @@ Console CreateConsole();
 DebugHud CreateDebugHud();
 void DumpMemory();
 void DumpProfiler();
-void DumpResources();
+void DumpResources(bool = false);
 void Exit();
 void RunFrame();
 void SendEvent(const String&, VariantMap& = VariantMap ( ));
@@ -4577,6 +4578,7 @@ ResourceRefList GetResourceRefList(const String&) const;
 ResourceRefList GetResourceRefList(uint) const;
 String GetString(const String&) const;
 String GetString(uint) const;
+Array<String> GetValueNames() const;
 Variant GetVariant(const String&) const;
 Variant GetVariant(uint) const;
 Variant GetVariantValue(const String&, VariantType) const;
@@ -6544,6 +6546,7 @@ class PhysicsWorld
 {
 // Methods:
 void ApplyAttributes();
+PhysicsRaycastResult ConvexCast(CollisionShape, const Vector3&, const Quaternion&, const Vector3&, const Quaternion&, uint = 0xffff);
 void DrawDebugGeometry(DebugRenderer, bool);
 void DrawDebugGeometry(bool);
 Variant GetAttribute(const String&) const;
@@ -6627,7 +6630,7 @@ WrapMode GetAttributeAnimationWrapMode(const String&) const;
 Variant GetAttributeDefault(const String&) const;
 Array<RigidBody2D> GetRigidBodies(const Rect&, uint = 0xffff);
 RigidBody2D GetRigidBody(const Vector2&, uint = 0xffff);
-RigidBody2D GetRigidBody(int, int, uint = 0xffff, Camera = 0);
+RigidBody2D GetRigidBody(int, int, uint = 0xffff);
 bool Load(File, bool = false);
 bool Load(VectorBuffer&, bool = false);
 bool LoadXML(const XMLElement&, bool = false);
@@ -6737,6 +6740,19 @@ Polyhedron Transformed(const Matrix3x4&) const;
 Array<Array<Vector3>> face;
 /* readonly */
 uint numFaces;
+};
+
+class PropertySet2D
+{
+// Methods:
+bool HasProperty(const String&) const;
+const String& GetProperty(const String&) const;
+
+// Properties:
+/* readonly */
+int refs;
+/* readonly */
+int weakRefs;
 };
 
 class Quaternion
@@ -10056,6 +10072,213 @@ float time;
 Rect uv;
 };
 
+class Tile2D
+{
+// Methods:
+bool HasProperty(const String&) const;
+const String& GetProperty(const String&) const;
+
+// Properties:
+/* readonly */
+int gid;
+/* readonly */
+int refs;
+/* readonly */
+Sprite2D sprite;
+/* readonly */
+int weakRefs;
+};
+
+class TileMap2D
+{
+// Methods:
+void ApplyAttributes();
+void DrawDebugGeometry(DebugRenderer, bool);
+Variant GetAttribute(const String&) const;
+ValueAnimation GetAttributeAnimation(const String&) const;
+float GetAttributeAnimationSpeed(const String&) const;
+WrapMode GetAttributeAnimationWrapMode(const String&) const;
+Variant GetAttributeDefault(const String&) const;
+TileMapLayer2D GetLayer(uint) const;
+bool Load(File, bool = false);
+bool Load(VectorBuffer&, bool = false);
+bool LoadXML(const XMLElement&, bool = false);
+void MarkNetworkUpdate() const;
+bool PositionToTileIndex(int&, int&, const Vector2&) const;
+void Remove();
+void RemoveInstanceDefault();
+void ResetToDefault();
+bool Save(File) const;
+bool Save(VectorBuffer&) const;
+bool SaveXML(XMLElement&) const;
+void SendEvent(const String&, VariantMap& = VariantMap ( ));
+bool SetAttribute(const String&, const Variant&);
+void SetAttributeAnimation(const String&, ValueAnimation, WrapMode = WM_LOOP, float = 1.0f);
+void SetAttributeAnimationSpeed(const String&, float);
+void SetAttributeAnimationWrapMode(const String&, WrapMode);
+Vector2 TileIndexToPosition(int, int) const;
+
+// Properties:
+bool animationEnabled;
+/* readonly */
+Array<Variant> attributeDefaults;
+/* readonly */
+Array<AttributeInfo> attributeInfos;
+Array<Variant> attributes;
+/* readonly */
+StringHash baseType;
+/* readonly */
+String category;
+bool enabled;
+/* readonly */
+bool enabledEffective;
+/* readonly */
+uint id;
+/* readonly */
+TileMapInfo2D info;
+/* readonly */
+Node node;
+/* readonly */
+uint numAttributes;
+/* readonly */
+uint numLayers;
+ObjectAnimation objectAnimation;
+/* readonly */
+int refs;
+bool temporary;
+TmxFile2D tmxFile;
+/* readonly */
+StringHash type;
+/* readonly */
+String typeName;
+/* readonly */
+int weakRefs;
+};
+
+class TileMapInfo2D
+{
+
+// Properties:
+int height;
+/* readonly */
+float mapHeight;
+/* readonly */
+float mapWidth;
+Orientation2D orientation;
+float tileHeight;
+float tileWidth;
+int width;
+};
+
+class TileMapLayer2D
+{
+// Methods:
+void ApplyAttributes();
+void DrawDebugGeometry(DebugRenderer, bool);
+Variant GetAttribute(const String&) const;
+ValueAnimation GetAttributeAnimation(const String&) const;
+float GetAttributeAnimationSpeed(const String&) const;
+WrapMode GetAttributeAnimationWrapMode(const String&) const;
+Variant GetAttributeDefault(const String&) const;
+TileMapObject2D GetObject(uint) const;
+Node GetObjectNode(uint) const;
+Tile2D GetTile(int, int) const;
+Node GetTileNode(int, int) const;
+bool HasProperty(const String&) const;
+bool Load(File, bool = false);
+bool Load(VectorBuffer&, bool = false);
+bool LoadXML(const XMLElement&, bool = false);
+void MarkNetworkUpdate() const;
+void Remove();
+void RemoveInstanceDefault();
+void ResetToDefault();
+bool Save(File) const;
+bool Save(VectorBuffer&) const;
+bool SaveXML(XMLElement&) const;
+void SendEvent(const String&, VariantMap& = VariantMap ( ));
+bool SetAttribute(const String&, const Variant&);
+void SetAttributeAnimation(const String&, ValueAnimation, WrapMode = WM_LOOP, float = 1.0f);
+void SetAttributeAnimationSpeed(const String&, float);
+void SetAttributeAnimationWrapMode(const String&, WrapMode);
+const String& GetProperty(const String&) const;
+
+// Properties:
+bool animationEnabled;
+/* readonly */
+Array<Variant> attributeDefaults;
+/* readonly */
+Array<AttributeInfo> attributeInfos;
+Array<Variant> attributes;
+/* readonly */
+StringHash baseType;
+/* readonly */
+String category;
+/* writeonly */
+int drawOrder;
+bool enabled;
+/* readonly */
+bool enabledEffective;
+/* readonly */
+int height;
+/* readonly */
+uint id;
+/* readonly */
+Node imageNode;
+/* readonly */
+TileMapLayerType2D layerType;
+/* readonly */
+Node node;
+/* readonly */
+uint numAttributes;
+/* readonly */
+uint numObjects;
+ObjectAnimation objectAnimation;
+/* readonly */
+int refs;
+/* readonly */
+int rrawOrder;
+bool temporary;
+/* readonly */
+StringHash type;
+/* readonly */
+String typeName;
+bool visible;
+/* readonly */
+int weakRefs;
+/* readonly */
+int width;
+};
+
+class TileMapObject2D
+{
+// Methods:
+bool HasProperty(const String&) const;
+const String& GetProperty(const String&) const;
+const Vector2& GetPoint(uint) const;
+
+// Properties:
+/* readonly */
+String name;
+/* readonly */
+uint numPoints;
+/* readonly */
+TileObjectType2D objectType;
+/* readonly */
+Vector2 position;
+/* readonly */
+int refs;
+/* readonly */
+Vector2 size;
+/* readonly */
+int tileGid;
+/* readonly */
+Sprite2D tileSprite;
+/* readonly */
+String type;
+/* readonly */
+int weakRefs;
+};
+
 class Time
 {
 // Methods:
@@ -10091,6 +10314,35 @@ class Timer
 // Methods:
 uint GetMSec(bool);
 void Reset();
+};
+
+class TmxFile2D
+{
+// Methods:
+bool Load(File);
+bool Load(VectorBuffer&);
+bool Save(File) const;
+bool Save(VectorBuffer&) const;
+void SendEvent(const String&, VariantMap& = VariantMap ( ));
+
+// Properties:
+/* readonly */
+StringHash baseType;
+/* readonly */
+String category;
+/* readonly */
+uint memoryUse;
+String name;
+/* readonly */
+int refs;
+/* readonly */
+StringHash type;
+/* readonly */
+String typeName;
+/* readonly */
+uint useTimer;
+/* readonly */
+int weakRefs;
 };
 
 class ToolTip
@@ -10922,8 +11174,11 @@ int width;
 class Viewport
 {
 // Methods:
+Ray GetScreenRay(int, int) const;
+Vector3 ScreenToWorldPoint(int, int, float) const;
 void SendEvent(const String&, VariantMap& = VariantMap ( ));
 void SetRenderPath(XMLFile);
+Vector2 WorldToScreenPoint(const Vector3&) const;
 
 // Properties:
 /* readonly */
@@ -11592,6 +11847,13 @@ O_HORIZONTAL,
 O_VERTICAL,
 };
 
+enum Orientation2D
+{
+O_ORTHOGONAL,
+O_ISOMETRIC,
+O_STAGGERED,
+};
+
 enum PassLightingMode
 {
 LIGHTING_UNLIT,
@@ -11727,6 +11989,24 @@ TEXTURE_STATIC,
 TEXTURE_DYNAMIC,
 TEXTURE_RENDERTARGET,
 TEXTURE_DEPTHSTENCIL,
+};
+
+enum TileMapLayerType2D
+{
+LT_TILE_LAYER,
+LT_OBJECT_GROUP,
+LT_IMAGE_LAYER,
+LT_INVALID,
+};
+
+enum TileObjectType2D
+{
+OT_RECTANGLE,
+OT_ELLIPSE,
+OT_POLYGON,
+OT_POLYLINE,
+OT_TILE,
+OT_INVALID,
 };
 
 enum TransformSpace

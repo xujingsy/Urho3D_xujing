@@ -442,6 +442,8 @@ cmake_xxxx batch files or shell scripts.
 |URHO3D_LUAJIT        |0|Enable Lua scripting support using LuaJIT (check      |
 |                     | | LuaJIT's CMakeLists.txt for more options)            |
 |URHO3D_LUAJIT_AMALG  |0|Enable LuaJIT amalgamated build (LuaJIT only)         |
+|URHO3D_PHYSICS       |1|Enable Physics support                                |
+|URHO3D_NAVIGATION    |1|Enable Navigation support                             |
 |URHO3D_SAFE_LUA      |0|Enable Lua C++ wrapper safety checks (when Lua        |
 |                     | | scripting support is enabled only)                   |
 |URHO3D_SAMPLES       |0|Build sample applications                             |
@@ -511,9 +513,9 @@ adhere to the current limitations:
   android-Bin and android-Lib, respectively.
   If you choose not to adhere with this build directory naming convention then
   you will have to install the Urho3D library into your local filesystem in
-  order to use the Urho3D library in your external project
-  (See http://urho3d.github.io/documentation/a00001.html#Building_Library and
-  http://urho3d.github.io/documentation/a00004.html#UsingLibraryFromSDK).
+  order to use the Urho3D library in your external project.
+  See http://urho3d.github.io/documentation/_building.html#Building_Library and
+  http://urho3d.github.io/documentation/_using_library.html#UsingLibraryFromSDK.
 - All the post-CMake workaround and/or bug fixes that are scripted in the batch
   files or shell scripts are not applied to the generated project file.
 

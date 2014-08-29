@@ -86,6 +86,11 @@ void Sample::Start()
     SubscribeToEvent(E_SCENEUPDATE, HANDLER(Sample, HandleSceneUpdate));
 }
 
+void Sample::Stop()
+{
+    engine_->DumpResources(true);
+}
+
 void Sample::InitTouchInput()
 {
     touchEnabled_ = true;
